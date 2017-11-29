@@ -25,9 +25,13 @@ Hardware files include a schematic, bill of materials, and various notes for tes
 
 ## Example
 
-TBD
+This example shows an RS-422 serial bus that allows multiple microcontroller boards to be connected to a single host computer serial port. It has an [RPUpi] shield that allows the Raspberry Pi Zero's hardware UART to connect as the host. The Pi Zero W has on board WiFi which I use for SSH connections and Samba file sharing. The other controller boards use an [RPUadpt] shield to daisy-chains the RS-422 with CAT5 cables. 
 
-I will use this board with an RS-422 shield so there is no USB interface (e.g. [RPUftdi] has a USB to RS-422 bridge).
+![MultiDrop](./Hardware/Documents/MultiDrop.png "RPUlux MultiDrop")
+
+The above setup has six RGB lights. Each color has an eight bit 500Hz PWM value controled with the ATmega328p.
+
+The solar charging shown is risky, so I plan to try a small solar panel that will not provide enough current to damage the battery to work on my software. A bench supply with a fairly small capacitor may also work, but it may damage the shorting FET. The idea is that once the battery is charged to about 14.7V then I will short the PV panel so that current does not charge the battery. The ADC0 (or ADC1) can sort of measure how much current is shorted by measuring the voltage across the Rds_on of the shorting FET.
 
 
 ## AVR toolchain
