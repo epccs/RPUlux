@@ -25,7 +25,7 @@ Hardware files include a schematic, bill of materials, and various notes for tes
 
 ## Example
 
-This example shows an RS-422 serial bus that allows multiple microcontroller boards to be connected to a single host computer serial port. It has an [RPUpi] shield that allows the Raspberry Pi Zero's hardware UART to connect as the host. The Pi Zero W has on board WiFi which I use for SSH connections and Samba file sharing. The other controller boards use an [RPUadpt] shield to daisy-chains the RS-422 with CAT5 cables. 
+This example shows an RS-422 serial bus that allows multiple microcontroller boards to be connected to a single host computer serial port. It has an [RPUpi] shield that allows the Raspberry Pi Zero's hardware UART to connect as the host. The Pi Zero W has on board WiFi which I use for SSH connections and Samba file sharing. The other controller boards use an [RPUadpt] shield to daisy-chain the RS-422 with CAT5 cables. 
 
 ![MultiDrop](./Hardware/Documents/MultiDrop.png "RPUlux MultiDrop")
 
@@ -40,7 +40,7 @@ The core files for this board are in the /lib folder. Each example has its files
 
 ```
 sudo apt-get install git gcc-avr binutils-avr gdb-avr avr-libc avrdude
-git clone https://github.com/epccs/Punica/
+git clone https://github.com/epccs/RPUlux/
 ```
 
 * [gcc-avr](http://packages.ubuntu.com/search?keywords=gcc-avr)

@@ -14,9 +14,11 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ```
         ATmega328p programs are compiled with open source tools that run nearly everywhere.
         Input power can range from 7 to 36V DC
-        High side current sense on input power connected to ADC6.
+        High side current sense of input power is connected to ADC6.
         Input power voltage is divided down and connected to ADC7.
-        TBD
+        Three digital or analog input/outputs (D14/ADC0,D15/ADC1,D16/ADC3) with level conversion.
+        IO4, IO7, and IO8 control current sinking N-CH MOSFET connected to ADC0, ADC1, and ADC2.
+        IO12 and IO13 each control 22mA current source.
 ```
 
 ## Uses
@@ -24,7 +26,8 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ```
         Six AL8805 buck converters drive constant current through LED channels
         Each LED channel has a 500Hz PWM control line from the ATmega328p.
-        Allows contorl of two RGB collor lighing sources.
+        Allows control of two RGB color lighting sources.
+        Sink solar panel power when the battery is full, and measure approximate current with Rds_on.
 ```
 
 ## Notice
@@ -49,9 +52,9 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ![Status](./status_icon.png "RPUlux Status")
 
 ```
-        ^0  Done: 
-            WIP: Design,
-            Todo: Layout, BOM, Review*, Order Boards, Assembly, Testing, Evaluation.
+        ^0  Done: Design, Layout,
+            WIP: BOM,
+            Todo: Review*, Order Boards, Assembly, Testing, Evaluation.
             *during review the Design may change without changing the revision.
 ```
 
