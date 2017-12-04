@@ -52,9 +52,9 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ![Status](./status_icon.png "RPUlux Status")
 
 ```
-        ^0  Done: Design, Layout,
-            WIP: BOM,
-            Todo: Review*, Order Boards, Assembly, Testing, Evaluation.
+        ^0  Done: Design, Layout, BOM,
+            WIP: Review*,
+            Todo: Order Boards, Assembly, Testing, Evaluation.
             *during review the Design may change without changing the revision.
 ```
 
@@ -124,5 +124,18 @@ The SMD reflow is done in a Black & Decker Model NO. TO1303SB which has the heat
 
 # How To Use
 
+## Stopping charge from solar panel
 
-TBD
+A few approaches to prevent overcharging a battery with a solar panel.
+
+![SolarPwrOptions](./Documents/SolarPwrOptions.png "RPUlux Solar Power Options")
+
+Using IO4 and IO7 to control onboard N-CH MOSFET it is possible to short the solar panel. The blocking diode needs to prevent the battery from supplying current to the short (and block night or dark discharge current).
+
+It is also possible to use IO4 to open circuit the solar panel. This requires more off-board parts but is really a question of comfort level. Most people seem to have a bad reaction to seeing the idea of shorting the solar panel, so I think it is important to give other options.
+
+Another problem is not getting enough sun, which needs to be handled by software by not running the lights at night or the Raspberry Pi. 
+
+An even better option for charge control is to use something like [SunSaver-6L] which will provide a lot of protection. This removes the need to write some of the control software, which if done wrong may damage the battery or hardware on the board. 
+
+[SunSaver-6L]: https://www.solar-electric.com/ss-6l.html
