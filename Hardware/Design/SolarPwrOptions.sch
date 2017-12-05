@@ -1608,11 +1608,11 @@ PARTS</text>
 <text x="23.368" y="-15.24" size="1.778" layer="98">ON CIRCUIT BOARD</text>
 <text x="94.488" y="-40.64" size="1.778" layer="98">DISCRETE 
 PARTS</text>
-<text x="89.408" y="40.64" size="1.778" layer="98">SLP070-12U</text>
-<text x="109.728" y="-7.62" size="1.778" layer="98">SLP070-12U</text>
+<text x="89.154" y="42.164" size="1.778" layer="98">SLP070-12U</text>
+<text x="109.728" y="-6.604" size="1.778" layer="98">SLP055-12U</text>
 <text x="97.028" y="33.02" size="1.778" layer="98">21.6V (Voc)</text>
 <text x="97.028" y="27.94" size="1.778" layer="98">4.35A (Isc)</text>
-<text x="117.348" y="-20.32" size="1.778" layer="98">4.35A (Isc)</text>
+<text x="117.348" y="-20.32" size="1.778" layer="98">3.56A (Isc)</text>
 <text x="117.348" y="-15.24" size="1.778" layer="98">21.6V (Voc)</text>
 <text x="81.788" y="-39.878" size="1.778" layer="98">LA</text>
 <text x="81.788" y="-43.18" size="1.778" layer="98">12V</text>
@@ -1622,6 +1622,8 @@ PARTS</text>
 <text x="79.248" y="3.302" size="1.778" layer="98">LA</text>
 <text x="79.248" y="0" size="1.778" layer="98">12V</text>
 <text x="79.248" y="-3.302" size="1.778" layer="98">50AHr</text>
+<text x="89.408" y="38.608" size="1.778" layer="98">WITH BY-PASS DIODES</text>
+<text x="109.728" y="-9.652" size="1.778" layer="98">WITHOUT BY-PASS DIODES</text>
 </plain>
 <instances>
 <instance part="PV1" gate="G$1" x="88.9" y="27.94"/>
