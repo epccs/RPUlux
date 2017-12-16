@@ -130,12 +130,10 @@ A few approaches to prevent overcharging a battery with a solar panel.
 
 ![SolarPwrOptions](./Documents/SolarPwrOptions.png "RPUlux Solar Power Options")
 
-Using IO4 and IO7 to control onboard N-CH MOSFET it is possible to short the solar panel. The blocking diode needs to prevent the battery from supplying current to the short and the panel must be equipped with by-pass diodes. Note that small panels often lack by-pass diodes and shorting a panel without bypass diodes will result in a Zener breakdown failure in the panel.
+Using IO4 and IO7 to control onboard N-CH MOSFET it is possible to short the solar panel. The blocking diode needs to prevent the battery from supplying current to the short and the panel must be equipped with by-pass diodes. Note that small panels often lack by-pass diodes and shorting a panel without bypass diodes can result in a Zener breakdown failure in the panel.
 
-It is also possible to use IO4 to open circuit the solar panel. This requires more off-board parts but shorting is not an option when by-pass diodes are not installed.
+It is also possible to use IO8 to open circuit a solar panel connected to the alternate power input. This input is limited to less than 2 amps but is a good option for the small panels since shorting is not a good option due to the lack of by-pass diodes.
 
-An even better option for charge control is to use something like [SunSaver-6L] which will provide a lot of protection. This removes the need to write some of the control software, which if done wrong may damage the battery or hardware on the board. 
+If programming power electronics is not on your game list then consider a charge controller like the [SunSaver-6L] which will provide a lot of protection. This removes the need to write the control software to maintain the battery, which if done wrong may damage the battery or hardware on the board. 
 
 [SunSaver-6L]: https://www.solar-electric.com/ss-6l.html
-
-Another problem is not getting enough sun, which is handled by user software (e.g. not running the lights at night and/or the Raspberry Pi). 
