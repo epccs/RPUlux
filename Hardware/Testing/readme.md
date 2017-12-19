@@ -27,11 +27,11 @@ TBD
 
 After assembly check the circuit carefully to make sure all parts are soldered and correct, note that the device making is labeled on the schematic and assembly drawing.
     
-NOTE: U1 is not yet on the board, so everything with +5V will not have power.
+NOTE: U2 is not yet on the board, so everything with +5V will not have power.
 
 
 ## IC Solder Test
 
-U1 is not yet populated. Check that a diode drop to 0V is present from a circuit board pad that is connected to each of the pins of U2, U3, and U4 by measuring with a DMM's diode test set up for reversed polarity. Consult the schematic to determine which pins can be skipped (e.g. ground, power rail, ...).
+U2 is not yet populated. Check that a diode drop to 0V is present from a circuit board pad that is connected to each of the pins of U1, and U3 through U9 by measuring with a DMM's diode test set up for reversed polarity. Consult the schematic to determine which pins can be skipped (e.g. ground, power rail, ...).
 
-This is the main test used for In-Circuit Testing (ICT). It becomes more valuable when the node voltage driven with the current source is recorded for each tested location and then used with statistics to determine test limits for that location. A relay matrix is needed to route the current source to the test points (e.g. probes, or pogo pins), but that will need some consideration.   
+This is good to do with In-Circuit Testing (ICT) and becomes more valuable if the node voltage driven with the current source is recorded for each tested location and then used with statistics to determine test limits for that location. 
