@@ -52,9 +52,9 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ![Status](./status_icon.png "RPUlux Status")
 
 ```
-        ^0  Done: Design, Layout, BOM,
-            WIP: Review*,
-            Todo: Order Boards, Assembly, Testing, Evaluation.
+        ^0  Done: Design, Layout, BOM, Review*,
+            WIP: Order Boards,
+            Todo: Assembly, Testing, Evaluation.
             *during review the Design may change without changing the revision.
 ```
 
