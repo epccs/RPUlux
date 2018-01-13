@@ -1,3 +1,8 @@
 # Auto detect text files and perform LF normalization (Visual Studio Code seems fine with this)
 * text eol=lf
 
+# Denote files that are binary and should not be modified.
+*.png binary
+*.jpg binary
+*.pdf binary
+*.xcf binary
