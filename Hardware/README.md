@@ -2,7 +2,7 @@
 
 ## Overview
 
-This board has an ATmega328p and and six AL8805 constant current LED drivers. The reset is TBD.
+This board has an ATmega328p and and six AL8805 constant current LED drivers. Input power is 7 to 36 VDC. 
 
 Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't change the hardware fuse setting which reduces programming errors that can accidentally brick the controller. 
 
@@ -13,12 +13,16 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 
 ```
         ATmega328p programs are compiled with open source tools that run nearly everywhere.
-        Input power can range from 7 to 36V DC
-        High side current sense of input power is connected to ADC6.
-        Input power voltage is divided down and connected to ADC7.
-        Three digital or analog input/outputs (D14/ADC0,D15/ADC1,D16/ADC3) with level conversion.
-        IO4, IO7, and IO8 control current sinking N-CH MOSFET connected to ADC0, ADC1, and ADC2.
-        IO12 and IO13 each control 22mA current source.
+        Input power can range from 7 to 36V DC.
+        Reverse Power Protection with indicator LED and low loss.
+        Shield VIN pin can be disabled (2).
+        Alternate Input Power can be enabled (8).
+        The high side VIN current sensor is connected to ADC6.
+        Power VIN voltage is divided down and connected to ADC7.
+        Three digital input/outputs (14, 15, 16) with level shift for connecting to a higher voltage.
+        The digital inputs are also connected to ADC channels (ADC0, ADC1, ADC2).
+        The digital inputs also have current sinking N-CH MOSFET that may be enabled (4, 7, 8)
+        Two 22mA current sources may be enabled (12, 13) for current loop sensors.
 ```
 
 ## Uses
@@ -34,7 +38,8 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 
 ```
         AREF from ATmega328p is not connected to the header.
-        3V3 is not present on the board, the header pin is not connected.
+        3V3 is not present on the board and the header pin is not connected.
+        ADC4 and ADC5 are used for I2C and not connected to the analog header.
 ```
 
 
@@ -52,9 +57,16 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ![Status](./status_icon.png "RPUlux Status")
 
 ```
-        ^0  Done: Design, Layout, BOM, Review*,
-            WIP: Order Boards,
-            Todo: Assembly, Testing, Evaluation.
+        ^1  Done: 
+            WIP: 
+            Todo: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing, Evaluation.
+            *during review the Design may change without changing the revision.
+            add pull-down to IO8
+            add pull-down to PWM's (IO[3569],nSS,MOSI]
+
+        ^0  Done: Design, Layout, BOM, Review*, Order Boards, Assembly,
+            WIP: Testing,
+            Todo:  Evaluation.
             *during review the Design may change without changing the revision.
 ```
 
@@ -126,14 +138,39 @@ The SMD reflow is done in a Black & Decker Model NO. TO1303SB which has the heat
 
 ## Prevent overcharging a battery
 
-A few approaches to prevent overcharging a battery with a solar panel.
+I do not recomend the DIY power electronics options, I recomend a charge controller like the [SunSaver-6L] which provides a lot of protection. 
+
+[SunSaver-6L]: https://www.solar-electric.com/ss-6l.html
+
+The following is some DIY approaches to prevent overcharging a battery with a solar panel. They are risky so expect to damage somthing e.g. the battery, solar panel, RPUlux board. This means you may have to replace surface mount parts, the bill of materials will tell you what to use, and the assembly drawings show where they are used. With some luck Digikey or Mouser will have the parts in stock. Again don't do this if you don't want to rework SMD parts.
 
 ![SolarPwrOptions](./Documents/SolarPwrOptions.png "RPUlux Solar Power Options")
 
-Using IO4 and IO7 to control onboard N-CH MOSFET it is possible to short the solar panel. The blocking diode needs to prevent the battery from supplying current to the short and the panel must be equipped with by-pass diodes. Note that small panels often lack by-pass diodes and shorting a panel without bypass diodes can result in a Zener breakdown failure in the panel.
+Use software to control IO4 and IO7 which are each connected to an onboard N-CH MOSFET that can short a solar panel. A blocking diode is also needed to prevent the battery from supplying current into the short and the panel must be equipped with by-pass diodes. Note that small panels often lack by-pass diodes and shorting a panel without bypass diodes can result in a Zener breakdown failure in the panel.
 
-It is also possible to use IO8 to open circuit a solar panel connected to the alternate power input. This input is limited to less than 2 amps but is a good option for the small panels since shorting is not a good option due to the lack of by-pass diodes.
+It is also possible to write software that controls IO8 to open circuit a solar panel that is connected to the alternate power input. The alternate power input must be less than 2 amps but it is a better option for small solar panels since shorting them is not a good idea (e.g. they lack by-pass diodes).
 
-If programming power electronics is not on your game list then consider a charge controller like the [SunSaver-6L] which will provide a lot of protection. This removes the need to write the control software to maintain the battery, which if done wrong may damage the battery or hardware on the board. 
 
-[SunSaver-6L]: https://www.solar-electric.com/ss-6l.html
+## LED options
+
+I have no connection with this outfit I am just looking...
+
+[RGB] Cree XP-E2 350mA flux (67.2/107/23.5)
+[Color] Cree XP-E2 having colors of DWL 450:465:520:565:585:610:620
+[White]* Cree XP-E2 350mA flux 116
+
+[RGB]: https://www.ledsupply.com/leds/cree-xpe2-rgb-high-power-led
+[Color]: https://www.ledsupply.com/leds/cree-xlamp-xp-e2-color-high-power-led-star
+[White]: https://www.ledsupply.com/leds/cree-xlamp-xpe2-white-high-power-led
+
+* If the the forward voltage is less than 3.25V then a string of three would have 9.75V and that should just about work with a 12V input.
+
+
+# Original Ideas
+
+This board combines ideas from Sparkfun's [PicoBuck], Arduinos [Uno], and my own take on board design and hardware interfacing. It has shields [RPUpi] and [RPUadpt] that I also designed, the goal is to alow a daisy-chain serial to the Raspberry Pi Zero which is able to be a host computer, compile firmware and upload it to the control board(s) using an open source toolchain.
+
+[PicoBuck]: https://www.sparkfun.com/products/13705
+[Uno]: https://store.arduino.cc/usa/arduino-uno-rev3
+[RPUpi]: https://github.com/epccs/RPUpi/
+[RPUadpt]: https://github.com/epccs/RPUadpt
