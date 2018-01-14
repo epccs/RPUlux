@@ -155,15 +155,15 @@ It is also possible to write software that controls IO8 to open circuit a solar 
 
 I have no connection with this outfit I am just looking...
 
-[RGB] Cree XP-E2 350mA flux (67.2/107/23.5)
-[Color] Cree XP-E2 having colors of DWL 450:465:520:565:585:610:620
-[White]* Cree XP-E2 350mA flux 116
+* [RGB] Cree XP-E2 350mA flux (67.2/107/23.5)
+* [Color] Cree XP-E2 having colors of DWL 450:465:520:565:585:610:620
+* [White] Cree XP-E2 350mA flux 116
 
 [RGB]: https://www.ledsupply.com/leds/cree-xpe2-rgb-high-power-led
 [Color]: https://www.ledsupply.com/leds/cree-xlamp-xp-e2-color-high-power-led-star
 [White]: https://www.ledsupply.com/leds/cree-xlamp-xpe2-white-high-power-led
 
-* If the the forward voltage is less than 3.25V then a string of three would have 9.75V and that should just about work with a 12V input.
+If the the White forward voltage is less than 3.25V then a string of three would have 9.75V and that should just about work with a 12V input.
 
 
 # Original Ideas
