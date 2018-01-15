@@ -68,7 +68,7 @@ Apply a 30mA current limited 5V source to +5V (J6). Check that the input current
 
 ## Set MCU Fuse and Install Bootloader
 
-Install Git and AVR toolchain on Ubuntu (16.04, on an old computer try https://wiki.ubuntu.com/Lubuntu). 
+Install Git and AVR toolchain on Ubuntu (17.10, on an old computer try https://wiki.ubuntu.com/Lubuntu). 
 
 ```
 sudo apt-get install git gcc-avr binutils-avr gdb-avr avr-libc avrdude
@@ -82,7 +82,7 @@ git clone https://github.com/epccs/RPUlux
 cd ~/RPUlux/Bootloader
 ```
 
-Connect a 5V supply with CC mode set at 30mA to +5V (J7). Connect the ICSP tool (J11). The MCU needs its fuses set, so run the Makefile rule to do that. 
+Connect a 5V supply with CC mode set at 30mA to +5V (J6). Connect the ICSP tool (J10). The MCU needs its fuses set, so run the Makefile rule to do that. 
 
 ```
 make fuse
@@ -94,13 +94,13 @@ Next install the bootloader
 make isp
 ```
 
-Disconnect the ICSP tool and measure the input current, wait for the power to be settled. Turn off the power.
+Disconnect the ISP tool and measure the input current, wait for the power to be settled. Turn off the power.
 
 ```
-{ "I_IN_16MHZ_EXT_CRYST_mA":[12.7,11.2,]}
+{ "I_IN_16MHZ_EXT_CRYST_mA":[12.9,]}
 ```
 
-Add U2 to the board now. Measurement of the input current is for referance (takes a long time to settle, 10mA ICP1 jumper is off).
+Add U2 to the board now. Measurement of the input current is for referance (takes a long time to settle).
 
 
 ## Install SMPS
@@ -108,9 +108,9 @@ Add U2 to the board now. Measurement of the input current is for referance (take
 Install U2 and measure its output voltage and input current with the supply set at 12.8V and a 30mA current limit. Measure recover voltage after dropout (e.g. PWR voltage at which +5V recovers after droping).
 
 ```
-{ "+5V_V":[4.94,5.00,],
-  "PWR12V8_mA":[9.00,7.2,],
-  "PWR-DR_V":[6.2,6.5,]}
+{ "+5V_V":[5.00,],
+  "PWR12V8_mA":[8.6,],
+  "PWR-DR_V":[6.0,]}
 ```
 
 
