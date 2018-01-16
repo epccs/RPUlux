@@ -63,6 +63,8 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
             *during review the Design may change without changing the revision.
             add pull-down to IO8
             add pull-down to PWM's (IO[3569],nSS,MOSI]
+            add pull-down to CS0_EN and CS1_EN
+            remove NMOS sink on IO8 so it is only doing ALT_EN function
 
         ^0  Done: Design, Layout, BOM, Review*, Order Boards, Assembly,
             WIP: Testing,

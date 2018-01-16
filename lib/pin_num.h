@@ -1,5 +1,5 @@
-/* RPUno DigitalIO Library
- * Copyright (C) 2016 Ronald Sutherland
+/* DigitalIO Library
+ * Copyright (C) 2018 Ronald Sutherland
  *
  * This Library is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -55,16 +55,16 @@ Wiring uses pin numbers to control their functions.  */
 static const Pin_Map pinMap[NUM_DIGITAL_PINS] = {
     [0] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD0 }, // RX
     [1] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD1 }, // TX
-    [2] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD2 }, // SHLD_VIN
-    [3] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD3 }, // OC2B: LED CH?
-    [4] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD4 }, // ADC0 NMOS SINK
-    [5] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD5 }, // OC0B: LED CH
-    [6] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD6 }, // OC0A: LED CH
-    [7] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD7 }, // ADC1 NMOS SINK
-    [8] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB0 }, // ADC2 NMOS SINK
-    [9] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB1 }, // OC1A: LED CH
-    [10] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB2 }, // OC1B: LED CH
-    [11] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB3 }, // OC2A: LED CH
+    [2] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD2 }, // SHLD_VIN_EN
+    [3] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD3 }, // CH1 (OC2B USED FOR LED PWM)
+    [4] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD4 }, // ADC0_SINK
+    [5] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD5 }, // CH2 (OC0B USED FOR LED PWM)
+    [6] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD6 }, // CH3 (OC0A USED FOR LED PWM) 
+    [7] = { .ddr=&DDRD, .pin=&PIND, .port=&PORTD, .bit= PD7 }, // ADC1_SINK
+    [8] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB0 }, // ADC2_SINK
+    [9] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB1 }, // CH4 (OC1A USED FOR LED PWM) 
+    [10] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB2 }, // CH5 (OC1B USED FOR LED PWM) 
+    [11] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB3 }, // CH6 (OC2A USED FOR LED PWM) 
     [12] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB4 }, // CS0_EN
     [13] = { .ddr=&DDRB, .pin=&PINB, .port=&PORTB, .bit= PB5 }, // CS1_EN, LED_BUILTIN
     [14] = { .ddr=&DDRC, .pin=&PINC, .port=&PORTC, .bit= PC0 }, // ADC0
