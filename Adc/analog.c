@@ -88,14 +88,16 @@ void Analog(void)
 
         // There are values from 0 to 1023 for 1024 slots where each reperesents 1/1024 of the reference. Last slot has issues
         // https://forum.arduino.cc/index.php?topic=303189.0 
+        // The BSS138 level shift will block voltages over 3.5V
         if ( (arg_indx_channel == ADC0) || (arg_indx_channel == ADC1) || (arg_indx_channel == ADC2))
         {
             printf_P(PSTR("\"%1.2f\""),(analogRead(arg_indx_channel)*(ref_extern_avcc_uV/1.0E6)/1024.0));
         }
 
+        // Same input as ADC2, but with a 100k and 15.8k series divider so it read up to about 36V (while ADC2 input is blocked with a level shift).
          if (arg_indx_channel == ADC3)
         {
-            printf_P(PSTR("\"%1.2f\""),(analogRead(arg_indx_channel)*(ref_extern_avcc_uV/1.0E6)/1024.0)*(101.5/1.5) );
+            printf_P(PSTR("\"%1.2f\""),(analogRead(arg_indx_channel)*(ref_extern_avcc_uV/1.0E6)/1024.0)*(115.8/15.8) );
         }
 
         if (arg_indx_channel == ADC4) // On RPUlux ADC4 is used for I2C SDA function

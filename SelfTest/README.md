@@ -35,7 +35,7 @@ Now connect with picocom (exit is C-a, C-x).
 
 ``` 
 picocom -b 38400 /dev/ttyUSB0
-picocom v1.7
+picocom v2.2
 ...
 Terminal ready
 RPUlux Self Test date: Jan 17 2018

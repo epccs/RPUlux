@@ -13,7 +13,10 @@ This is a list of Test preformed on each RPUlux after assembly.
 4. Power Protection
 5. Power Without SMPS
 6. Bias +5V
-7. 
+7. Set MCU Fuse and Install Bootloader
+8. Install SMPS
+9. Self Test
+
 
 ## Basics
 
@@ -23,7 +26,7 @@ These tests are for an assembled RPUlux board 17323^0 which may be referred to a
     
 Items used for test.
 
-TBD
+![ItemsUsedForTest](./17323,ItemsUsedForTest.jpg "Items Used For Test")
 
 
 ## Assembly check
@@ -114,3 +117,80 @@ Install U2 and measure its output voltage and input current with the supply set 
 ```
 
 
+## Self Test
+
+Plug an [RPUftdi] shield with [Host2Remote] firmware onto an [RPUno] board and load [I2C-Debug] on it.
+
+[RPUftdi]: https://github.com/epccs/RPUftdi
+[Host2Remote]: https://github.com/epccs/RPUftdi/tree/master/Host2Remote
+[RPUno]: https://github.com/epccs/RPUno
+[I2C-Debug]: https://github.com/epccs/RPUno/tree/master/i2c-debug
+
+Use picocom to set the bootload address on the RPUftdi shield. The RPUftdi is at address 0x30 and the UUT will be at address 0x31.
+
+```
+picocom -b 38400 /dev/ttyUSB0
+...
+Terminal ready
+/0/iaddr 41
+{"address":"0x29"}
+/0/ibuff 3,49
+{"txBuffer":[{"data":"0x3"},{"data":"0x31"}]}
+/0/iread? 2
+{"rxBuffer":[{"data":"0x3"},{"data":"0x31"}]}
+```
+Exit picocom (Cntl^a and Cntl^x). Plug an [RPUadpt] shield with [Remote] firmware onto the UUT board. Note the RPUadpt address defaults to 0x31 when its firmware was installed.
+
+[RPUadpt]: https://github.com/epccs/RPUadpt
+[Remote]: https://github.com/epccs/RPUadpt/tree/master/Remote
+
+Connect the Self Test [Harness] to the UUT. Connect a 12.8V supply with CC set at 300mA.
+
+[Harness]: https://raw.githubusercontent.com/epccs/RPUno/master/SelfTest/Setup/SelfTestWiring.png
+
+Once the UUT has power check that the VIN pin on the shield has power (this is not tested by the self-test so it has to be done manually).
+
+Measure the +5V supply at J6.
+
+Edit the SelfTest main.c such that "#define REF_EXTERN_AVCC 5006500UL" has the correct value. Next, run the bootload rule in the Makefile to upload the self-test firmware to the UUT that the remote shield is mounted on.
+
+```
+cd ~RPUno/SelfTest
+gedit main.c
+make bootload
+```
+
+Use picocom to see the SelfTest results on the serial interface.
+
+```
+picocom -b 38400 /dev/ttyUSB0
+picocom v2.2
+...
+Terminal ready
+RPUlux Self Test date: Jan 17 2018
+avr-gcc --version: 5.4.0
+I2C provided address 0x31 from serial bus manager
+adc reading for PWR_V: 349
+PWR at: 12.506 V
+ADC0 GN LED /W SINK on and CS*_EN off: 0.000 V
+ADC1 RD LED /W SINK on and CS*_EN off: 0.000 V
+ADC2 R1 /W CS*_EN off: 0.000 V
+ADC3 R1 /W CS*_EN off: 0.000 V
+CS0 curr source on R1: 0.022 A
+Green LED fwd V: 2.225 V
+CS1 curr source on R1: 0.022 A
+Red LED fwd V: 2.122 V
+   ADC2 reading used to calculate ref_intern_1v1_uV: 708 A
+   calculated ref_intern_1v1_uV: 1074841 uV
+REF_EXTERN_AVCC saved in eeprom: 5006500 uV
+REF_INTERN_1V1 saved in eeprom: 1074841 uV
+PWR_I with CS1_EN and INTERNAL_1V1: 0.013 A
+[PASS]
+```
+
+Before truning off the power check that the VIN pin for the shield has no power, the test turns it off. Then turn off the power supply.
+
+```
+# toss the change to main.c if you want
+git checkout -- main.c
+```
