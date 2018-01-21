@@ -20,7 +20,7 @@ with the 1.1V bandgap referance that I am now calibrating. Unfortuanly a 1% 100k
 
 Controls should have a known defaut so the will do known things when bootloading, powering up, or if the user does not set them.
 
-IO8 needs a 10k pull down to be defined as off by default.
+IO8 needs a 10k pull down to be defined as off by default. Also add 100k to Q1 zener for leakage current.
 
 IO12 (CS0_EN or MISO) and IO13 (CS1_EN or SCK) needs a 10k pull down to be defined as off by default.
 

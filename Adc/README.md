@@ -75,7 +75,7 @@ identify
 
 ##  /0/analog? 0..7\[,0..7\[,0..7\[,0..7\[,0..7\]\]\]\]    
 
-Analog-to-Digital Converter reading from up to 5 ADMUX channels. The reading repeats every 60 Seconds until the Rx buffer gets a character. On RPUlux channel 6 is the solar input voltage, channel 7 is the main power node (PWR) voltage, channel 3 is the battery discharge current, channel 2 is the battery charging current, channel 1 and channel 0 each have a current source available (I also have a 100 Ohm sense resistor to measure the current source).  Note ADC4 and ADC5 are used for I2C on RPUlux.
+Analog-to-Digital Converter reading from up to 5 ADMUX channels. The reading repeats every 60 Seconds until the Rx buffer gets a character. On RPUlux channel 7 is the input voltage (PWR_V), channel 6 is the input current (PWR_I), channel 3 is a voltage divider on the channel 2 input, channel 2,  1, and channel 0 inputs can read up to 3.5V (higher voltages are blocked by a level shift).  Note channel 4 and 5 are used for I2C on RPUlux.
 
 ``` 
 /1/analog? 6,7
@@ -86,7 +86,7 @@ Analog-to-Digital Converter reading from up to 5 ADMUX channels. The reading rep
 {"ADC4":"SDA","ADC5":"SCL"}
 ```
 
-Values are from the SelfTest harness with red LED on. PWR_I is scaled so it will need more current to get a reading.
+Values are from the SelfTest harness with a red LED on. PWR_I is scaled so it will need more current to get a reading.
 
 The value reported is based on the avcc referance value which is saved in EEPROM, see bellow.
 

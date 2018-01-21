@@ -65,6 +65,7 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
             add pull-down to PWM's (IO[3569],nSS,MOSI]
             add pull-down to CS0_EN and CS1_EN
             add pull-down to NMOS IO4 and IO7
+            add 100k to Q1 zener for leakage current
             remove NMOS sink on IO8 so it is only doing ALT_EN function
 
         ^0  Done: Design, Layout, BOM, Review*, Order Boards, Assembly,
