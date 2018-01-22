@@ -4,10 +4,61 @@ Some lessons I learned doing RPUlux.
 
 # Table Of Contents:
 
+1. ^0 SMPS design
 1. ^0 PWR_V divider
 1. ^0 Add defaults on IO Controls
 1. ^0 Pull Down Alternate Power Control
 1. ^0 Solar Panel Zener brakedown failure
+
+## ^0  SMPS design, current sense resistor
+
+Every control chip (AL8805) is a teacher. I am seeing about half the current (160mA) that I expect to see with a 0.3 Ohm sense resistor. 
+
+After looking at the Sparkfun Femtobuck I think I see some ideas to try. 
+
+This converter switches the current to 0V, but I need to send the return current into the 10 uF capacitors before it is and then connected to 0V. Because the switching current is on the ground plane I think it is causing the control chip switch on noise events rather than on the sense resistor ramp.
+
+I also did not connect the sense resistor to the AL8805 VIN pin directly and that is causing some error.
+
+The high side current sense is reading about half of what it should durrin SelfTest (DMM reads 60mA), and that is less (12.8V*.06A = .77W) than expected for an LED that should have 1W (e.g. 350mA*3.2V).
+
+'''
+RPUlux Self Test date: Jan 21 2018
+avr-gcc --version: 5.4.0
+I2C provided address 0x31 from serial bus manager
+adc reading for PWR_V: 359
+PWR at: 12.864 V
+ADC0 GN LED /W SINK on and CS*_EN off: 0.000 V
+ADC1 RD LED /W SINK on and CS*_EN off: 0.000 V
+ADC2 R1 /W CS*_EN off: 0.000 V
+ADC3 R1 /W CS*_EN off: 0.000 V
+CS0 curr source on R1: 0.022 A
+Green LED fwd V: 2.239 V
+CS1 curr source on R1: 0.023 A
+Red LED fwd V: 2.132 V
+   ADC2 reading used to calculate ref_intern_1v1_uV: 722 A
+   calculated ref_intern_1v1_uV: 1074802 uV
+REF_EXTERN_AVCC old value was in eeprom: 5006500 uV
+REF_INTERN_1V1 old value was in eeprom: 1073325 uV
+REF_EXTERN_AVCC saved in eeprom: 5006500 uV
+REF_INTERN_1V1 saved in eeprom: 1074802 uV
+PWR_I with CS1_EN and INTERNAL_1V1: 0.013 A
+PWR_I with CH1 LED, 1V1, 1sec: 0.031 A
+PWR_I with CH1 LED, 1V1, 3sec: 0.031 A
+PWR_I with CH2 LED, 1V1, 1sec: 0.030 A
+PWR_I with CH2 LED, 1V1, 3sec: 0.030 A
+PWR_I with CH3 LED, 1V1, 1sec: 0.031 A
+PWR_I with CH3 LED, 1V1, 3sec: 0.030 A
+PWR_I with CH4 LED, 1V1, 1sec: 0.030 A
+PWR_I with CH4 LED, 1V1, 3sec: 0.030 A
+PWR_I with CH5 LED, 1V1, 1sec: 0.030 A
+PWR_I with CH5 LED, 1V1, 3sec: 0.030 A
+PWR_I with CH6 LED, 1V1, 1sec: 0.029 A
+PWR_I with CH6 LED, 1V1, 3sec: 0.030 A
+[PASS]
+'''
+
+PWR_I reads 30mA while a DMM reads 60mA input current. The reading may be noise related, in any case noise improvements need done first.
 
 
 ## ^0  PWR_V divider

@@ -6,7 +6,7 @@ This board has an ATmega328p and and six AL8805 constant current LED drivers. In
 
 Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't change the hardware fuse setting which reduces programming errors that can accidentally brick the controller. 
 
-[optiboot]: https://github.com/Optiboot/optiboot
+[optiboot]: https://github.com/MCUdude/optiboot_flash
 [xboot]: https://github.com/alexforencich/xboot
 
 ## Inputs/Outputs/Functions
@@ -58,20 +58,20 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 
 ```
         ^1  Done: 
-            WIP: 
-            Todo: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing, Evaluation.
+            WIP: Design,
+            Todo:  Layout, BOM, Review*, Order Boards, Assembly, Testing, Evaluation.
             *during review the Design may change without changing the revision.
             add pull-down to IO8
             add pull-down to PWM's (IO[3569],nSS,MOSI]
             add pull-down to CS0_EN and CS1_EN
             add pull-down to NMOS IO4 and IO7
             add 100k to Q1 zener for leakage current
+            LED driver CC SMPS is dumping current into 0V plane 
             remove NMOS sink on IO8 so it is only doing ALT_EN function
 
-        ^0  Done: Design, Layout, BOM, Review*, Order Boards, Assembly,
-            WIP: Testing,
-            Todo:  Evaluation.
-            *during review the Design may change without changing the revision.
+        ^0  Done: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing,
+            WIP: Evaluation.
+            location: 2018-22-1 bench.
 ```
 
 Debugging and fixing problems i.e. [Schooling](./Schooling/)
@@ -88,11 +88,6 @@ The board is 0.063 thick, FR4, two layer, 1 oz copper with ENIG (gold) finish.
 ![Bottom](./Documents/17323,Bottom.png "RPUlux Bottom")
 ![BAssy](./Documents/17323,BAssy.jpg "RPUlux Bottom Assy")
 
-## Electrical Parameters (Typical)
-
-```
-TBD
-```
 
 ## Mounting
 

@@ -662,7 +662,7 @@ ATmega328p</text>
 <wire x1="10.16" y1="-12.7" x2="10.16" y2="-10.922" width="0.1524" layer="94"/>
 <wire x1="-22.86" y1="0" x2="-21.59" y2="0" width="0.1524" layer="94"/>
 <wire x1="-22.86" y1="2.54" x2="-21.59" y2="2.54" width="0.1524" layer="94"/>
-<pin name="AUX" x="27.94" y="2.54" visible="pin" length="short" rot="R180"/>
+<pin name="ALT" x="27.94" y="2.54" visible="pin" length="short" rot="R180"/>
 <text x="-12.192" y="1.27" size="1.27" layer="98">CSx 22mA CURR SOUR</text>
 </symbol>
 </symbols>
@@ -800,7 +800,7 @@ ATmega328p</text>
 <connect gate="G$1" pin="ADC0_14" pad="ADC0"/>
 <connect gate="G$1" pin="ADC1_15" pad="ADC1"/>
 <connect gate="G$1" pin="ADC2_16" pad="ADC2"/>
-<connect gate="G$1" pin="AUX" pad="AUX"/>
+<connect gate="G$1" pin="ALT" pad="AUX"/>
 <connect gate="G$1" pin="CS0_EN12" pad="22MA@ADC0"/>
 <connect gate="G$1" pin="CS1_EN13" pad="22MA@ADC1"/>
 <connect gate="G$1" pin="I2C" pad="I2C"/>
@@ -2398,7 +2398,7 @@ http://www.dialight.com/Assets%5CBrochures_And_Catalogs%5CIndication%5CSMT_selec
 <net name="N$50" class="0">
 <segment>
 <pinref part="PV4" gate="G$1" pin="+PV"/>
-<pinref part="U$6" gate="G$1" pin="AUX"/>
+<pinref part="U$6" gate="G$1" pin="ALT"/>
 <wire x1="226.06" y1="7.62" x2="228.6" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="228.6" y1="7.62" x2="228.6" y2="25.4" width="0.1524" layer="91"/>
 <wire x1="228.6" y1="25.4" x2="231.14" y2="25.4" width="0.1524" layer="91"/>
