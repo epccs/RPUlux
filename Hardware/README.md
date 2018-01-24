@@ -21,7 +21,7 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
         Power VIN voltage is divided down and connected to ADC7.
         Three digital input/outputs (14, 15, 16) with level shift for connecting to a higher voltage.
         The digital inputs are also connected to ADC channels (ADC0, ADC1, ADC2).
-        The digital inputs also have current sinking N-CH MOSFET that may be enabled (4, 7, 8)
+        The digital inputs also have current sinking N-CH MOSFET that may be enabled (4, 7)
         Two 22mA current sources may be enabled (12, 13) for current loop sensors.
 ```
 
@@ -57,9 +57,9 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ![Status](./status_icon.png "RPUlux Status")
 
 ```
-        ^1  Done: 
-            WIP: Design,
-            Todo:  Layout, BOM, Review*, Order Boards, Assembly, Testing, Evaluation.
+        ^1  Done: Design, Layout, BOM,
+            WIP: Review*,
+            Todo: Order Boards, Assembly, Testing, Evaluation.
             *during review the Design may change without changing the revision.
             add pull-down to IO8
             add pull-down to PWM's (IO[3569],nSS,MOSI]
