@@ -1,5 +1,5 @@
 /*
-Adc is a command line controled demonstration of Interrupt Driven Analog Conversion
+DayNight is a command line controled demonstration of how the photovoltaic voltage of a red LED can be usd to track the day and night.
 Copyright (C) 2016 Ronald Sutherland
 
 This program is free software; you can redistribute it and/or
@@ -17,23 +17,25 @@ http://www.gnu.org/licenses/gpl-2.0.html
 */
 #include <avr/pgmspace.h>
 #include <util/atomic.h>
-#include "../lib/timers.h"
 #include "../lib/uart.h"
 #include "../lib/parse.h"
+#include "../lib/timers.h"
 #include "../lib/adc.h"
 #include "../lib/twi.h"
 #include "../lib/rpu_mgr.h"
 #include "../lib/pin_num.h"
 #include "../lib/pins_board.h"
 #include "../Uart/id.h"
-#include "analog.h"
-#include "calibrate.h"
+#include "day_night.h"
 
 #define ADC_DELAY_MILSEC 200UL
 static unsigned long adc_started_at;
 
-// 22mA current source enabled with CS0_EN which are defined in ../lib/pins_board.h
+// 22mA current sources enabled with CS0_EN and CS1_EN which are defined in ../lib/pins_board.h
 #define STATUS_LED CS0_EN
+#define DAYNIGHT_STATUS_LED CS1_EN
+#define DAYNIGHT_BLINK 500UL
+static unsigned long day_status_blink_started_at;
 
 #define BLINK_DELAY 1000UL
 static unsigned long blink_started_at;
@@ -44,34 +46,37 @@ void ProcessCmd()
 { 
     if ( (strcmp_P( command, PSTR("/id?")) == 0) && ( (arg_count == 0) || (arg_count == 1)) )
     {
-        Id("Adc");
+        Id("DayNight"); // ../Uart/id.c
     }
-    if ( (strcmp_P( command, PSTR("/analog?")) == 0) && ( (arg_count >= 1 ) && (arg_count <= 5) ) )
+    if ( (strcmp_P( command, PSTR("/day?")) == 0) && ( (arg_count == 0 ) ) )
     {
-        Analog();
+        Day(); // day_night.c
     }
-    if ( (strcmp_P( command, PSTR("/avcc")) == 0) && (arg_count == 1) )
-    {
-        CalibrateAVCC();
-    }
-    if ( (strcmp_P( command, PSTR("/onevone")) == 0) && (arg_count == 1) )
-    {
-        Calibrate1V1();
-    }
-    if ( (strcmp_P( command, PSTR("/reftoee")) == 0) && (arg_count == 0) )
-    {
-        Ref2Ee();
-    }
-    if ( (strcmp_P( command, PSTR("/reffrmee")) == 0) && (arg_count == 0) )
-    {
-        ReFmEe();
-    }
+}
+
+//At start of each day do this
+void callback_for_day_attach(void)
+{
+    // This shows where to place a task to run when the dayState changes to DAYNIGHT_WORK_STATE
+    printf_P(PSTR("WaterTheGarden\r\n")); // used for debuging
+    return;
+}
+
+//At start of each night do this
+void callback_for_night_attach(void)
+{
+    // This shows where to place a task to run when the dayState changes to DAYNIGHT_WORK_STATE
+    printf_P(PSTR("TurnOnLED's\r\n")); // used for debuging
+    return;
 }
 
 void setup(void) 
 {
     pinMode(STATUS_LED,OUTPUT);
     digitalWrite(STATUS_LED,HIGH);
+    
+    pinMode(DAYNIGHT_STATUS_LED,OUTPUT);
+    digitalWrite(DAYNIGHT_STATUS_LED,HIGH);
     
     // Initialize Timers, ADC, and clear bootloader, Arduino does these with init() in wiring.c
     initTimers(); //Timer0 Fast PWM mode, Timer1 & Timer2 Phase Correct PWM mode.
@@ -85,8 +90,7 @@ void setup(void)
     /* Initialize UART, it returns a pointer to FILE so redirect of stdin and stdout works*/
     stdout = stdin = uartstream0_init(BAUD);
     
-    /* Initialize I2C, with the internal pull-up 
-        note: I2C scan will stop without a pull-up on the bus */
+    /* Initialize I2C. note: I2C scan will stop without a pull-up on the bus */
     twi_init(TWI_PULLUP);
 
     /* Clear and setup the command buffer, (probably not needed at this point) */
@@ -96,6 +100,7 @@ void setup(void)
     sei(); 
     
     blink_started_at = millis();
+    day_status_blink_started_at = millis();
     
     rpu_addr = get_Rpu_address();
     blink_delay = BLINK_DELAY;
@@ -106,6 +111,10 @@ void setup(void)
         rpu_addr = '0';
         blink_delay = BLINK_DELAY/4;
     }
+    
+    // set callback(s). See Solenoid for another example, where it loads the EEPROM values used at the start of each day
+    Day_AttachWork(callback_for_day_attach);
+    Night_AttachWork(callback_for_night_attach);
 }
 
 void blink(void)
@@ -117,6 +126,45 @@ void blink(void)
         
         // next toggle 
         blink_started_at += blink_delay; 
+    }
+}
+
+void day_status(void)
+{
+    unsigned long kRuntime = millis() - day_status_blink_started_at;
+    uint8_t state = DayState();
+    if ( ( (state == DAYNIGHT_EVENING_DEBOUNCE_STATE) || \
+           (state == DAYNIGHT_MORNING_DEBOUNCE_STATE) ) && \
+           (kRuntime > (DAYNIGHT_BLINK/2) ) )
+    {
+        digitalToggle(DAYNIGHT_STATUS_LED);
+        
+        // set for next toggle 
+        day_status_blink_started_at += DAYNIGHT_BLINK/2; 
+    }
+    if ( ( (state == DAYNIGHT_DAY_STATE) ) && \
+           (kRuntime > (DAYNIGHT_BLINK) ) )
+    {
+        digitalWrite(DAYNIGHT_STATUS_LED,HIGH);
+        
+        // set for next toggle 
+        day_status_blink_started_at += DAYNIGHT_BLINK; 
+    }
+    if ( ( (state == DAYNIGHT_NIGHT_STATE) ) && \
+           (kRuntime > (DAYNIGHT_BLINK) ) )
+    {
+        digitalWrite(DAYNIGHT_STATUS_LED,LOW);
+        
+        // set for next toggle 
+        day_status_blink_started_at += DAYNIGHT_BLINK; 
+    }
+    if ( ( (state == DAYNIGHT_FAIL_STATE) ) && \
+           (kRuntime > (DAYNIGHT_BLINK/8) ) )
+    {
+        digitalToggle(DAYNIGHT_STATUS_LED);
+        
+        // set for next toggle 
+        day_status_blink_started_at += DAYNIGHT_BLINK/8; 
     }
 }
 
@@ -138,7 +186,16 @@ int main(void)
     { 
         // use LED to show if I2C has a bus manager
         blink();
-        
+
+        // use LED to show day_state
+        day_status();
+
+        // Check Day Light is a function that operates a day-night state machine.
+        CheckDayLight(); // day_night.c
+
+        // delay between ADC burst
+        adc_burst();
+
         // check if character is available to assemble a command, e.g. non-blocking
         if ( (!command_done) && uart0_available() ) // command_done is an extern from parse.h
         {
@@ -148,7 +205,7 @@ int main(void)
             // address is an ascii value, warning: a null address would terminate the command string. 
             StartEchoWhenAddressed(rpu_addr);
         }
-        
+
         // check if a character is available, and if so flush transmit buffer and nuke the command in process.
         // A multi-drop bus can have another device start transmitting after getting an address byte so
         // the first byte is used as a warning, it is the onlly chance to detect a possible collision.
@@ -158,10 +215,7 @@ int main(void)
             uart0_flush(); 
             initCommandBuffer();
         }
-        
-        // delay between ADC burst
-        adc_burst();
-          
+
         // finish echo of the command line befor starting a reply (or the next part of a reply)
         if ( command_done && (uart0_availableForWrite() == UART_TX0_BUFFER_SIZE) )
         {
@@ -176,7 +230,7 @@ int main(void)
                     findCommand();
                     command_done = 10;
                 }
-                
+
                 // do not overfill the serial buffer since that blocks looping, e.g. process a command in 32 byte chunks
                 if ( (command_done >= 10) && (command_done < 250) )
                 {
@@ -187,7 +241,7 @@ int main(void)
                     initCommandBuffer();
                 }
             }
-         }
+        }
     }        
     return 0;
 }
