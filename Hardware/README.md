@@ -143,13 +143,17 @@ I do not recomend the DIY power electronics options, I recomend a charge control
 
 The following is some DIY approaches to prevent overcharging a battery with a solar panel. They are risky so expect to damage somthing e.g. the battery, solar panel, RPUlux board. This means you may have to replace surface mount parts, the bill of materials will tell you what to use, and the assembly drawings show where they are used. With some luck Digikey or Mouser will have the parts in stock. Again don't do this if you don't want to rework SMD parts.
 
-![SolarPwrOptions](./Documents/SolarPwrOptions.png "RPUlux Solar Power Options")
-
-Use software to control IO4 and IO7 which are each connected to an onboard N-CH MOSFET that can short a solar panel. A blocking diode is also needed to prevent the battery from supplying current into the short and the panel must be equipped with by-pass diodes. Note that small panels often lack by-pass diodes and shorting a panel without bypass diodes can result in a Zener breakdown failure in the panel.
+![SolarPwrOption_open](./Documents/SolarPwrOption_open.png "Solar Power Option Open Circuit")
 
 Another option is to write software that controls IO8 to open circuit the solar panel that is connected to the alternate power input. The alternate power input must be less than 2 amps it is for small solar panels which normaly lack by-pass diodes.
 
-Software that controls IO4 can operate an SSR to open circuit the solar panel. This option is for solar panels that lack by-pass diodes and produce over 1.5A short-circuit current. Note the control logic is reversed, that is a short circuit of the onboard N-CH MOSFET will connect the solar pannel to the battery (rather than bypass the current).
+![SolarPwrOption_ssr](./Documents/SolarPwrOption_ssr.png "Solar Power Option Open Circuit with SSR")
+
+Software that controls IO4 can operate an SSR to open circuit the solar panel. This option is for solar panels that lack by-pass diodes and produce over 1.5A short-circuit current. Note the onboard N-CH MOSFET will connect the solar pannel to the battery when it pulls down.
+
+![SolarPwrOption_short](./Documents/SolarPwrOption_short.png "Solar Power Option Short Circuit")
+
+Use software to control IO4 and IO7 which are each connected to an onboard N-CH MOSFET that can short a solar panel. The control logic is reversed from that of the SSR circuit above, e.g. the onboard N-CH MOSFET will short the solar pannel and bypass the current. A blocking diode is needed to prevent the battery from supplying current into the short and the panel must be equipped with by-pass diodes. Note that small panels normaly lack by-pass diodes and shorting a panel without bypass diodes can result in a Zener breakdown failure.
 
 
 ## LED options
