@@ -1732,12 +1732,12 @@ diameter 3.5 mm, horizontal, grid 15.24 mm</description>
 <wire x1="63.5" y1="7.62" x2="5.08" y2="7.62" width="0.1524" layer="98"/>
 <wire x1="5.08" y1="7.62" x2="5.08" y2="43.18" width="0.1524" layer="98"/>
 <text x="8.128" y="40.64" size="1.778" layer="98">ON CIRCUIT BOARD</text>
-<text x="79.248" y="41.656" size="1.778" layer="98">SLP030-12U</text>
-<text x="86.868" y="27.94" size="1.778" layer="98">1.74A (Isc)</text>
+<text x="79.248" y="41.656" size="1.778" layer="98">SLP020-12U</text>
+<text x="86.868" y="27.94" size="1.778" layer="98">1.31A (Isc)</text>
 <text x="86.868" y="33.02" size="1.778" layer="98">21.6V (Voc)</text>
 <text x="74.168" y="16.002" size="1.778" layer="98">LA</text>
 <text x="74.168" y="12.7" size="1.778" layer="98">12V</text>
-<text x="74.168" y="9.398" size="1.778" layer="98">17AHr</text>
+<text x="74.168" y="9.398" size="1.778" layer="98">13AHr</text>
 <text x="7.112" y="23.622" size="1.778" layer="98">AVR PIN</text>
 <text x="79.248" y="38.608" size="1.778" layer="98">WITHOUT BY-PASS DIODES</text>
 <text x="57.404" y="34.036" size="1.778" layer="98">PWR</text>

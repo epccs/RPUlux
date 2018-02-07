@@ -145,7 +145,7 @@ The following is some DIY approaches to prevent overcharging a battery with a so
 
 ![SolarPwrOption_open](./Documents/SolarPwrOption_open.png "Solar Power Option Open Circuit")
 
-Another option is to write software that controls IO8 to open circuit the solar panel that is connected to the alternate power input. The alternate power input must be less than 2 amps it is for small solar panels which normaly lack by-pass diodes.
+First option is to write software that controls IO8 to open circuit the solar panel that is connected to the alternate power input. The alternate power input must be less than 1.5 amps it is for small solar panels which normaly lack by-pass diodes.
 
 ![SolarPwrOption_ssr](./Documents/SolarPwrOption_ssr.png "Solar Power Option Open Circuit with SSR")
 
