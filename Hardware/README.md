@@ -147,7 +147,9 @@ The following is some DIY approaches to prevent overcharging a battery with a so
 
 Use software to control IO4 and IO7 which are each connected to an onboard N-CH MOSFET that can short a solar panel. A blocking diode is also needed to prevent the battery from supplying current into the short and the panel must be equipped with by-pass diodes. Note that small panels often lack by-pass diodes and shorting a panel without bypass diodes can result in a Zener breakdown failure in the panel.
 
-It is also possible to write software that controls IO8 to open circuit a solar panel that is connected to the alternate power input. The alternate power input must be less than 2 amps but it is a better option for small solar panels since shorting them is not a good idea (e.g. they lack by-pass diodes).
+Another option is to write software that controls IO8 to open circuit the solar panel that is connected to the alternate power input. The alternate power input must be less than 2 amps it is for small solar panels which normaly lack by-pass diodes.
+
+Software that controls IO4 can operate an SSR to open circuit the solar panel. This option is for solar panels that lack by-pass diodes and produce over 1.5A short-circuit current. Note the control logic is reversed, that is a short circuit of the onboard N-CH MOSFET will connect the solar pannel to the battery (rather than bypass the current).
 
 
 ## LED options
