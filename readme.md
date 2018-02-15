@@ -50,3 +50,11 @@ git clone https://github.com/epccs/RPUlux/
 * [avrdude](http://packages.ubuntu.com/search?keywords=avrdude)
 
 The software is a guide, it is in C because that works for me.
+
+
+## Arduino IDE
+
+An [example] using the Arduino IDE.
+
+[example]: ./Arduino
+
