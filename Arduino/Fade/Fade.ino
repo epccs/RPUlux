@@ -30,6 +30,9 @@ void loop() {
   // set the brightness of pin 9:
   analogWrite(led, brightness);
 
+  // wait to see the dimming effect
+  delay(255-brightness);
+
   // change the brightness for next time through the loop:
   brightness = brightness + fadeAmount;
 
@@ -37,6 +40,4 @@ void loop() {
   if (brightness <= 0 || brightness >= 255) {
     fadeAmount = -fadeAmount;
   }
-  // wait for 30 milliseconds to see the dimming effect
-  delay(30);
 }

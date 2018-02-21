@@ -32,7 +32,7 @@ along with the SelfTest.  If not, see http://www.gnu.org/licenses/.
 
 // Save the Value of the References for ADC converter 
 // measure AVCC and put it hear in uV 
-#define REF_EXTERN_AVCC 5006500UL
+#define REF_EXTERN_AVCC 4986100UL
 // ref_intern_1v1_uV is calculated based on the above value and the ICP1 PL resistor
 
 
@@ -233,9 +233,9 @@ void test(void)
     }
     digitalWrite(CS1_EN,LOW);
 
-    float input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    float input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CS1_EN and INTERNAL_1V1: %1.3f A\r\n"), input_i);
-    if (input_i > 0.025) 
+    if (input_i > 0.045) 
     { 
         passing = 0; 
         printf_P(PSTR(">>> Input curr is to high.\r\n"));
@@ -252,11 +252,11 @@ void test(void)
     digitalWrite(CH1,HIGH); // CH1 is defined in ../lib/pins_board.h
     _delay_ms(1000); // busy-wait delay so the 1uF cap has the average input current
 
-    float ch1_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    float ch1_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH1 LED, 1V1, 1sec: %1.3f A\r\n"), ch1_input_i);
     
     _delay_ms(2000); // busy-wait delay so the 1uF cap has the average input current
-    ch1_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    ch1_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH1 LED, 1V1, 3sec: %1.3f A\r\n"), ch1_input_i);
 
     // enable LED channel2
@@ -264,11 +264,11 @@ void test(void)
     digitalWrite(CH2,HIGH);
     _delay_ms(1000);
 
-    float ch2_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    float ch2_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH2 LED, 1V1, 1sec: %1.3f A\r\n"), ch2_input_i);
     
     _delay_ms(2000); 
-    ch2_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    ch2_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH2 LED, 1V1, 3sec: %1.3f A\r\n"), ch2_input_i);
 
     // enable LED channel3
@@ -276,11 +276,11 @@ void test(void)
     digitalWrite(CH3,HIGH);
     _delay_ms(1000);
 
-    float ch3_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    float ch3_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH3 LED, 1V1, 1sec: %1.3f A\r\n"), ch3_input_i);
     
     _delay_ms(2000); 
-    ch3_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    ch3_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH3 LED, 1V1, 3sec: %1.3f A\r\n"), ch3_input_i);
 
     // enable LED channel4
@@ -288,11 +288,11 @@ void test(void)
     digitalWrite(CH4,HIGH);
     _delay_ms(1000);
 
-    float ch4_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    float ch4_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH4 LED, 1V1, 1sec: %1.3f A\r\n"), ch4_input_i);
     
     _delay_ms(2000); 
-    ch4_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    ch4_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH4 LED, 1V1, 3sec: %1.3f A\r\n"), ch4_input_i);
 
     // enable LED channel5
@@ -300,11 +300,11 @@ void test(void)
     digitalWrite(CH5,HIGH);
     _delay_ms(1000);
 
-    float ch5_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    float ch5_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH5 LED, 1V1, 1sec: %1.3f A\r\n"), ch5_input_i);
     
     _delay_ms(2000); 
-    ch5_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    ch5_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH5 LED, 1V1, 3sec: %1.3f A\r\n"), ch5_input_i);
 
     // enable LED channel6
@@ -312,11 +312,11 @@ void test(void)
     digitalWrite(CH6,HIGH);
     _delay_ms(1000);
 
-    float ch6_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    float ch6_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH6 LED, 1V1, 1sec: %1.3f A\r\n"), ch6_input_i);
     
     _delay_ms(2000); 
-    ch6_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.018*50.0);
+    ch6_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH6 LED, 1V1, 3sec: %1.3f A\r\n"), ch6_input_i);
 
     //swap back to the AVCC referance 

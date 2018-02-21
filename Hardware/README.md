@@ -57,9 +57,9 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ![Status](./status_icon.png "RPUlux Status")
 
 ```
-        ^1  Done: Design, Layout, BOM,
-            WIP: Review*,
-            Todo: Order Boards, Assembly, Testing, Evaluation.
+        ^1  Done: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing, 
+            WIP: Evaluation.
+            Todo: 
             *during review the Design may change without changing the revision.
             add pull-down to IO8
             add pull-down to PWM's (IO[3569],nSS,MOSI]
@@ -68,10 +68,12 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
             add 100k to Q1 zener for leakage current
             LED driver CC SMPS is dumping current into 0V plane 
             remove NMOS sink on IO8 so it is only doing ALT_EN function
+            location: 2018-20-2 test bench.
 
         ^0  Done: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing,
             WIP: Evaluation.
-            location: 2018-22-1 bench.
+            location: 2018-22-1 test bench.
+            location: 2018-20-2 on RGB firewood lamp for show.
 ```
 
 Debugging and fixing problems i.e. [Schooling](./Schooling/)

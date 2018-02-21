@@ -4,11 +4,31 @@ Some lessons I learned doing RPUlux.
 
 # Table Of Contents:
 
-1. ^0 SMPS design
+1. ^1 SMPS design
+1. ^0 SMPS design , current sense resistor
 1. ^0 PWR_V divider
 1. ^0 Add defaults on IO Controls
 1. ^0 Pull Down Alternate Power Control
 1. ^0 Solar Panel Zener brakedown failure
+
+
+## ^1  AL8805 design, mfg layout
+
+My [RPUlux] version ^1 [layout] has a lot less noise on the 0V plane. The ADC readings from the MCU look right (I sort of figured those were noise related so I ignored that problem).
+
+[RPUlux]: https://github.com/epccs/RPUlux/
+[layout]: https://github.com/epccs/Eagle/tree/master/RPUlux
+
+The problem is I am still getting 160mA with .3 Ohm sense from the LED driver (AL8805). Looking at the Diodes example circuit when the switch is off. I see the current flows through D1 and into C6 mostly (some goes to C3 bypass). The magnetic fields from this current are far from the sense lines. 
+
+![AL8805W5_layout_sw_off](./AL8805W5_layout_sw_off.png "AL8805W5 Example Layout Swith Off")
+
+However when the switch is on the current flow is right under the sense and the magnetic field from that induces a voltage on the sense lines, thus causing the chips sensor input voltage to be different than the sense resistor voltage. It looks to me like the induced voltage works against the voltage on the resistor, so the induced voltage makes the sensed voltage seem less than it is.
+
+![AL8805W5_layout_sw_on](./AL8805W5_layout_sw_on.png "AL8805W5 Example Layout Swith On")
+
+This must be how Diodes characterized there part. In order to duplicate there, datasheet values guess I would need to run the switched current under the current sense resistor the way they have done. This seems like a questionable way to do the sense for a switch mode power supply.
+
 
 ## ^0  SMPS design, current sense resistor
 
