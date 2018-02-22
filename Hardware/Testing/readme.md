@@ -150,7 +150,7 @@ Once the UUT has power check that the VIN pin on the shield has power (this is n
 
 Measure the +5V supply at J6.
 
-Edit the SelfTest main.c such that "#define REF_EXTERN_AVCC 5006500UL" has the correct value. Next, run the bootload rule in the Makefile to upload the self-test firmware to the UUT that the remote shield is mounted on.
+Edit the SelfTest main.c such that "#define REF_EXTERN_AVCC 5000000UL" has the correct value. Next, run the bootload rule in the Makefile to upload the self-test firmware to the UUT that the remote shield is mounted on.
 
 ```
 cd ~RPUno/SelfTest
@@ -165,42 +165,48 @@ picocom -b 38400 /dev/ttyUSB0
 picocom v2.2
 ...
 Terminal ready
-RPUlux Self Test date: Jan 21 2018
+RPUlux Self Test date: Feb 21 2018
 avr-gcc --version: 5.4.0
 I2C provided address 0x31 from serial bus manager
-adc reading for PWR_V: 359
-PWR at: 12.864 V
+adc reading for PWR_V: 357
+PWR at: 12.740 V
 ADC0 GN LED /W SINK on and CS*_EN off: 0.000 V
 ADC1 RD LED /W SINK on and CS*_EN off: 0.000 V
 ADC2 R1 /W CS*_EN off: 0.000 V
 ADC3 R1 /W CS*_EN off: 0.000 V
 CS0 curr source on R1: 0.022 A
-Green LED fwd V: 2.239 V
-CS1 curr source on R1: 0.023 A
-Red LED fwd V: 2.132 V
-   ADC2 reading used to calculate ref_intern_1v1_uV: 722 A
-   calculated ref_intern_1v1_uV: 1074802 uV
-REF_EXTERN_AVCC old value was in eeprom: 5006500 uV
-REF_INTERN_1V1 old value was in eeprom: 1073325 uV
-REF_EXTERN_AVCC saved in eeprom: 5006500 uV
-REF_INTERN_1V1 saved in eeprom: 1074802 uV
-PWR_I with CS1_EN and INTERNAL_1V1: 0.013 A
-PWR_I with CH1 LED, 1V1, 1sec: 0.031 A
-PWR_I with CH1 LED, 1V1, 3sec: 0.031 A
-PWR_I with CH2 LED, 1V1, 1sec: 0.030 A
-PWR_I with CH2 LED, 1V1, 3sec: 0.030 A
-PWR_I with CH3 LED, 1V1, 1sec: 0.031 A
-PWR_I with CH3 LED, 1V1, 3sec: 0.030 A
-PWR_I with CH4 LED, 1V1, 1sec: 0.030 A
-PWR_I with CH4 LED, 1V1, 3sec: 0.030 A
-PWR_I with CH5 LED, 1V1, 1sec: 0.030 A
-PWR_I with CH5 LED, 1V1, 3sec: 0.030 A
-PWR_I with CH6 LED, 1V1, 1sec: 0.029 A
-PWR_I with CH6 LED, 1V1, 3sec: 0.030 A
+Green LED fwd V: 2.235 V
+CS1 curr source on R1: 0.022 A
+Red LED fwd V: 2.133 V
+   ADC2 reading used to calculate ref_intern_1v1_uV: 714 A
+   calculated ref_intern_1v1_uV: 1068450 uV
+REF_EXTERN_AVCC old value was in eeprom: 4986100 uV
+REF_INTERN_1V1 old value was in eeprom: 1071451 uV
+REF_EXTERN_AVCC saved in eeprom: 4986100 uV
+REF_INTERN_1V1 saved in eeprom: 1068450 uV
+PWR_I with !CS1_EN use INTERNAL_1V1: 0.011 A
+PWR_I with CH1 LED, 1V1, 1sec: 0.100 A
+PWR_I with CH1 LED, 1V1, 3sec: 0.099 A
+100% CH1 curr on a 3.2V LED: 0.353 A
+PWR_I with CH2 LED, 1V1, 1sec: 0.103 A
+PWR_I with CH2 LED, 1V1, 3sec: 0.102 A
+100% CH2 curr on a 3.2V LED: 0.365 A
+PWR_I with CH3 LED, 1V1, 1sec: 0.102 A
+PWR_I with CH3 LED, 1V1, 3sec: 0.101 A
+100% CH3 curr on a 3.2V LED: 0.360 A
+PWR_I with CH4 LED, 1V1, 1sec: 0.099 A
+PWR_I with CH4 LED, 1V1, 3sec: 0.099 A
+100% CH4 curr on a 3.2V LED: 0.349 A
+PWR_I with CH5 LED, 1V1, 1sec: 0.098 A
+PWR_I with CH5 LED, 1V1, 3sec: 0.098 A
+100% CH5 curr on a 3.2V LED: 0.347 A
+PWR_I with CH6 LED, 1V1, 1sec: 0.102 A
+PWR_I with CH6 LED, 1V1, 3sec: 0.102 A
+100% CH6 curr on a 3.2V LED: 0.362 A
 [PASS]
 ```
 
-The PWR_I values area not reading correct, a DMM shows about 60mA input current when an LED channel is on.
+The current shown for CH1..CH6 is based on 100% of the input power turning into current thrugh the LED, so it is about 90% right.
 
 Before truning off the power check that the VIN pin for the shield has no power, the test turns it off. Then turn off the power supply.
 

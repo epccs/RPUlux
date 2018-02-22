@@ -231,11 +231,14 @@ void test(void)
         passing = 0; 
         printf_P(PSTR(">>> REF_* for ADC not saved in eeprom.\r\n"));
     }
+    
+    // turn off red led off
     digitalWrite(CS1_EN,LOW);
+    _delay_ms(1000); 
 
     float input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
-    printf_P(PSTR("PWR_I with CS1_EN and INTERNAL_1V1: %1.3f A\r\n"), input_i);
-    if (input_i > 0.045) 
+    printf_P(PSTR("PWR_I with !CS1_EN use INTERNAL_1V1: %1.3f A\r\n"), input_i);
+    if (input_i > 0.025) 
     { 
         passing = 0; 
         printf_P(PSTR(">>> Input curr is to high.\r\n"));
@@ -258,6 +261,19 @@ void test(void)
     _delay_ms(2000); // busy-wait delay so the 1uF cap has the average input current
     ch1_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH1 LED, 1V1, 3sec: %1.3f A\r\n"), ch1_input_i);
+    float ch1_curr = ( (ch1_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("100%% CH1 curr on a 3.2V LED: %1.3f A\r\n"),  ch1_curr);
+
+    if (ch1_curr > 0.4) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH1 curr is to high.\r\n"));
+    }
+    if (ch1_curr < 0.3) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH1 curr is to low.\r\n"));
+    }
 
     // enable LED channel2
     digitalWrite(CH1,LOW);
@@ -270,6 +286,19 @@ void test(void)
     _delay_ms(2000); 
     ch2_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH2 LED, 1V1, 3sec: %1.3f A\r\n"), ch2_input_i);
+    float ch2_curr = ( (ch2_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("100%% CH2 curr on a 3.2V LED: %1.3f A\r\n"),  ch2_curr);
+
+    if (ch2_curr > 0.4) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH2 curr is to high.\r\n"));
+    }
+    if (ch2_curr < 0.3) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH2 curr is to low.\r\n"));
+    }
 
     // enable LED channel3
     digitalWrite(CH2,LOW);
@@ -282,6 +311,19 @@ void test(void)
     _delay_ms(2000); 
     ch3_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH3 LED, 1V1, 3sec: %1.3f A\r\n"), ch3_input_i);
+    float ch3_curr = ( (ch3_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("100%% CH3 curr on a 3.2V LED: %1.3f A\r\n"),  ch3_curr);
+
+    if (ch3_curr > 0.4) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH3 curr is to high.\r\n"));
+    }
+    if (ch3_curr < 0.3) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH3 curr is to low.\r\n"));
+    }
 
     // enable LED channel4
     digitalWrite(CH3,LOW);
@@ -294,6 +336,19 @@ void test(void)
     _delay_ms(2000); 
     ch4_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH4 LED, 1V1, 3sec: %1.3f A\r\n"), ch4_input_i);
+    float ch4_curr = ( (ch4_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("100%% CH4 curr on a 3.2V LED: %1.3f A\r\n"),  ch4_curr);
+
+    if (ch4_curr > 0.4) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH4 curr is to high.\r\n"));
+    }
+    if (ch4_curr < 0.3) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH4 curr is to low.\r\n"));
+    }
 
     // enable LED channel5
     digitalWrite(CH4,LOW);
@@ -306,6 +361,19 @@ void test(void)
     _delay_ms(2000); 
     ch5_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH5 LED, 1V1, 3sec: %1.3f A\r\n"), ch5_input_i);
+    float ch5_curr = ( (ch5_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("100%% CH5 curr on a 3.2V LED: %1.3f A\r\n"),  ch5_curr);
+
+    if (ch5_curr > 0.4) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH5 curr is to high.\r\n"));
+    }
+    if (ch5_curr < 0.3) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH5 curr is to low.\r\n"));
+    }
 
     // enable LED channel6
     digitalWrite(CH5,LOW);
@@ -318,6 +386,19 @@ void test(void)
     _delay_ms(2000); 
     ch6_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH6 LED, 1V1, 3sec: %1.3f A\r\n"), ch6_input_i);
+    float ch6_curr = ( (ch6_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("100%% CH6 curr on a 3.2V LED: %1.3f A\r\n"),  ch6_curr);
+
+    if (ch6_curr > 0.4) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH6 curr is to high.\r\n"));
+    }
+    if (ch6_curr < 0.3) 
+    { 
+        passing = 0; 
+        printf_P(PSTR(">>> CH6 curr is to low.\r\n"));
+    }
 
     //swap back to the AVCC referance 
     digitalWrite(CH6,LOW);

@@ -4,7 +4,7 @@ Some lessons I learned doing RPUlux.
 
 # Table Of Contents:
 
-1. ^1 SMPS design
+1. ^1 AL8805 design, mfg layout
 1. ^0 SMPS design , current sense resistor
 1. ^0 PWR_V divider
 1. ^0 Add defaults on IO Controls
@@ -14,7 +14,7 @@ Some lessons I learned doing RPUlux.
 
 ## ^1  AL8805 design, mfg layout
 
-My [RPUlux] version ^1 [layout] has a lot less noise on the 0V plane. The ADC readings from the MCU look right (I sort of figured those were noise related so I ignored that problem).
+My [RPUlux] version ^1 [layout] has less noise on the 0V plane than the first version. The ADC readings from the MCU look right (I sort of figured those were noise related so I ignored that problem).
 
 [RPUlux]: https://github.com/epccs/RPUlux/
 [layout]: https://github.com/epccs/Eagle/tree/master/RPUlux
@@ -27,7 +27,9 @@ However when the switch is on the current flow is right under the sense and the 
 
 ![AL8805W5_layout_sw_on](./AL8805W5_layout_sw_on.png "AL8805W5 Example Layout Swith On")
 
-This must be how Diodes characterized there part. In order to duplicate there, datasheet values guess I would need to run the switched current under the current sense resistor the way they have done. This seems like a questionable way to do the sense for a switch mode power supply.
+This must be how Diodes characterized there part. In order to duplicate there datasheet values guess I would need to run the switched current under the current sense resistor the way they have done. This seems like a questionable way to do the sense for a switch mode power supply.
+
+Replacing the sense resistor with 0.15 Ohm sets the current at about 330mA so this is what I will do.
 
 
 ## ^0  SMPS design, current sense resistor
@@ -97,7 +99,7 @@ with the 1.1V bandgap referance that I am now calibrating. Unfortuanly a 1% 100k
 
 ## ^0  Add defaults on IO Controls
 
-Controls should have a known defaut so the will do known things when bootloading, powering up, or if the user does not set them.
+Controls should have a known defaut so they will do known things when bootloading, powering up, or if the user does not set them.
 
 IO8 needs a 10k pull down to be defined as off by default. Also add 100k to Q1 zener for leakage current.
 
@@ -105,7 +107,7 @@ IO12 (CS0_EN or MISO) and IO13 (CS1_EN or SCK) needs a 10k pull down to be defin
 
 IO4 and IO7 needs a 10k pull down so the NMOS SINK is defined as off by default.
 
-IO3, IO5, IO6, IO9, nSS, and MOSI are used for for PWM Control and they should to be off by default.
+IO3, IO5, IO6, IO9, nSS, and MOSI are used for PWM Control and they should to be off by default.
 
 The AL8805 CTRL pin has a 50kOhm resistance to its internal reference (e.g. about 2.5V) and it needs to be brought down to .4V to turn off the converter, which can be done with anything less than 9.5k Ohm. Note 1k Ohm would use 2.5mA at rest and 5mA when turned on I want to use a higher value to reduce the loss, I have 8.45k Ohm on hand. 
 
