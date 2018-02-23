@@ -64,18 +64,10 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
             Lbl on 22mA plug next to ADC0 change 13_EN to 12_EN
             Lbl on 22mA plug next to ADC1 change 12_EN to 13_EN
             Lbl Q21 was removed, Q22..Q24 should be renumbed as Q21..Q23
+            Modify SMPS layout so switch current flows under sense resistor.
 
         ^1  Done: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing, 
             WIP: Evaluation.
-            Todo: 
-            *during review the Design may change without changing the revision.
-            add pull-down to IO8
-            add pull-down to PWM's (IO[3569],nSS,MOSI]
-            add pull-down to CS0_EN and CS1_EN
-            add pull-down to NMOS IO4 and IO7
-            add 100k to Q1 zener for leakage current
-            LED driver CC SMPS is dumping current into 0V plane 
-            remove NMOS sink on IO8 so it is only doing ALT_EN function
             location: 2018-20-2 test bench.
 
         ^0  Done: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing,

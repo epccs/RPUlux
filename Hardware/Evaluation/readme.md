@@ -16,4 +16,4 @@ The datasheet example layout shows switching current (e.g. AC) flowing between t
 
 Using 0.15 Ohm (rather than 0.3 Ohm) gives 330mA on the LED channels, which is what I was trying for. 
 
-It is still early in the evaluation but I wanted to note that the sense resistor is different than what the datasheet indicates.
+The next version ^2 will let switching current flow under the sense resistor to the VIN bypass, so 0.15 Ohm is only used for this ^1 revsion.
