@@ -11,6 +11,10 @@ This programmable ATmega328p based board has headers for a [RPUpi] or [RPUadpt] 
 [RPUpi]: https://github.com/epccs/RPUpi/
 [RPUadpt]: https://github.com/epccs/RPUadpt/
 
+[Forum](http://rpubus.org/bb/viewforum.php?f=19)
+
+[HackaDay](https://hackaday.io/project/60522-rpulux)
+
 
 ## Status
 
@@ -29,9 +33,7 @@ This example shows an RS-422 serial bus that allows multiple microcontroller boa
 
 ![MultiDrop](./Hardware/Documents/MultiDrop.png "RPUlux MultiDrop")
 
-The above setup has six RGB lights. Each color has a 500Hz PWM value controlled with the ATmega328p. To my eyes, the PWM values have eight intensity steps (1, 3, 7, 15, 31, 63, 127, 255). I do not see much difference between 126 and 127 or 250 and 255.
-
-The solar charging shown is risky, so I plan to try a small solar panel that will not provide enough current to damage the battery to work on my software. A bench supply with a fairly small capacitor may also work, but it may damage the shorting FET. The idea is that once the battery is charged to about 14.7V then I will short the PV panel so that current does not charge the battery. The ADC0 (or ADC1) can sort of measure how much current is shorted by measuring the voltage across the Rds_on of the shorting FET.
+The above setup has six channels for LED lights. Each channel can be dimmed at up to 500Hz with a PWM controlled pin from the ATmega328p. To my eyes, the PWM values have eight intensity steps (1, 3, 7, 15, 31, 63, 127, 255). I do not see much difference between 126 and 127 or 250 and 255.
 
 
 ## AVR toolchain

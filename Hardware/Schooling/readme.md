@@ -29,15 +29,15 @@ However when the switch is on the current flow is right under the sense and the 
 
 This must be how Diodes characterized there part. In order to duplicate there datasheet values guess I would need to run the switched current under the current sense resistor the way they have done. This seems like a questionable way to do the sense for a switch mode power supply.
 
-Replacing the sense resistor with 0.15 Ohm sets the current at about 330mA. On my ^1 layout the switch current does flows out to a 4.7uF. 
+Replacing the sense resistor with 0.15 Ohm sets the current at about 330mA. On my ^1 layout the switch current flows out to a 4.7uF. 
 
 ![RPUlux^1_layout_sw_on](./RPUlux^1_layout_sw_on.png "RPUlux^1 Example Layout Swith On")
 
-When the switch is off it does this.
+When the switch is off the current flows through the diode.
 
 ![RPUlux^1_layout_sw_off](./RPUlux^1_layout_sw_off.png "RPUlux^1 Example Layout Swith Off")
 
-Leo (aka Wawa on the Arduino [Forum]) has shown what I think is a better solution. He is using a PT4115, which is about the same as AL8805.  The switching current looks to run under the sense resistor like in the datasheet, and since there is a possibility is used for stability (like slope compensation) I better do that also.
+Leo (aka Wawa on the Arduino [Forum]) has shown what I think is a better solution. He is using a PT4115, which is about the same as AL8805.  The switching current looks to run under the sense resistor like in the datasheet, and since there is a possibility it is used for stability (like slope compensation) I better do that also.
 
 [Forum]: https://forum.arduino.cc/index.php?topic=530545.0
 
