@@ -2,7 +2,7 @@
 
 ## Overview
 
-ADC6 is connected to a high side current sense. The [Adc] firmware is included to provide the readings. This interactive command line program demonstrates how the ATmega328p can be used to estimate the discharge. 
+Accumulate ADC readings at timed intervals from a resistor sensor. This is an interactive command line program that demonstrates how the ATmega328p can be used to keep track of charge (or discharge). 
 
 [Adc]: ../Adc
 

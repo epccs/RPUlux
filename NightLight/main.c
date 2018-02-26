@@ -305,8 +305,8 @@ int main(void)
         // delay between ADC burst
         adc_burst();
 
-        // check how much charge went into battery
-        CheckChrgAccumulation();
+        // update the charge accumulation 
+        CheckChrgAccumulation(PWR_I); // ../AmpHr/chrg_accum.c
 
         // check if character is available to assemble a command, e.g. non-blocking
         if ( (!command_done) && uart0_available() ) // command_done is an extern from parse.h

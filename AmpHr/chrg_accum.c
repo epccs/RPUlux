@@ -27,24 +27,37 @@ http://www.gnu.org/licenses/gpl-2.0.html
 #include "../Adc/references.h"
 #include "chrg_accum.h"
 
-// ADC6 is a high side current sense of the input current
-// converted to current with analogRead(PWR_I)*(5.0/1024.0)/(0.068*50.0))
-// the fine accumulator is for the adc reading * millis counts (e.g.  it is in mSec and needs scaled)
-
-static unsigned long chrgTmrStartOfAccum;
-static unsigned long chrgTmrStarted;
+static unsigned long chrgTmrStartOfAccum[ADC_CHANNELS];
+static unsigned long chrgTmrStarted[ADC_CHANNELS];
 #define CHRG_ACCUMULATION_DELAY_MILSEC 20UL
 
-static unsigned long chrg_accum;
-static unsigned long chrg_accum_fine;
+static unsigned long chrg_accum[ADC_CHANNELS];
+static unsigned long chrg_accum_fine[ADC_CHANNELS];
 
 #define SERIAL_PRINT_DELAY_MILSEC 60000UL
 static unsigned long serial_print_started_at;
 
+// scale accumulated adc*time to mAHr
+static float adc_accum2mAHr[ADC_CHANNELS] = {
+    [0] = ((1/1.0E6)/1024.0)/(0.018*50.0)/3.6, // 0.018 ohm sense resistor with gain of 50
+    [1] = ((1/1.0E6)/1024.0)/(100.0)/3.6, // 100 ohm resistor, e.g. for a 4 to 20mA sensor
+    [2] = 0,
+    [3] = 0,
+    [4] = 0, //used for SDA of I2C
+    [5] = 0, //used for SCL of I2C
+    [6] = ((1/1.0E6)/1024.0)/(0.068*50.0)/3.6, // PWR_I is 0.068 ohm sense resistor with gain of 50
+    [7] = 0 // PWR_V
+};
+
 // Accumulated Charge in mAHr
-float ChargeAccum(void)
+float ChargeAccum(uint8_t channel)
 {
-    return chrg_accum * ((ref_extern_avcc_uV/1.0E6)/1024.0)/(0.068*50.0)/3.6;
+    float temp = 0.0;
+    if (channel < ADC_CHANNELS) 
+    {
+        temp = adc_accum2mAHr[channel] * ref_extern_avcc_uV * chrg_accum[channel];
+    }
+    return temp;
 }
 
 void Charge(void)
@@ -65,7 +78,7 @@ void Charge(void)
     }
     else if ( (command_done == 11) )
     { 
-        printf_P(PSTR("\"%1.2f\","),ChargeAccum() );
+        printf_P(PSTR("\"%1.2f\","),ChargeAccum(PWR_I) );
         command_done = 16;
     }
     else if ( (command_done == 16) )
@@ -75,7 +88,7 @@ void Charge(void)
     }
     else if ( (command_done == 17) )
     { 
-        printf_P(PSTR("\"%1.2f\""),((chrgTmrStarted - chrgTmrStartOfAccum)/1000.0));
+        printf_P(PSTR("\"%1.2f\""),((chrgTmrStarted[PWR_I] - chrgTmrStartOfAccum[PWR_I])/1000.0));
         printf_P(PSTR("}\r\n"));
         command_done = 18;
     }
@@ -89,36 +102,41 @@ void Charge(void)
     }
 }
 
-/* check power accumulation
+/* update charge accumulation
     charge accumulation is an integer value of the ADC*(millis()/1000) and will need scaled
 */
-void CheckChrgAccumulation(void) 
+void CheckChrgAccumulation(uint8_t channel) 
 {
-    unsigned long kRuntime= millis() - chrgTmrStarted;
+    unsigned long kRuntime= millis() - chrgTmrStarted[channel];
     if ((kRuntime) > ((unsigned long)CHRG_ACCUMULATION_DELAY_MILSEC))
     {
-        chrg_accum_fine += (analogRead(PWR_I) * CHRG_ACCUMULATION_DELAY_MILSEC); 
-        chrgTmrStarted += CHRG_ACCUMULATION_DELAY_MILSEC;
+        chrg_accum_fine[channel] += (analogRead(channel) * CHRG_ACCUMULATION_DELAY_MILSEC); 
+        chrgTmrStarted[channel] += CHRG_ACCUMULATION_DELAY_MILSEC;
     }
     else
     {
         // check if fine accumulator has enough to add it to the Sec based accumulater
-        if (chrg_accum_fine > 1000) 
+        if (chrg_accum_fine[channel] > 10000) 
         {
-            ++chrg_accum;
-            chrg_accum_fine -= 1000;
+            chrg_accum[channel] +=10;
+            chrg_accum_fine[channel] -= 10000;
+        }
+       else if (chrg_accum_fine[channel] > 1000) 
+        {
+            ++chrg_accum[channel];
+            chrg_accum_fine[channel] -= 1000;
         }
     }
 }
 
-/* The charge and discharge accumulation values need to be zeroed at the start of the day
+/* For when the charge accumulation values need to be zeroed
 */
-uint8_t init_ChargAccumulation(void) 
+uint8_t init_ChargAccumulation(uint8_t channel) 
 {
-    chrg_accum = 0;
-    chrg_accum_fine = 0;
-    chrgTmrStarted = millis();
-    chrgTmrStartOfAccum = chrgTmrStarted;
+    chrg_accum[channel] = 0;
+    chrg_accum_fine[channel] = 0;
+    chrgTmrStarted[channel] = millis();
+    chrgTmrStartOfAccum[channel] = chrgTmrStarted[channel];
     
     // laod reference calibration from eeprom
     if ( ! LoadAnalogRefFromEEPROM() )

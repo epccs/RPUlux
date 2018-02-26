@@ -3,9 +3,9 @@
 
 extern void Charge(void);
 
-extern void CheckChrgAccumulation(void);
-extern uint8_t init_ChargAccumulation(void);
+extern void CheckChrgAccumulation(uint8_t);
+extern uint8_t init_ChargAccumulation(uint8_t);
 
-extern float ChargeAccum(void);
+extern float ChargeAccum(uint8_t);
 
 #endif // ChrgAccum_H

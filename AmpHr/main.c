@@ -82,7 +82,7 @@ void callback_for_day_attach(void)
 void callback_for_night_attach(void)
 {
     // setup AmpHr accumulators and load Adc calibration reference
-    if (!init_ChargAccumulation()) // ../AmpHr/power_storage.c
+    if (!init_ChargAccumulation(PWR_I)) // ../AmpHr/power_storage.c
     {
         blink_delay = BLINK_DELAY/4;
     }
@@ -216,7 +216,7 @@ int main(void)
         adc_burst();
 
         // check how much current went through high side sensor
-        CheckChrgAccumulation();
+        CheckChrgAccumulation(PWR_I);
     
         // check if character is available to assemble a command, e.g. non-blocking
         if ( (!command_done) && uart0_available() ) // command_done is an extern from parse.h
