@@ -13,7 +13,9 @@ Also shows the UART core and how to redirect it to stdin and stdout, as well as 
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
-rsutherland@conversion:~/Samba/RPUlux/BlinkLED$ make bootload
+git clone https://github.com/epccs/RPUlux/
+cd /RPUux/BlinkLED
+make bootload
 ...
 avrdude done.  Thank you.
 ``` 

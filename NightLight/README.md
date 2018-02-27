@@ -64,8 +64,10 @@ This runs the LED at full power (e.g. no PWM).
 
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
-``` 
-rsutherland@leek:~/Samba/hg/RPUlux/NightLight$ make bootload
+```
+git clone https://github.com/epccs/RPUlux/
+cd /RPUux/NightLight
+make bootload
 ...
 avrdude done.  Thank you.
 ``` 

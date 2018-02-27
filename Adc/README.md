@@ -32,7 +32,9 @@ Note: calibration is new in this example, and may have problems. The EEPROM need
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
-rsutherland@conversion:~/Samba/RPUlux/Adc$ make bootload
+git clone https://github.com/epccs/RPUlux/
+cd /RPUux/Adc
+make bootload
 ...
 avrdude done.  Thank you.
 ``` 

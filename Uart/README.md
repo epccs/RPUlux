@@ -11,7 +11,9 @@ Referance ATmega328 datasheet 20.0 USART0 Universal Synchronous and Asynchronous
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUno run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
-rsutherland@conversion:~/Samba/RPUno/Uart$ make bootload
+git clone https://github.com/epccs/RPUlux/
+cd /RPUux/Uart
+make bootload
 ...
 avrdude done.  Thank you.
 ``` 

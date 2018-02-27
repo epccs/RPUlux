@@ -17,7 +17,9 @@ The [day-night][../DayNight] state machine is used to clear the discharge accumu
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
-rsutherland@leek:~/Samba/hg/RPUlux/AmpHr$ make bootload
+git clone https://github.com/epccs/RPUlux/
+cd /RPUux/AmpHr
+make bootload
 ...
 avrdude done.  Thank you.
 ``` 

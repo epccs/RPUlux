@@ -27,6 +27,8 @@ Connect a power supply with CV and CC mode. Set CC at 300mA then increase CV to 
 With a serial port setup for serial bootloading (see BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should build the code and then flash the MCU.
 
 ``` 
+git clone https://github.com/epccs/RPUlux/
+cd /RPUux/SelfTest
 make bootload
 ...
 avrdude done.  Thank you.

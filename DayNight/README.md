@@ -11,7 +11,9 @@ Note: use the Day_AttachDayWork() function to set a callback that will be run at
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
-rsutherland@conversion:~/Samba/RPUlux/DayNight$ make bootload
+git clone https://github.com/epccs/RPUlux/
+cd /RPUux/DayNight
+make bootload
 ...
 avrdude done.  Thank you.
 ``` 

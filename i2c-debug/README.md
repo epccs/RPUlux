@@ -12,8 +12,10 @@ Arduino has twi.c and twi.h which was done in C, I did some modification and upd
 
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
-``` 
-rsutherland@conversion:~/Samba/RPUlux/i2c-debug$ make bootload
+```
+git clone https://github.com/epccs/RPUlux/
+cd /RPUux/i2c-debug
+make bootload
 ...
 avr-size -C --mcu=atmega328p I2c-debug.elf
 AVR Memory Usage

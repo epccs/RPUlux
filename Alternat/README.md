@@ -21,7 +21,9 @@ Again this is easy to damage so be prepared to fix damaged parts.
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
-rsutherland@conversion:~/Samba/hg/RPUlux/Alternat$ make bootload
+git clone https://github.com/epccs/RPUlux/
+cd /RPUux/Alternat
+make bootload
 ...
 avrdude done.  Thank you.
 ``` 
