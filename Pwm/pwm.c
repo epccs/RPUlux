@@ -35,9 +35,8 @@ void Pwm(void)
         duty = atoi(arg[1]);
         if ( (command_done == 10) && (duty >=0) && (duty <= 255) )
         {
-            if (strcmp_P( arg[0], PSTR("oc0a")) == 0)
+            if (strcmp_P( arg[0], PSTR("CH3")) == 0) // CH3 is on OC0A
             {
-                // set Data Direction Register (its what pinMode(11, OUTPUT) does)
 #if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
     defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
     defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
@@ -68,12 +67,11 @@ void Pwm(void)
 #   error your MCU does not have the Output Compare Register OCR0A
 #endif
                 
-                printf_P(PSTR("{\"pwm\":{\"OCR0A\":\"%d\"}}\r\n"),OCR0A);
+                printf_P(PSTR("{\"pwm\":{\"CH3\":\"%d\"}}\r\n"),OCR0A);
                 initCommandBuffer();
             }
-            else if (strcmp_P( arg[0], PSTR("oc0b")) == 0)
+            else if (strcmp_P( arg[0], PSTR("CH2")) == 0) // CH2 is on OC0B
             {
-                // set Data Direction Register (its what pinMode(3, OUTPUT) does more or less does)
 #if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
     defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
     defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
@@ -103,12 +101,11 @@ void Pwm(void)
 #else
 #   error your MCU does not have the Output Compare Register OCR0B
 #endif
-                printf_P(PSTR("{\"pwm\":{\"OCR0B\":\"%d\"}}\r\n"),OCR0B);
+                printf_P(PSTR("{\"pwm\":{\"CH2\":\"%d\"}}\r\n"),OCR0B);
                 initCommandBuffer();
             }
-            else if (strcmp_P( arg[0], PSTR("oc1a")) == 0)
+            else if (strcmp_P( arg[0], PSTR("CH4")) == 0) // CH4 is on OC1A
             {
-                // set Data Direction Register (its what pinMode(11, OUTPUT) does)
 #if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
     defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
     defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
@@ -139,10 +136,10 @@ void Pwm(void)
 #   error your MCU does not have the Output Compare Register OCR1A
 #endif
                 
-                printf_P(PSTR("{\"pwm\":{\"OCR1A\":\"%d\"}}\r\n"),OCR1A);
+                printf_P(PSTR("{\"pwm\":{\"CH4\":\"%d\"}}\r\n"),OCR1A);
                 initCommandBuffer();
             }
-            else if (strcmp_P( arg[0], PSTR("oc1b")) == 0)
+            else if (strcmp_P( arg[0], PSTR("CH5")) == 0) // CH5 is on OC1B
             {
 #if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
     defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
@@ -173,12 +170,11 @@ void Pwm(void)
 #else
 #   error your MCU does not have the Output Compare Register OCR1B
 #endif
-                printf_P(PSTR("{\"pwm\":{\"OCR1B\":\"%d\"}}\r\n"),OCR1B);
+                printf_P(PSTR("{\"pwm\":{\"CH5\":\"%d\"}}\r\n"),OCR1B);
                 initCommandBuffer();
             }
-            else if (strcmp_P( arg[0], PSTR("oc2a")) == 0)
+            else if (strcmp_P( arg[0], PSTR("CH6")) == 0) // CH6 is on OC2A
             {
-                // set Data Direction Register (its what pinMode(11, OUTPUT) does)
 #if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
     defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
     defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
@@ -209,10 +205,10 @@ void Pwm(void)
 #   error your MCU does not have the Output Compare Register OCR2A
 #endif
                 
-                printf_P(PSTR("{\"pwm\":{\"OCR2A\":\"%d\"}}\r\n"),OCR2A);
+                printf_P(PSTR("{\"pwm\":{\"CH6\":\"%d\"}}\r\n"),OCR2A);
                 initCommandBuffer();
             }
-            else if (strcmp_P( arg[0], PSTR("oc2b")) == 0)
+            else if (strcmp_P( arg[0], PSTR("CH1")) == 0) // CH1 is on OC2B
             {
                 // set Data Direction Register (its what pinMode(3, OUTPUT) does more or less does)
 #if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
@@ -245,7 +241,7 @@ void Pwm(void)
 #else
 #   error your MCU does not have the Output Compare Register OCR2B
 #endif
-                printf_P(PSTR("{\"pwm\":{\"OCR2B\":\"%d\"}}\r\n"),OCR2B);
+                printf_P(PSTR("{\"pwm\":{\"CH1\":\"%d\"}}\r\n"),OCR2B);
                 initCommandBuffer();
             }
         }

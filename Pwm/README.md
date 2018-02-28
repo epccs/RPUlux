@@ -54,13 +54,13 @@ identify
 {"id":{"name":"Capture","desc":"RPUno (14140^7) Board /w atmega328p","avr-gcc":"4.9"}}
 ```
 
-## /0/pwm oc0a|oc0b|oc1a|oc1b|oc2a|oc2b,0..255
+## /0/pwm CH1..CH6,0..255
 
 Pulse width modulation using Compare Match with Fast or Phase-Correct PWM mode. 
 
 ``` 
-/0/pwm oc2a,127
-{"pwm":{"OCR2A":"127"}}
+/0/pwm CH6,127
+{"pwm":{"CH6":"127"}}
 ``` 
 
 
