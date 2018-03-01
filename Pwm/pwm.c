@@ -37,45 +37,19 @@ void Pwm(void)
         {
             if (strcmp_P( arg[0], PSTR("CH3")) == 0) // CH3 is on OC0A
             {
-#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
-    defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
-    defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-    defined(__AVR_ATmega328P__) 
-                // if ( !(DDRD & (1<<PD6)) ) DDRD |= (1<<PD6); // use pMod in Digital to set DDR bit
+                // if ( !(DDRD & (1<<PD6)) ) DDRD |= (1<<PD6); // set pinMode in main, it only needs done once
 
                 // connect PD6 pin to OC0A output (pwm) from timer 0 channel A, Clear on Compare Output or Fast PWM mode.
                 if ( !(TCCR0A & (1<<COM0A1)) ) 
                 {
                     TCCR0A |= (1<<COM0A1);
                 }
-#elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324P__) \
-    || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)
-                // if ( !(DDRB & (1<<PB3)) ) DDRB |= (1<<PB3);
-
-                // connect PB3 pin to OC0A output (pwm) from timer 0 channel A, Clear on Compare Output or Fast PWM mode.
-                if ( !(TCCR0A & (1<<COM0A1)) ) 
-                {
-                    TCCR0A |= (1<<COM0A1);
-                }
-#else
-#   error I do not know where OC0A is on your MCU, check its Datasheet and then fix this file
-#endif
-                
-#if defined (OCR0A)
                 OCR0A = (uint8_t)(duty & 0xFF);
-#else
-#   error your MCU does not have the Output Compare Register OCR0A
-#endif
-                
                 printf_P(PSTR("{\"pwm\":{\"CH3\":\"%d\"}}\r\n"),OCR0A);
                 initCommandBuffer();
             }
             else if (strcmp_P( arg[0], PSTR("CH2")) == 0) // CH2 is on OC0B
             {
-#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
-    defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
-    defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-    defined(__AVR_ATmega328P__) 
                 // if ( !(DDRD & (1<<PD5)) ) DDRD |= (1<<PD5);
 
                 // connect PD5 pin to OC0B output (pwm) from timer 0 channel B, Clear on Compare Output or Fast PWM mode
@@ -83,33 +57,12 @@ void Pwm(void)
                 {
                     TCCR0A |= (1<<COM0B1);
                 }
-#elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324P__) \
-    || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)
-                // if ( !(DDRD & (1<<PB4)) ) DDRD |= (1<<PB4);
-
-                // connect PB4 pin to OC0B output (pwm) from timer 0 channel B, Clear on Compare Output or Fast PWM mode
-                if ( !(TCCR0A & (1<<COM0B1)) ) 
-                {
-                    TCCR0A |= (1<<COM0B1);
-                }
-#else
-#   error I do not know where OC0B is on your MCU, check its Datasheet and then fix this file
-#endif
-                
-#if defined (OCR0B)
                 OCR0B = (uint8_t)(duty & 0xFF);
-#else
-#   error your MCU does not have the Output Compare Register OCR0B
-#endif
                 printf_P(PSTR("{\"pwm\":{\"CH2\":\"%d\"}}\r\n"),OCR0B);
                 initCommandBuffer();
             }
             else if (strcmp_P( arg[0], PSTR("CH4")) == 0) // CH4 is on OC1A
             {
-#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
-    defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
-    defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-    defined(__AVR_ATmega328P__) 
                 // if ( !(DDRB & (1<<PB1)) ) DDRB |= (1<<PB1);
 
                 // connect PB1 pin to OC1A output (pwm) from timer 1 channel A, Clear on Compare Output or Fast PWM mode.
@@ -117,68 +70,25 @@ void Pwm(void)
                 {
                     TCCR1A |= (1<<COM1A1);
                 }
-#elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324P__) \
-    || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)
-                // if ( !(DDRD & (1<<PD5)) ) DDRD |= (1<<PD5);
-
-                // connect PD5 pin to OC1A output (pwm) from timer 1 channel A, Clear on Compare Output or Fast PWM mode.
-                if ( !(TCCR1A & (1<<COM1A1)) ) 
-                {
-                    TCCR1A |= (1<<COM1A1);
-                }
-#else
-#   error I do not know where OC1A is on your MCU, check its Datasheet and then fix this file
-#endif
-                
-#if defined (OCR1A)
                 OCR1A = (uint8_t)(duty & 0xFF);
-#else
-#   error your MCU does not have the Output Compare Register OCR1A
-#endif
-                
                 printf_P(PSTR("{\"pwm\":{\"CH4\":\"%d\"}}\r\n"),OCR1A);
                 initCommandBuffer();
             }
             else if (strcmp_P( arg[0], PSTR("CH5")) == 0) // CH5 is on OC1B
             {
-#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
-    defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
-    defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-    defined(__AVR_ATmega328P__) 
                 // if ( !(DDRB & (1<<PB2)) ) DDRB |= (1<<PB2);
 
-                // connect PDB2pin to OC1B output (pwm) from timer 1 channel B, Clear on Compare Output or Fast PWM mode
-                if ( !(TCCR0A & (1<<COM0B1)) ) 
-                {
-                    TCCR0A |= (1<<COM0B1);
-                }
-#elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324P__) \
-    || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)
-                // if ( !(DDRD & (1<<PD4)) ) DDRD |= (1<<PD4);
-
-                // connect PD4 pin to OC1B output (pwm) from timer 1 channel B, Clear on Compare Output or Fast PWM mode
+                // connect PB2 pin to OC1B output (pwm) from timer 1 channel B, Clear on Compare Output or Fast PWM mode
                 if ( !(TCCR1A & (1<<COM1B1)) ) 
                 {
                     TCCR1A |= (1<<COM1B1);
                 }
-#else
-#   error I do not know where OC1B is on your MCU, check its Datasheet and then fix this file
-#endif
-                
-#if defined (OCR1B)
                 OCR1B = (uint8_t)(duty & 0xFF);
-#else
-#   error your MCU does not have the Output Compare Register OCR1B
-#endif
                 printf_P(PSTR("{\"pwm\":{\"CH5\":\"%d\"}}\r\n"),OCR1B);
                 initCommandBuffer();
             }
             else if (strcmp_P( arg[0], PSTR("CH6")) == 0) // CH6 is on OC2A
             {
-#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
-    defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
-    defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-    defined(__AVR_ATmega328P__) 
                 // if ( !(DDRB & (1<<PB3)) ) DDRB |= (1<<PB3);
 
                 // connect PB3 pin to OC2A output (pwm) from timer 2 channel A, Clear on Compare Output or Fast PWM mode.
@@ -186,35 +96,12 @@ void Pwm(void)
                 {
                     TCCR2A |= (1<<COM2A1);
                 }
-#elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324P__) \
-    || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)
-                // if ( !(DDRD & (1<<PD7)) ) DDRD |= (1<<PD7);
-
-                // connect PD7 pin to OC2A output (pwm) from timer 2 channel A, Clear on Compare Output or Fast PWM mode.
-                if ( !(TCCR2A & (1<<COM2A1)) ) 
-                {
-                    TCCR2A |= (1<<COM2A1);
-                }
-#else
-#   error I do not know where OC2A is on your MCU, check its Datasheet and then fix this file
-#endif
-                
-#if defined (OCR2A)
                 OCR2A = (uint8_t)(duty & 0xFF);
-#else
-#   error your MCU does not have the Output Compare Register OCR2A
-#endif
-                
                 printf_P(PSTR("{\"pwm\":{\"CH6\":\"%d\"}}\r\n"),OCR2A);
                 initCommandBuffer();
             }
             else if (strcmp_P( arg[0], PSTR("CH1")) == 0) // CH1 is on OC2B
             {
-                // set Data Direction Register (its what pinMode(3, OUTPUT) does more or less does)
-#if defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || \
-    defined(__AVR_ATmega168__) || defined(__AVR_ATmega48P__) || \
-    defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-    defined(__AVR_ATmega328P__) 
                 // if ( !(DDRD & (1<<PD3)) ) DDRD |= (1<<PD3);
 
                 // connect PD3 pin to OC2B output (pwm) from timer 2 channel B, Clear on Compare Output or Fast PWM mode
@@ -222,25 +109,7 @@ void Pwm(void)
                 {
                     TCCR2A |= (1<<COM2B1);
                 }
-#elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324P__) \
-    || defined(__AVR_ATmega644P__) || defined(__AVR_ATmega1284P__)
-                //Note PD6 has ICP1
-                // if ( !(DDRD & (1<<PD6)) ) DDRD |= (1<<PD6);
-
-                // connect PD6 pin to OC2B output (pwm) from timer 2 channel B, Clear on Compare Output or Fast PWM mode
-                if ( !(TCCR2A & (1<<COM2B1)) ) 
-                {
-                    TCCR2A |= (1<<COM2B1);
-                }
-#else
-#   error I do not know where OC2B is on your MCU, check its Datasheet and then fix this file
-#endif
-                
-#if defined (OCR2B)
                 OCR2B = (uint8_t)(duty & 0xFF);
-#else
-#   error your MCU does not have the Output Compare Register OCR2B
-#endif
                 printf_P(PSTR("{\"pwm\":{\"CH1\":\"%d\"}}\r\n"),OCR2B);
                 initCommandBuffer();
             }

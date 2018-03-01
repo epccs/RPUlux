@@ -53,12 +53,12 @@ void setup(void)
     digitalWrite(STATUS_LED,HIGH);
     
     // set pwm pin DDR
-    pinMode(CH1,OUTPUT);
-    pinMode(CH2,OUTPUT);
-    pinMode(CH3,OUTPUT);
-    pinMode(CH4,OUTPUT);
-    pinMode(CH5,OUTPUT);
-    pinMode(CH6,OUTPUT);
+    pinMode(CH1,OUTPUT); // DDRD |= (1<<PD3)
+    pinMode(CH2,OUTPUT); // DDRD |= (1<<PD5)
+    pinMode(CH3,OUTPUT); // DDRD |= (1<<PD6)
+    pinMode(CH4,OUTPUT); // DDRB |= (1<<PB1)
+    pinMode(CH5,OUTPUT); // DDRB |= (1<<PB2)
+    pinMode(CH6,OUTPUT); // DDRB |= (1<<PB3)
     
     // Initialize Timers, ADC, and clear bootloader, Arduino does these with init() in wiring.c
     initTimers(); //Timer0 Fast PWM mode, Timer1 & Timer2 Phase Correct PWM mode.

@@ -51,7 +51,7 @@ void Mode(void)
         }
         // and arg[0] value is 3|5|6|9|10|11
         uint8_t a = atoi(arg[0]);
-        if ( ( a < 3) || (a > 11) || (a == 4) || (a ==7) || (a==8) )
+        if ( ( a < 14) || (a > 16) )
         {
             printf_P(PSTR("{\"err\":\"pModeOutOfRng\"}\r\n"));
             initCommandBuffer();
@@ -79,29 +79,17 @@ void Mode(void)
     }
     else if ( (command_done == 11) )
     {  
-        if (atoi(arg[0]) == 3) //IO3
+        if (atoi(arg[0]) == 14) //IO14
         {
-            printf_P(PSTR("PD3"));
+            printf_P(PSTR("PC0"));
         }
-        if (atoi(arg[0]) == 5) //IO5
+        if (atoi(arg[0]) == 15) //IO15
         {
-            printf_P(PSTR("PD5"));
+            printf_P(PSTR("PC1"));
         }
-        if (atoi(arg[0]) == 6) //IO6
+        if (atoi(arg[0]) == 16) //IO16
         {
-            printf_P(PSTR("PD6"));
-        }
-        if (atoi(arg[0]) == 9) //IO9
-        {
-            printf_P(PSTR("PB1"));
-        }
-        if (atoi(arg[0]) == 10) //nSS
-        {
-            printf_P(PSTR("PB2"));
-        }
-        if (atoi(arg[0]) == 11) //MOSI
-        {
-            printf_P(PSTR("PB3"));
+            printf_P(PSTR("PC2"));
         }
         printf_P(PSTR("\":\""));
         command_done = 12;
@@ -140,7 +128,7 @@ void Write(void)
         }
         // and arg[0] value is 3|5|6|9|10|11 
         uint8_t a = atoi(arg[0]);
-        if ( ( a < 3) || (a > 11) || (a == 4) || (a ==7) || (a==8) )
+        if ( ( a < 14) || (a > 16) )
         {
             printf_P(PSTR("{\"err\":\"dWrtOutOfRng\"}\r\n"));
             initCommandBuffer();
@@ -168,29 +156,17 @@ void Write(void)
     }
     else if ( (command_done == 11) )
     {  
-        if (atoi(arg[0]) == 3) //IO3
+        if (atoi(arg[0]) == 14) //IO14
         {
-            printf_P(PSTR("PD3"));
+            printf_P(PSTR("PC0"));
         }
-        if (atoi(arg[0]) == 5) //IO5
+        if (atoi(arg[0]) == 15) //IO15
         {
-            printf_P(PSTR("PD5"));
+            printf_P(PSTR("PC1"));
         }
-        if (atoi(arg[0]) == 6) //IO6
+        if (atoi(arg[0]) == 16) //IO16
         {
-            printf_P(PSTR("PD6"));
-        }
-        if (atoi(arg[0]) == 9) //IO9
-        {
-            printf_P(PSTR("PB1"));
-        }
-        if (atoi(arg[0]) == 10) //nSS
-        {
-            printf_P(PSTR("PB2"));
-        }
-        if (atoi(arg[0]) == 11) //MOSI
-        {
-            printf_P(PSTR("PB3"));
+            printf_P(PSTR("PC2"));
         }
         printf_P(PSTR("\":\""));
         command_done = 12;
@@ -239,7 +215,7 @@ void Toggle(void)
         }
         // and arg[0] value is 3|5|6|9|10|11 
         uint8_t a = atoi(arg[0]);
-        if ( ( a < 3) || (a > 11) || (a == 4) || (a ==7) || (a==8) )
+        if ( ( a < 14) || (a > 16) )
         {
             printf_P(PSTR("{\"err\":\"dTogOutOfRng\"}\r\n"));
             initCommandBuffer();
@@ -253,29 +229,17 @@ void Toggle(void)
     }
     else if ( (command_done == 11) )
     {  
-        if (atoi(arg[0]) == 3) //IO3
+        if (atoi(arg[0]) == 14) //IO14
         {
-            printf_P(PSTR("PD3"));
+            printf_P(PSTR("PC0"));
         }
-        if (atoi(arg[0]) == 5) //IO5
+        if (atoi(arg[0]) == 15) //IO15
         {
-            printf_P(PSTR("PD5"));
+            printf_P(PSTR("PC1"));
         }
-        if (atoi(arg[0]) == 6) //IO6
+        if (atoi(arg[0]) == 16) //IO16
         {
-            printf_P(PSTR("PD6"));
-        }
-        if (atoi(arg[0]) == 9) //IO9
-        {
-            printf_P(PSTR("PB1"));
-        }
-        if (atoi(arg[0]) == 10) //nSS
-        {
-            printf_P(PSTR("PB2"));
-        }
-        if (atoi(arg[0]) == 11) //MOSI
-        {
-            printf_P(PSTR("PB3"));
+            printf_P(PSTR("PC2"));
         }
         printf_P(PSTR("\":\""));
         command_done = 12;
@@ -324,7 +288,7 @@ void Read(void)
         }
         // and arg[0] value is 3|5|6|9|10|11 
         uint8_t a = atoi(arg[0]);
-        if ( ( a < 3) || (a > 11) || (a == 4) || (a ==7) || (a==8) )
+        if ( ( a < 14) || (a > 16) )
         {
             printf_P(PSTR("{\"err\":\"dRdOutOfRng\"}\r\n"));
             initCommandBuffer();
@@ -337,29 +301,17 @@ void Read(void)
     }
     else if ( (command_done == 11) )
     {  
-        if (atoi(arg[0]) == 3) //IO3
+        if (atoi(arg[0]) == 14) //IO14
         {
-            printf_P(PSTR("PD3"));
+            printf_P(PSTR("PC0"));
         }
-        if (atoi(arg[0]) == 5) //IO5
+        if (atoi(arg[0]) == 15) //IO15
         {
-            printf_P(PSTR("PD5"));
+            printf_P(PSTR("PC1"));
         }
-        if (atoi(arg[0]) == 6) //IO6
+        if (atoi(arg[0]) == 16) //IO16
         {
-            printf_P(PSTR("PD6"));
-        }
-        if (atoi(arg[0]) == 9) //IO9
-        {
-            printf_P(PSTR("PB1"));
-        }
-        if (atoi(arg[0]) == 10) //nSS
-        {
-            printf_P(PSTR("PB2"));
-        }
-        if (atoi(arg[0]) == 11) //MOSI
-        {
-            printf_P(PSTR("PB3"));
+            printf_P(PSTR("PC2"));
         }
         printf_P(PSTR("\":\""));
         command_done = 12;

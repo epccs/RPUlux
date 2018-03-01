@@ -2,7 +2,7 @@
 
 ## Overview
 
-Digital is an interactive command line program that demonstrates control of the Digital input/output from ATmega328p pins PD3, PD5, PD6, PB1, PB2, and PB3 (3,5,6,9,10,11). These I/O's control the LED drivers.
+Digital is an interactive command line program that demonstrates control of the Digital input/output from ATmega328p pins PC0, PC1, and PC2 (14..16). These I/O's also have ADC channels 0..2.
 
 ## Firmware Upload
 
@@ -47,54 +47,54 @@ Identify is from ../Uart/id.h Id().
 {"id":{"name":"Digital","desc":"RPUlux (17323^0) Board /w atmega328p","avr-gcc":"5.4.0"}}
 ```
 
-##  /0/pMod 3|5|6|9|10|11,INPUT|OUTPUT    
+##  /0/pMod 14..16,INPUT|OUTPUT    
 
 Set the Data Direction Register (DDRx) bit that sets the pin as INPUT or OUTPUT.
 
 ``` 
-/1/pMod 3,OUTPUT
-{"PD3":"OUTPUT"}
-/1/pMod 10,INPUT
-{"PB2":"INPUT"}
+/1/pMod 14,OUTPUT
+{"PC0":"OUTPUT"}
+/1/pMod 15,INPUT
+{"PC1":"INPUT"}
 ```
 
 
-##  /0/dWrt 3|5|6|9|10|11,HIGH|LOW    
+##  /0/dWrt 14..16,HIGH|LOW    
 
 Set the Port Data Register (PORTx) bit that drives the pin or if mode (e.g. Port Input Register bit) is set as an INPUT enables a pullup. Returns the Port Input Register PINx bit (e.g. same as read command)
 
 ```
-/1/dWrt 3,LOW
-{"PD3":"LOW"}
-/1/dWrt 10,HIGH
-{"PB2":"LOW"}
+/1/dWrt 14,LOW
+{"PC0":"LOW"}
+/1/dWrt 15,HIGH
+{"PC1":"HIGH"}
 ```
 
-on RPUlux PB2 has a 8.45k pull-down so the ATmega328p pullup is not a logic HIGH, but it may set the analog voltage on the LED driver high enough so that it drives some current.
+PC1 now has a pullup.
 
 
-##  /0/dTog 3|5|6|9|10|11  
+##  /0/dTog 14..16 
 
 Toggle the Port Data Register (PORTx) bit if the Data Direction Register (DDRx) bit is set as an OUTPUT. Returns the Port Input Register PINx bit (e.g. same as read command)
 
 ``` 
-/1/dTog 3
-{"PD3":"HIGH"}
-/1/dTog 3
-{"PD3":"LOW"}
-/1/dTog 3
-{"PD3":"HIGH"}
+/1/dTog 14
+{"PC0":"HIGH"}
+/1/dTog 14
+{"PC0":"LOW"}
+/1/dTog 14
+{"PC0":"HIGH"}
 ```
 
 
-##  /0/dRe? 3|5|6|9|10|11 
+##  /0/dRe? 14..16
 
 Read the Port Input Register (PINx) bit that was latched during last low edge of the system clock.
 
 ``` 
-/1/dRe? 3
-{"PD3":"HIGH"}
-/1/dRe? 10
-{"PB2":"LOW"}
+/1/dRe? 14
+{"PC0":"HIGH"}
+/1/dRe? 15
+{"PC1":"LOW"}
 ```
 
