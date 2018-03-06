@@ -113,7 +113,7 @@ void Analog(void)
         // ADC6 is connected to a 50V/V high side current sense.
         if (arg_indx_channel == PWR_I)
         {
-            printf_P(PSTR("\"%1.3f\""),(analogRead(arg_indx_channel)*((ref_extern_avcc_uV/1.0E6)/1024.0)/(0.018*50.0)));
+            printf_P(PSTR("\"%1.3f\""),(analogRead(arg_indx_channel)*((ref_extern_avcc_uV/1.0E6)/1024.0)/(0.068*50.0)));
         }
 
         if (arg_indx_channel == PWR_V) // RPUno has ADC7 connected a voltage divider from VIN.

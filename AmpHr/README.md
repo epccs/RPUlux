@@ -69,13 +69,27 @@ Report the discharge since the day-night state machine cleared the accumulation.
 {"CHRG_mAHr":"0.00","ACCUM_Sec":"205.20"}
 
 /1/analog? 6,7
-{"PWR_I":"0.005","PWR_V":"13.62"}
+{"PWR_I":"0.153","PWR_V":"13.28"}
 ```
-
-Note: The sense resistor is 0.018 Ohm on the ^0 board I am using, it needs to be changed to 0.068 Ohm.
-
 
 ## \[/0/day?\](../DayNight#0day)
 
 
 ## \[/0/analog? 0..7\[,0..7\[,0..7\[,0..7\[,0..7\]\]\]\]\](../Adc#0analog-0707070707)
+
+
+## \[/0/pwm CH1..CH6,0..255\](../Pwm#0pwm-ch1ch60255)
+
+
+##  \[/0/pMod 14..16,INPUT|OUTPUT\](../Digital#0pmod-1416inputoutput)
+
+
+##  \[/0/dWrt 14..16,HIGH|LOW\](../Digital#0dwrt-1416highlow)
+
+
+##  \[/0/dTog 14..16\](../Digital#0dtog-1416)
+
+
+##  \[/0/dRe? 14..16\](../Digital#0dre-1416)
+
+

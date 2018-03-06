@@ -3,6 +3,8 @@ TARGET = AmpHr
 LIBDIR = ../lib
 OBJECTS = main.o \
 	chrg_accum.o \
+	../Digital/digital.o \
+	../Pwm/pwm.o \
 	../DayNight/day_night.o \
 	../Adc/analog.o \
 	../Adc/references.o \

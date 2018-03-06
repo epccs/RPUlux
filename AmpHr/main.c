@@ -28,6 +28,8 @@ http://www.gnu.org/licenses/gpl-2.0.html
 #include "../Uart/id.h"
 #include "../Adc/analog.h"
 #include "../DayNight/day_night.h"
+#include "../Pwm/pwm.h"
+#include "../Digital/digital.h"
 #include "chrg_accum.h"
 
 // how fast does the discharge reading change? (it can be fast)
@@ -65,6 +67,26 @@ void ProcessCmd()
     {
         Analog(); // ../Adc/analog.c
     }
+    if ( (strcmp_P( command, PSTR("/pwm")) == 0) )
+    {
+        Pwm(); // ../Pwm/pwm.c
+    }
+    if ( (strcmp_P( command, PSTR("/pMod")) == 0) && ( (arg_count == 2 ) ) )
+    {
+        Mode(); // ../Digital/digital.c
+    }
+    if ( (strcmp_P( command, PSTR("/dWrt")) == 0) && ( (arg_count == 2 ) ) )
+    {
+        Write(); // ../Digital/digital.c
+    }
+    if ( (strcmp_P( command, PSTR("/dTog")) == 0) && ( (arg_count == 1 ) ) )
+    {
+        Toggle(); // ../Digital/digital.c
+    }
+    if ( (strcmp_P( command, PSTR("/dRe?")) == 0) && ( (arg_count == 1 ) ) )
+    {
+        Read(); // ../Digital/digital.c
+    }
     if ( (strcmp_P( command, PSTR("/charge?")) == 0) && ( (arg_count == 0 ) ) )
     {
         Charge(); // ./chrg_accum.c
@@ -95,6 +117,14 @@ void setup(void)
 
     pinMode(DAYNIGHT_STATUS_LED,OUTPUT);
     digitalWrite(DAYNIGHT_STATUS_LED,HIGH);
+
+    // set pwm pin DDR
+    pinMode(CH1,OUTPUT); // DDRD |= (1<<PD3)
+    pinMode(CH2,OUTPUT); // DDRD |= (1<<PD5)
+    pinMode(CH3,OUTPUT); // DDRD |= (1<<PD6)
+    pinMode(CH4,OUTPUT); // DDRB |= (1<<PB1)
+    pinMode(CH5,OUTPUT); // DDRB |= (1<<PB2)
+    pinMode(CH6,OUTPUT); // DDRB |= (1<<PB3)
 
     // Initialize Timers, ADC, and clear bootloader, Arduino does these with init() in wiring.c
     initTimers(); //Timer0 Fast PWM mode, Timer1 & Timer2 Phase Correct PWM mode.
