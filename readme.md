@@ -2,6 +2,8 @@
 
 From <https://github.com/epccs/RPUlux/>
 
+[![Build Status](https://travis-ci.org/epccs/RPUlux.svg?branch=master)](https://travis-ci.org/epccs/RPUlux)
+
 ## Overview
 
 Board with ATmega328p and six AL8805 constant current drivers and headers for multi-drop serial Shields

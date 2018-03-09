@@ -1,0 +1,27 @@
+# This file is used to configure Travis CI
+language: c
+dist: trusty
+sudo: required
+
+env:
+  matrix:
+    # Compile application listed
+    # Each line in the matrix will be a separate job when Travis CI runs the script section
+
+    # SelfTest
+    - APP_PATH="/SelfTest"
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
+
+script:
+  - cd $APP_PATH
+  - make
+
+notifications:
+  email:
+    on_success: never
+    on_failure: always
