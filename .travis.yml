@@ -11,7 +11,7 @@ env:
     # so the path to each Makefile is as follows
 
     # SelfTest
-    - APP_PATH="epccs/RPUlux/SelfTest"
+    - APP_PATH="SelfTest"
 
 before_install:
   - sudo apt-get update -qq
@@ -20,6 +20,9 @@ install:
   - sudo apt-get install -qq gcc-avr binutils-avr avr-libc
 
 script:
+  - pwd
+  - ls
+  - avr-gcc --version
   - cd $APP_PATH
   - make
 
