@@ -2,8 +2,6 @@
 
 From <https://github.com/epccs/RPUlux/>
 
-[![Build Status](https://travis-ci.org/epccs/RPUlux.svg?branch=master)](https://travis-ci.org/epccs/RPUlux)
-
 ## Overview
 
 Board with ATmega328p and six AL8805 constant current drivers and headers for multi-drop serial Shields
@@ -19,6 +17,8 @@ This programmable ATmega328p based board has headers for a [RPUpi] or [RPUadpt] 
 
 
 ## Status
+
+[![Build Status](https://travis-ci.org/epccs/RPUlux.svg?branch=master)](https://travis-ci.org/epccs/RPUlux)
 
 ![Status](./Hardware/status_icon.png "Status")
 
@@ -53,7 +53,14 @@ git clone https://github.com/epccs/RPUlux/
 * [avr-libc](http://packages.ubuntu.com/search?keywords=avr-libc)
 * [avrdude](http://packages.ubuntu.com/search?keywords=avrdude)
 
-The software is a guide, it is in C because that works for me.
+The software is a guide, it is in C because that is my preference when lacking an operating system.
+
+
+## Continuous Integration
+
+Continuous Integration (CI) is the practice of automatically compiling and testing each time the mainline source is updated (e.g. git push). Travis CI is using a painfully out of date version of Ubuntu (14.04) as there host environment for doing the test build. The build machine allows pulling in any packages I want including the AVR cross compiler. I don't do anything fancy, just run make. A rule like "make test" could be used if the test build machine had hardware connected (e.g. "make bootload" and then "make test") to the machine, but that is not practical in the foreseeable future. This board was painless to set up for Travis because the ATmega328p was in production and Arduino was so popular at that time that the founders were starting to fight for a chance to get rich.
+
+[https://travis-ci.org/epccs/RPUlux](https://travis-ci.org/epccs/RPUlux)
 
 
 ## Arduino IDE
@@ -61,4 +68,11 @@ The software is a guide, it is in C because that works for me.
 An [example] using the Arduino IDE.
 
 [example]: ./Arduino
+
+On this board the Arduino IDE can use the Uno's core files that are included with the IDE, just remember to look at the schematic to see how the "Uno" is connected. I don't use the Arduino core because I have had problems preventing C++ from using the heap memory, which I don't want it to do since there is no operating system or memory management. In all frankness, I think [MicroPython and CircuitPython] will be a better place to start learning how to program embedded devices, and [Raspberry Pi] is better for learning C++ (it has an OS and the program will stop rather than having the heap and stack memory systems trash each other without warning).
+
+[MicroPython and CircuitPython]: https://www.adafruit.com/category/924
+[Raspberry Pi]: https://www.adafruit.com/category/105
+
+Arduino has an amazing community of helpful people that can guide the use of its hazard fraught embedded environment.
 
