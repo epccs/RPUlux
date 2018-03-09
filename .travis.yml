@@ -5,11 +5,13 @@ sudo: required
 
 env:
   matrix:
-    # Compile application listed
     # Each line in the matrix will be a separate job when Travis CI runs the script section
+    # Travis does the clone like this
+    # git clone --depth=50 --branch=master https://github.com/epccs/RPUlux.git epccs/RPUlux
+    # so the path to each Makefile is as follows
 
     # SelfTest
-    - APP_PATH="/SelfTest"
+    - APP_PATH="epccs/RPUlux/SelfTest"
 
 before_install:
   - sudo apt-get update -qq
