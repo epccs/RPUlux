@@ -4,6 +4,7 @@ Some lessons I learned doing RPUlux.
 
 # Table Of Contents:
 
+1. ^2 AL8805 still running at 165mA with 0.3 Ohm sense
 1. ^1 AL8805 design, mfg layout
 1. ^0 SMPS design , current sense resistor
 1. ^0 PWR_V divider
@@ -11,6 +12,14 @@ Some lessons I learned doing RPUlux.
 1. ^0 Pull Down Alternate Power Control
 1. ^0 Solar Panel Zener brakedown failure
 
+
+## ^2 AL8805 running at 165mA with 0.3 Ohm sense
+
+The AL8805 layout overhaul on my RPUlux^2 board did not change anything. I feel like a punching bag. 
+
+Adding 0.1uF bypass next to the AL8805 did not change anything noticabley.
+
+![AL8805W5_bypass](./RPUlux^2_bypassTest.jpg "Bypass Next to AL8805")
 
 ## ^1  AL8805 design, mfg layout
 
