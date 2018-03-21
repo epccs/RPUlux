@@ -4,6 +4,7 @@ Some lessons I learned doing RPUlux.
 
 # Table Of Contents:
 
+1. ^2 AL8805 Calculator
 1. ^2 AL8805 still running at 165mA with 0.3 Ohm sense
 1. ^1 AL8805 design, mfg layout
 1. ^0 SMPS design , current sense resistor
@@ -32,7 +33,7 @@ Adding 0.1uF bypass next to the AL8805 did not change anything noticabley.
 
 ![AL8805W5_bypass](./RPUlux^2_bypassTest.jpg "Bypass Next to AL8805")
 
-![AL8805W5_bypass_ref](./RPUlux^2_bypassTestRef.jpg "Bypass Next to AL8805 Ref")
+![AL8805W5_bypass_ref](./RPUlux^2_bypassTestRef.png "Bypass Next to AL8805 Ref")
 
 ## ^1  AL8805 design, mfg layout
 
@@ -41,15 +42,15 @@ My [RPUlux] version ^1 [layout] has less noise on the 0V plane than the first ve
 [RPUlux]: https://github.com/epccs/RPUlux/
 [layout]: https://github.com/epccs/Eagle/tree/master/RPUlux
 
-The problem is I am still getting 160mA with .3 Ohm sense from the LED driver (AL8805). Looking at the Diodes example circuit when the switch is off. I see the current flows through D1 and into C6 mostly (some goes to C3 bypass). The magnetic fields from this current are far from the sense lines. 
+The problem is I am still getting 160mA with .3 Ohm sense from the LED driver (AL8805). Looking at the Diodes example circuit when the switch is off. I see the current flows through D1 and into C6 mostly (some goes to C3 bypass). 
 
 ![AL8805W5_layout_sw_off](./AL8805W5_layout_sw_off.png "AL8805W5 Example Layout Swith Off")
 
-However when the switch is on the current flow is right under the sense and the magnetic field from that induces a voltage on the sense lines, thus causing the chips sensor input voltage to be different than the sense resistor voltage. It looks to me like the induced voltage works against the voltage on the resistor, so the induced voltage makes the sensed voltage seem less than it is.
+However when the switch is on the current flow is right under the sense.
 
 ![AL8805W5_layout_sw_on](./AL8805W5_layout_sw_on.png "AL8805W5 Example Layout Swith On")
 
-This must be how Diodes characterized there part. In order to duplicate there datasheet values guess I would need to run the switched current under the current sense resistor the way they have done. This seems like a questionable way to do the sense for a switch mode power supply.
+Note ^2 does this but average LED current is still about half the expected value.
 
 Replacing the sense resistor with 0.15 Ohm sets the current at about 330mA. On my ^1 layout the switch current flows out to a 4.7uF. 
 
