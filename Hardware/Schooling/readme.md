@@ -13,6 +13,17 @@ Some lessons I learned doing RPUlux.
 1. ^0 Solar Panel Zener brakedown failure
 
 
+## ^2 AL8805 Calculator
+
+Diodes Inc has a [Calculator] for the circuit (note I ran it on LibreOffice 6.0.2 so don't let the xls stop you) 
+
+[Calculator]: https://www.diodes.com/assets/Calculators/WEB-AL8805-calculator-v1.1.xls
+
+I want about 330mA. I am using a 33uH coil. 
+
+![AL8805Calculator4RPUlux](./AL8805cal4RPUlux.png "AL8805 Calculator for RPUlux")
+
+
 ## ^2 AL8805 running at 165mA with 0.3 Ohm sense
 
 The AL8805 layout overhaul on my RPUlux^2 board did not change anything. I feel like a punching bag. 
@@ -20,6 +31,8 @@ The AL8805 layout overhaul on my RPUlux^2 board did not change anything. I feel 
 Adding 0.1uF bypass next to the AL8805 did not change anything noticabley.
 
 ![AL8805W5_bypass](./RPUlux^2_bypassTest.jpg "Bypass Next to AL8805")
+
+![AL8805W5_bypass_ref](./RPUlux^2_bypassTestRef.jpg "Bypass Next to AL8805 Ref")
 
 ## ^1  AL8805 design, mfg layout
 
