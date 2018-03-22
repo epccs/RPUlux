@@ -252,6 +252,7 @@ void test(void)
     }
 
     // enable LED channel 1 
+    pinMode(CH1,OUTPUT);
     digitalWrite(CH1,HIGH); // CH1 is defined in ../lib/pins_board.h
     _delay_ms(1000); // busy-wait delay so the 1uF cap has the average input current
 
@@ -261,10 +262,10 @@ void test(void)
     _delay_ms(2000); // busy-wait delay so the 1uF cap has the average input current
     ch1_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH1 LED, 1V1, 3sec: %1.3f A\r\n"), ch1_input_i);
-    float ch1_curr = ( (ch1_input_i - input_i)*input_v)/3.2;
-    printf_P(PSTR("100%% CH1 curr on a 3.2V LED: %1.3f A\r\n"),  ch1_curr);
+    float ch1_curr = 0.8*( (ch1_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH1 curr on a 3.2V LED: %1.3f A\r\n"),  ch1_curr);
 
-    if (ch1_curr > 0.4) 
+    if (ch1_curr > 0.45) 
     { 
         passing = 0; 
         printf_P(PSTR(">>> CH1 curr is to high.\r\n"));
@@ -276,7 +277,9 @@ void test(void)
     }
 
     // enable LED channel2
+    pinMode(CH1,INPUT);
     digitalWrite(CH1,LOW);
+    pinMode(CH2,OUTPUT);
     digitalWrite(CH2,HIGH);
     _delay_ms(1000);
 
@@ -286,10 +289,10 @@ void test(void)
     _delay_ms(2000); 
     ch2_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH2 LED, 1V1, 3sec: %1.3f A\r\n"), ch2_input_i);
-    float ch2_curr = ( (ch2_input_i - input_i)*input_v)/3.2;
-    printf_P(PSTR("100%% CH2 curr on a 3.2V LED: %1.3f A\r\n"),  ch2_curr);
+    float ch2_curr = 0.8*( (ch2_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH2 curr on a 3.2V LED: %1.3f A\r\n"),  ch2_curr);
 
-    if (ch2_curr > 0.4) 
+    if (ch2_curr > 0.45) 
     { 
         passing = 0; 
         printf_P(PSTR(">>> CH2 curr is to high.\r\n"));
@@ -301,7 +304,9 @@ void test(void)
     }
 
     // enable LED channel3
+    pinMode(CH2,INPUT);
     digitalWrite(CH2,LOW);
+    pinMode(CH3,OUTPUT);
     digitalWrite(CH3,HIGH);
     _delay_ms(1000);
 
@@ -311,10 +316,10 @@ void test(void)
     _delay_ms(2000); 
     ch3_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH3 LED, 1V1, 3sec: %1.3f A\r\n"), ch3_input_i);
-    float ch3_curr = ( (ch3_input_i - input_i)*input_v)/3.2;
-    printf_P(PSTR("100%% CH3 curr on a 3.2V LED: %1.3f A\r\n"),  ch3_curr);
+    float ch3_curr = 0.8*( (ch3_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH3 curr on a 3.2V LED: %1.3f A\r\n"),  ch3_curr);
 
-    if (ch3_curr > 0.4) 
+    if (ch3_curr > 0.45) 
     { 
         passing = 0; 
         printf_P(PSTR(">>> CH3 curr is to high.\r\n"));
@@ -326,7 +331,9 @@ void test(void)
     }
 
     // enable LED channel4
+    pinMode(CH3,INPUT);
     digitalWrite(CH3,LOW);
+    pinMode(CH4,OUTPUT);
     digitalWrite(CH4,HIGH);
     _delay_ms(1000);
 
@@ -336,10 +343,10 @@ void test(void)
     _delay_ms(2000); 
     ch4_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH4 LED, 1V1, 3sec: %1.3f A\r\n"), ch4_input_i);
-    float ch4_curr = ( (ch4_input_i - input_i)*input_v)/3.2;
-    printf_P(PSTR("100%% CH4 curr on a 3.2V LED: %1.3f A\r\n"),  ch4_curr);
+    float ch4_curr = 0.8*( (ch4_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH4 curr on a 3.2V LED: %1.3f A\r\n"),  ch4_curr);
 
-    if (ch4_curr > 0.4) 
+    if (ch4_curr > 0.45) 
     { 
         passing = 0; 
         printf_P(PSTR(">>> CH4 curr is to high.\r\n"));
@@ -351,7 +358,9 @@ void test(void)
     }
 
     // enable LED channel5
+    pinMode(CH4,INPUT);
     digitalWrite(CH4,LOW);
+    pinMode(CH5,OUTPUT);
     digitalWrite(CH5,HIGH);
     _delay_ms(1000);
 
@@ -361,10 +370,10 @@ void test(void)
     _delay_ms(2000); 
     ch5_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH5 LED, 1V1, 3sec: %1.3f A\r\n"), ch5_input_i);
-    float ch5_curr = ( (ch5_input_i - input_i)*input_v)/3.2;
-    printf_P(PSTR("100%% CH5 curr on a 3.2V LED: %1.3f A\r\n"),  ch5_curr);
+    float ch5_curr = 0.8*( (ch5_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH5 curr on a 3.2V LED: %1.3f A\r\n"),  ch5_curr);
 
-    if (ch5_curr > 0.4) 
+    if (ch5_curr > 0.45) 
     { 
         passing = 0; 
         printf_P(PSTR(">>> CH5 curr is to high.\r\n"));
@@ -376,7 +385,9 @@ void test(void)
     }
 
     // enable LED channel6
+    pinMode(CH5,INPUT);
     digitalWrite(CH5,LOW);
+    pinMode(CH6,OUTPUT);
     digitalWrite(CH6,HIGH);
     _delay_ms(1000);
 
@@ -386,10 +397,10 @@ void test(void)
     _delay_ms(2000); 
     ch6_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH6 LED, 1V1, 3sec: %1.3f A\r\n"), ch6_input_i);
-    float ch6_curr = ( (ch6_input_i - input_i)*input_v)/3.2;
-    printf_P(PSTR("100%% CH6 curr on a 3.2V LED: %1.3f A\r\n"),  ch6_curr);
+    float ch6_curr = 0.8*( (ch6_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH6 curr on a 3.2V LED: %1.3f A\r\n"),  ch6_curr);
 
-    if (ch6_curr > 0.4) 
+    if (ch6_curr > 0.45) 
     { 
         passing = 0; 
         printf_P(PSTR(">>> CH6 curr is to high.\r\n"));
@@ -401,6 +412,7 @@ void test(void)
     }
 
     //swap back to the AVCC referance 
+    pinMode(CH6,INPUT);
     digitalWrite(CH6,LOW);
     init_ADC_single_conversion(EXTERNAL_AVCC); 
     _delay_ms(100); // busy-wait delay

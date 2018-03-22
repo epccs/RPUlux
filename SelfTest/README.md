@@ -42,44 +42,44 @@ picocom -b 38400 /dev/ttyUSB0
 picocom v2.2
 ...
 Terminal ready
-RPUlux Self Test date: Feb 21 2018
+RPUlux Self Test date: Mar 21 2018
 avr-gcc --version: 5.4.0
 I2C provided address 0x31 from serial bus manager
-adc reading for PWR_V: 357
-PWR at: 12.740 V
+adc reading for PWR_V: 361
+PWR at: 12.883 V
 ADC0 GN LED /W SINK on and CS*_EN off: 0.000 V
 ADC1 RD LED /W SINK on and CS*_EN off: 0.000 V
 ADC2 R1 /W CS*_EN off: 0.000 V
 ADC3 R1 /W CS*_EN off: 0.000 V
 CS0 curr source on R1: 0.022 A
-Green LED fwd V: 2.235 V
+Green LED fwd V: 2.245 V
 CS1 curr source on R1: 0.022 A
-Red LED fwd V: 2.133 V
-   ADC2 reading used to calculate ref_intern_1v1_uV: 714 A
-   calculated ref_intern_1v1_uV: 1068450 uV
-REF_EXTERN_AVCC old value was in eeprom: 4986100 uV
-REF_INTERN_1V1 old value was in eeprom: 1071451 uV
+Red LED fwd V: 2.128 V
+   ADC2 reading used to calculate ref_intern_1v1_uV: 692 A
+   calculated ref_intern_1v1_uV: 1088007 uV
+REF_EXTERN_AVCC old value was in eeprom: 4948800 uV
+REF_INTERN_1V1 old value was in eeprom: 1078310 uV
 REF_EXTERN_AVCC saved in eeprom: 4986100 uV
-REF_INTERN_1V1 saved in eeprom: 1068450 uV
-PWR_I with !CS1_EN use INTERNAL_1V1: 0.011 A
-PWR_I with CH1 LED, 1V1, 1sec: 0.100 A
-PWR_I with CH1 LED, 1V1, 3sec: 0.099 A
-100% CH1 curr on a 3.2V LED: 0.353 A
-PWR_I with CH2 LED, 1V1, 1sec: 0.103 A
-PWR_I with CH2 LED, 1V1, 3sec: 0.102 A
-100% CH2 curr on a 3.2V LED: 0.365 A
-PWR_I with CH3 LED, 1V1, 1sec: 0.102 A
-PWR_I with CH3 LED, 1V1, 3sec: 0.101 A
-100% CH3 curr on a 3.2V LED: 0.360 A
-PWR_I with CH4 LED, 1V1, 1sec: 0.099 A
-PWR_I with CH4 LED, 1V1, 3sec: 0.099 A
-100% CH4 curr on a 3.2V LED: 0.349 A
-PWR_I with CH5 LED, 1V1, 1sec: 0.098 A
-PWR_I with CH5 LED, 1V1, 3sec: 0.098 A
-100% CH5 curr on a 3.2V LED: 0.347 A
-PWR_I with CH6 LED, 1V1, 1sec: 0.102 A
-PWR_I with CH6 LED, 1V1, 3sec: 0.102 A
-100% CH6 curr on a 3.2V LED: 0.362 A
+REF_INTERN_1V1 saved in eeprom: 1088007 uV
+PWR_I with !CS1_EN use INTERNAL_1V1: 0.013 A
+PWR_I with CH1 LED, 1V1, 1sec: 0.121 A
+PWR_I with CH1 LED, 1V1, 3sec: 0.120 A
+Approximate CH1 curr on a 3.2V LED: 0.343 A
+PWR_I with CH2 LED, 1V1, 1sec: 0.119 A
+PWR_I with CH2 LED, 1V1, 3sec: 0.118 A
+Approximate CH2 curr on a 3.2V LED: 0.336 A
+PWR_I with CH3 LED, 1V1, 1sec: 0.116 A
+PWR_I with CH3 LED, 1V1, 3sec: 0.116 A
+Approximate CH3 curr on a 3.2V LED: 0.330 A
+PWR_I with CH4 LED, 1V1, 1sec: 0.118 A
+PWR_I with CH4 LED, 1V1, 3sec: 0.118 A
+Approximate CH4 curr on a 3.2V LED: 0.335 A
+PWR_I with CH5 LED, 1V1, 1sec: 0.117 A
+PWR_I with CH5 LED, 1V1, 3sec: 0.116 A
+Approximate CH5 curr on a 3.2V LED: 0.331 A
+PWR_I with CH6 LED, 1V1, 1sec: 0.121 A
+PWR_I with CH6 LED, 1V1, 3sec: 0.120 A
+Approximate CH6 curr on a 3.2V LED: 0.344 A
 [PASS]
 ```
 

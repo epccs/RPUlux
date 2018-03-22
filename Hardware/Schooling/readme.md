@@ -4,6 +4,7 @@ Some lessons I learned doing RPUlux.
 
 # Table Of Contents:
 
+1. ^2 AL8805 CTRL Pin Driven with AVR Weak Pull Up 
 1. ^2 AL8805 Calculator
 1. ^2 AL8805 still running at 165mA with 0.3 Ohm sense
 1. ^1 AL8805 design, mfg layout
@@ -13,6 +14,56 @@ Some lessons I learned doing RPUlux.
 1. ^0 Pull Down Alternate Power Control
 1. ^0 Solar Panel Zener brakedown failure
 
+
+## ^2 AL8805 CTRL Pin Driven with AVR Weak Pull Up 
+
+During testing, I have been using the SelfTest program, while also looking at bench instruments. It turns out the reason I was seeing 165mA from the AL8805 was that I did not set the AVR pin into a push-pull mode (e.g. pinMode(CH1,OUTPUT) ), as a result when the pin was set HIGH it enables a weak pull-up, which combines an 8.45k Ohm pull down with the AL8805 reference (2.5V) and 50k Ohm internal resistance. The result is about 1.2V on the AL8805 CTRL pin which sets the current about half the value I was expecting. 
+
+After changing the SelfTest so AVR pins are used in the push-pull mode the LED channels now have the expected current.
+
+```
+...
+Terminal ready
+RPUlux Self Test date: Mar 21 2018
+avr-gcc --version: 5.4.0
+I2C provided address 0x31 from serial bus manager
+adc reading for PWR_V: 361
+PWR at: 12.883 V
+ADC0 GN LED /W SINK on and CS*_EN off: 0.000 V
+ADC1 RD LED /W SINK on and CS*_EN off: 0.000 V
+ADC2 R1 /W CS*_EN off: 0.000 V
+ADC3 R1 /W CS*_EN off: 0.000 V
+CS0 curr source on R1: 0.022 A
+Green LED fwd V: 2.245 V
+CS1 curr source on R1: 0.022 A
+Red LED fwd V: 2.128 V
+   ADC2 reading used to calculate ref_intern_1v1_uV: 692 A
+   calculated ref_intern_1v1_uV: 1088007 uV
+REF_EXTERN_AVCC old value was in eeprom: 4948800 uV
+REF_INTERN_1V1 old value was in eeprom: 1078310 uV
+REF_EXTERN_AVCC saved in eeprom: 4986100 uV
+REF_INTERN_1V1 saved in eeprom: 1088007 uV
+PWR_I with !CS1_EN use INTERNAL_1V1: 0.013 A
+PWR_I with CH1 LED, 1V1, 1sec: 0.121 A
+PWR_I with CH1 LED, 1V1, 3sec: 0.120 A
+Approximate CH1 curr on a 3.2V LED: 0.343 A
+PWR_I with CH2 LED, 1V1, 1sec: 0.119 A
+PWR_I with CH2 LED, 1V1, 3sec: 0.118 A
+Approximate CH2 curr on a 3.2V LED: 0.336 A
+PWR_I with CH3 LED, 1V1, 1sec: 0.116 A
+PWR_I with CH3 LED, 1V1, 3sec: 0.116 A
+Approximate CH3 curr on a 3.2V LED: 0.330 A
+PWR_I with CH4 LED, 1V1, 1sec: 0.118 A
+PWR_I with CH4 LED, 1V1, 3sec: 0.118 A
+Approximate CH4 curr on a 3.2V LED: 0.335 A
+PWR_I with CH5 LED, 1V1, 1sec: 0.117 A
+PWR_I with CH5 LED, 1V1, 3sec: 0.116 A
+Approximate CH5 curr on a 3.2V LED: 0.331 A
+PWR_I with CH6 LED, 1V1, 1sec: 0.121 A
+PWR_I with CH6 LED, 1V1, 3sec: 0.120 A
+Approximate CH6 curr on a 3.2V LED: 0.344 A
+[PASS]
+```
 
 ## ^2 AL8805 Calculator
 
