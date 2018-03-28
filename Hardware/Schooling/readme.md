@@ -4,7 +4,7 @@ Some lessons I learned doing RPUlux.
 
 # Table Of Contents:
 
-1. ^2 Analog CTRL 100mA
+1. ^2 AVR weak pull-up and AL8805 analog CTRL
 1. ^2 AL8805 CTRL Pin Driven with AVR Weak Pull Up 
 1. ^2 AL8805 Calculator
 1. ^2 AL8805 still running at 165mA with 0.3 Ohm sense
@@ -16,17 +16,21 @@ Some lessons I learned doing RPUlux.
 1. ^0 Solar Panel Zener brakedown failure
 
 
-## ^2 Analog CTRL 100mA
+## ^2 AVR weak pull-up and AL8805 analog CTRL
 
-An 8.45k Ohm pull-down divides the 5V source with 35k Ohm (weak pull-up) and the in chip 2.5V referance with 50k Ohm.
+I was having problems with my [SelfTest] where I was only seeing about half the expected current from an AL8805. I was getting about 330mA with a 0.3 Ohm set resistor. 
+
+[SelfTest]: https://github.com/epccs/RPUlux/tree/master/SelfTest
+
+An 8.45k Ohm pull-down was used to turn off the LED's during boot loading and when the AVR is in RESET. Form the AL8805 CTRL perspective the pull-down sums a divided amount from the AVR 5V through a 35k Ohm (weak pull-up mode) and from the 2.5V reference on AL8805 through 50k Ohm.
 
 ![8k45PullDown](./WeakPullUpWith8k45pull-down.png "8k45 Pull-Down")
 
-An 3.74k Ohm pull-down (which I happen to have) would place the LED driver in a low current analog setting ranging from 50mA to 150mA. 
+With a 3.74k Ohm pull-down and a weak pull-up from the AVR switch mode converter runs with an analog setting in the range 50mA to 150mA (approximate). 
 
 ![3k74PullDown](./WeakPullUpWith3k74pull-down.png "3k74 Pull-Down")
 
-This gives a reduced current setting that has no audible switching noise (e.g. the 500Hz).
+When the AVR pin is in the push-pull mode and set HIGH the constant current converter provides the expected amount of current. The weak pull-up mode from the AVR set an analog voltage on the AL8805 CTRL pin that allows it to run at a reduced current without any audible switching noise (e.g. the 500Hz).
 
 
 ## ^2 AL8805 CTRL Pin Driven with AVR Weak Pull Up 
