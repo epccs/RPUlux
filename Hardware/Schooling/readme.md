@@ -4,6 +4,7 @@ Some lessons I learned doing RPUlux.
 
 # Table Of Contents:
 
+1. ^2 Analog CTRL 100mA
 1. ^2 AL8805 CTRL Pin Driven with AVR Weak Pull Up 
 1. ^2 AL8805 Calculator
 1. ^2 AL8805 still running at 165mA with 0.3 Ohm sense
@@ -13,6 +14,19 @@ Some lessons I learned doing RPUlux.
 1. ^0 Add defaults on IO Controls
 1. ^0 Pull Down Alternate Power Control
 1. ^0 Solar Panel Zener brakedown failure
+
+
+## ^2 Analog CTRL 100mA
+
+An 8.45k Ohm pull-down divides the 5V source with 35k Ohm (weak pull-up) and the in chip 2.5V referance with 50k Ohm.
+
+![8k45PullDown](./WeakPullUpWith8k45pull-down.png "8k45 Pull-Down")
+
+An 3.74k Ohm pull-down (which I happen to have) would place the LED driver in a low current analog setting ranging from 50mA to 150mA. 
+
+![3k74PullDown](./WeakPullUpWith3k74pull-down.png "3k74 Pull-Down")
+
+This gives a reduced current setting that has no audible switching noise (e.g. the 500Hz).
 
 
 ## ^2 AL8805 CTRL Pin Driven with AVR Weak Pull Up 

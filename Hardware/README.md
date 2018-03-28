@@ -19,6 +19,9 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
         Alternate Input Power can be enabled (8).
         The high side VIN current sensor is connected to ADC6.
         Power VIN voltage is divided down and connected to ADC7.
+        Six constant-current LED channels controlled with ATmega328p PWM pins.
+        Each LED channel has an AL8805 buck converter with 0.3 Ohm set resistor for 330mA.
+        A weak pull-up will set an analog voltage on the AL8805 control pin for 50 to 150mA.
         Three digital input/outputs (14, 15, 16) with level shift for connecting to a higher voltage.
         The digital inputs are also connected to ADC channels (ADC0, ADC1, ADC2).
         The digital inputs also have current sinking N-CH MOSFET that may be enabled (4, 7)
@@ -28,10 +31,8 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ## Uses
 
 ```
-        Six AL8805 buck converters drive constant current through LED channels
-        Each LED channel has a 500Hz PWM control line from the ATmega328p.
-        Allows control of two RGB color lighting sources.
-        Sink solar panel power when the battery is full, and measure approximate current with Rds_on.
+        Six constant-current LED channels
+        Each LED channel has diming control with a 500Hz PWM line from the ATmega328p.
 ```
 
 ## Notice
@@ -40,6 +41,7 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
         AREF from ATmega328p is not connected to the header.
         3V3 is not present on the board and the header pin is not connected.
         ADC4 and ADC5 are used for I2C and not connected to the analog header.
+        Diming with PWM is slightly audibly perceptible.
 ```
 
 
@@ -57,23 +59,22 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 ![Status](./status_icon.png "RPUlux Status")
 
 ```
-        ^2  Done: Design, Layout, BOM, Review*, Order Boards, Assembly,
-            WIP: Testing, 
-            Todo: Evaluation.
+        ^2  Done: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing, 
+            WIP: Evaluation.
+            Todo: 
             *during review the Design may change without changing the revision.
-            Lbl on 22mA plug next to ADC0 change 13_EN to 12_EN
-            Lbl on 22mA plug next to ADC1 change 12_EN to 13_EN
-            Lbl Q21 was removed, Q22..Q24 should be renumbed as Q21..Q23
-            Modify SMPS layout so switch current flows between sense resistor pads.
+            location: 2018-28-3 on RGB firewood lamp.
 
         ^1  Done: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing, 
             WIP: Evaluation.
+            location: 2018-1-3 on 1200WH/600RD firewood lamp.
             location: 2018-20-2 test bench.
 
-        ^0  Done: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing,
-            WIP: Evaluation.
+        ^0  Done: Design, Layout, BOM, Review*, Order Boards, Assembly, Testing, Evaluation.
             location: 2018-22-1 test bench.
-            location: 2018-20-2 on RGB firewood lamp for show.
+            location: 2018-20-2 on RGB firewood lamp.
+            location: 2018-28-3 scrap/salvage.
+            
 ```
 
 Debugging and fixing problems i.e. [Schooling](./Schooling/)
@@ -153,14 +154,10 @@ First option is to write software that controls IO8 to open circuit the solar pa
 
 Software that controls IO4 can operate an SSR to open circuit the solar panel. This option is for solar panels that lack by-pass diodes and produce over 1.5A short-circuit current. Note the onboard N-CH MOSFET will connect the solar pannel to the battery when it pulls down.
 
-![SolarPwrOption_short](./Documents/SolarPwrOption_short.png "Solar Power Option Short Circuit")
-
-Use software to control IO4 and IO7 which are each connected to an onboard N-CH MOSFET that can short a solar panel. The control logic is reversed from that of the SSR circuit above, e.g. the onboard N-CH MOSFET will short the solar pannel and bypass the current. A blocking diode is needed to prevent the battery from supplying current into the short and the panel must be equipped with by-pass diodes. Note that small panels normaly lack by-pass diodes and shorting a panel without bypass diodes can result in a Zener breakdown failure.
-
 
 ## LED options
 
-I have no connection with this outfit I am just looking...
+I have no connection with this outfit but I am using their parts.
 
 * [RGB] Cree XP-E2 350mA flux (67.2/107/23.5)
 * [Color] Cree XP-E2 having colors of DWL 450:465:520:565:585:610:620
@@ -170,12 +167,12 @@ I have no connection with this outfit I am just looking...
 [Color]: https://www.ledsupply.com/leds/cree-xlamp-xp-e2-color-high-power-led-star
 [White]: https://www.ledsupply.com/leds/cree-xlamp-xpe2-white-high-power-led
 
-If the the White forward voltage is less than 3.25V then a string of three would have 9.75V and that should just about work with a 12V input.
+If the the White forward voltage is less than 3.25V then a string of three would have 9.75V and that seems to work with a 12V input.
 
 
 # Original Ideas
 
-This board combines ideas from Sparkfun's [PicoBuck], Arduinos [Uno], and my own take on board design and hardware interfacing. It has shields [RPUpi] and [RPUadpt] that I also designed, the goal is to alow a daisy-chain serial to the Raspberry Pi Zero which is able to be a host computer, compile firmware and upload it to the control board(s) using an open source toolchain.
+This board combines ideas from Sparkfun's [PicoBuck], Arduinos [Uno], and my own take on board design and hardware interfacing. I use shields [RPUpi] and [RPUadpt] that I also designed, they daisy-chain serial from the Raspberry Pi Zero which acts as a host computer, e.g. it compiles firmware and then uploads the image to one of the control boards using a open source toolchain.
 
 [PicoBuck]: https://www.sparkfun.com/products/13705
 [Uno]: https://store.arduino.cc/usa/arduino-uno-rev3

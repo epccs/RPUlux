@@ -251,14 +251,12 @@ void test(void)
         return;
     }
 
-    // enable LED channel 1 
+    // enable LED channel 1
     pinMode(CH1,OUTPUT);
     digitalWrite(CH1,HIGH); // CH1 is defined in ../lib/pins_board.h
     _delay_ms(1000); // busy-wait delay so the 1uF cap has the average input current
-
     float ch1_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH1 LED, 1V1, 1sec: %1.3f A\r\n"), ch1_input_i);
-    
     _delay_ms(2000); // busy-wait delay so the 1uF cap has the average input current
     ch1_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
     printf_P(PSTR("PWR_I with CH1 LED, 1V1, 3sec: %1.3f A\r\n"), ch1_input_i);
@@ -276,8 +274,14 @@ void test(void)
         printf_P(PSTR(">>> CH1 curr is to low.\r\n"));
     }
 
-    // enable LED channel2
+    // enable LED channel1 weak pull-up
     pinMode(CH1,INPUT);
+    _delay_ms(1000); // busy-wait delay so the 1uF cap has the average input current
+    float ch1_weak_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
+    float ch1_weak_curr = 0.8*( (ch1_weak_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH1 curr /w weak pull-up on a 3.2V LED: %1.3f A\r\n"),  ch1_weak_curr);
+    
+    // enable LED channel2
     digitalWrite(CH1,LOW);
     pinMode(CH2,OUTPUT);
     digitalWrite(CH2,HIGH);
@@ -303,8 +307,14 @@ void test(void)
         printf_P(PSTR(">>> CH2 curr is to low.\r\n"));
     }
 
-    // enable LED channel3
+    // enable LED channel2 weak pull-up
     pinMode(CH2,INPUT);
+    _delay_ms(1000); // busy-wait delay so the 1uF cap has the average input current
+    float ch2_weak_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
+    float ch2_weak_curr = 0.8*( (ch2_weak_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH2 curr /w weak pull-up on a 3.2V LED: %1.3f A\r\n"),  ch2_weak_curr);
+
+    // enable LED channel3
     digitalWrite(CH2,LOW);
     pinMode(CH3,OUTPUT);
     digitalWrite(CH3,HIGH);
@@ -330,8 +340,14 @@ void test(void)
         printf_P(PSTR(">>> CH3 curr is to low.\r\n"));
     }
 
-    // enable LED channel4
+    // enable LED channel3 weak pull-up
     pinMode(CH3,INPUT);
+    _delay_ms(1000); // busy-wait delay so the 1uF cap has the average input current
+    float ch3_weak_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
+    float ch3_weak_curr = 0.8*( (ch3_weak_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH3 curr /w weak pull-up on a 3.2V LED: %1.3f A\r\n"),  ch3_weak_curr);
+
+    // enable LED channel4
     digitalWrite(CH3,LOW);
     pinMode(CH4,OUTPUT);
     digitalWrite(CH4,HIGH);
@@ -357,8 +373,14 @@ void test(void)
         printf_P(PSTR(">>> CH4 curr is to low.\r\n"));
     }
 
-    // enable LED channel5
+    // enable LED channel4 weak pull-up
     pinMode(CH4,INPUT);
+    _delay_ms(1000); // busy-wait delay so the 1uF cap has the average input current
+    float ch4_weak_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
+    float ch4_weak_curr = 0.8*( (ch4_weak_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH4 curr /w weak pull-up on a 3.2V LED: %1.3f A\r\n"),  ch4_weak_curr);
+
+    // enable LED channel5
     digitalWrite(CH4,LOW);
     pinMode(CH5,OUTPUT);
     digitalWrite(CH5,HIGH);
@@ -384,8 +406,14 @@ void test(void)
         printf_P(PSTR(">>> CH5 curr is to low.\r\n"));
     }
 
-    // enable LED channel6
+    // enable LED channel5 weak pull-up
     pinMode(CH5,INPUT);
+    _delay_ms(1000); // busy-wait delay so the 1uF cap has the average input current
+    float ch5_weak_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
+    float ch5_weak_curr = 0.8*( (ch5_weak_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH5 curr /w weak pull-up on a 3.2V LED: %1.3f A\r\n"),  ch5_weak_curr);
+
+    // enable LED channel6
     digitalWrite(CH5,LOW);
     pinMode(CH6,OUTPUT);
     digitalWrite(CH6,HIGH);
@@ -411,8 +439,14 @@ void test(void)
         printf_P(PSTR(">>> CH6 curr is to low.\r\n"));
     }
 
-    //swap back to the AVCC referance 
+    // enable LED channel6 weak pull-up
     pinMode(CH6,INPUT);
+    _delay_ms(1000); // busy-wait delay so the 1uF cap has the average input current
+    float ch6_weak_input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
+    float ch6_weak_curr = 0.8*( (ch6_weak_input_i - input_i)*input_v)/3.2;
+    printf_P(PSTR("Approximate CH6 curr /w weak pull-up on a 3.2V LED: %1.3f A\r\n"),  ch6_weak_curr);
+
+    //swap back to the AVCC referance 
     digitalWrite(CH6,LOW);
     init_ADC_single_conversion(EXTERNAL_AVCC); 
     _delay_ms(100); // busy-wait delay
