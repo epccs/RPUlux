@@ -18,7 +18,7 @@ Some lessons I learned doing RPUlux.
 
 ## ^2 AVR weak pull-up and AL8805 analog CTRL
 
-I was having problems with my [SelfTest] where I was only seeing about half the expected current from an AL8805. I was getting about 330mA with a 0.3 Ohm set resistor. 
+I was having problems with my [SelfTest] where I was only seeing about half the expected current from an AL8805. 
 
 [SelfTest]: https://github.com/epccs/RPUlux/tree/master/SelfTest
 
@@ -26,11 +26,61 @@ An 8.45k Ohm pull-down was used to turn off the LED's during boot loading and wh
 
 ![8k45PullDown](./WeakPullUpWith8k45pull-down.png "8k45 Pull-Down")
 
-With a 3.74k Ohm pull-down and a weak pull-up from the AVR switch mode converter runs with an analog setting in the range 50mA to 150mA (approximate). 
+With a 3.74k Ohm pull-down and a weak pull-up from the AVR the switch mode converter runs with an analog setting in the range 50mA to 150mA (approximate). 
 
 ![3k74PullDown](./WeakPullUpWith3k74pull-down.png "3k74 Pull-Down")
 
 When the AVR pin is in the push-pull mode and set HIGH the constant current converter provides the expected amount of current. The weak pull-up mode from the AVR set an analog voltage on the AL8805 CTRL pin that allows it to run at a reduced current without any audible switching noise (e.g. the 500Hz).
+
+```
+...
+Terminal ready
+RPUlux Self Test date: Mar 27 2018
+avr-gcc --version: 5.4.0
+I2C provided address 0x31 from serial bus manager
+adc reading for PWR_V: 359
+PWR at: 12.812 V
+ADC0 GN LED /W SINK on and CS*_EN off: 0.000 V
+ADC1 RD LED /W SINK on and CS*_EN off: 0.000 V
+ADC2 R1 /W CS*_EN off: 0.000 V
+ADC3 R1 /W CS*_EN off: 0.000 V
+CS0 curr source on R1: 0.022 A
+Green LED fwd V: 2.245 V
+CS1 curr source on R1: 0.022 A
+Red LED fwd V: 2.133 V
+   ADC2 reading used to calculate ref_intern_1v1_uV: 696 A
+   calculated ref_intern_1v1_uV: 1088918 uV
+REF_EXTERN_AVCC old value was in eeprom: 4948800 uV
+REF_INTERN_1V1 old value was in eeprom: 1078310 uV
+REF_EXTERN_AVCC saved in eeprom: 4986100 uV
+REF_INTERN_1V1 saved in eeprom: 1088918 uV
+PWR_I with !CS1_EN use INTERNAL_1V1: 0.013 A
+PWR_I with CH1 LED, 1V1, 1sec: 0.121 A
+PWR_I with CH1 LED, 1V1, 3sec: 0.121 A
+Approximate CH1 curr on a 3.2V LED: 0.344 A
+Approximate CH1 curr /w weak pull-up on a 3.2V LED: 0.091 A
+PWR_I with CH2 LED, 1V1, 1sec: 0.119 A
+PWR_I with CH2 LED, 1V1, 3sec: 0.119 A
+Approximate CH2 curr on a 3.2V LED: 0.337 A
+Approximate CH2 curr /w weak pull-up on a 3.2V LED: 0.091 A
+PWR_I with CH3 LED, 1V1, 1sec: 0.117 A
+PWR_I with CH3 LED, 1V1, 3sec: 0.117 A
+Approximate CH3 curr on a 3.2V LED: 0.331 A
+Approximate CH3 curr /w weak pull-up on a 3.2V LED: 0.088 A
+PWR_I with CH4 LED, 1V1, 1sec: 0.119 A
+PWR_I with CH4 LED, 1V1, 3sec: 0.118 A
+Approximate CH4 curr on a 3.2V LED: 0.336 A
+Approximate CH4 curr /w weak pull-up on a 3.2V LED: 0.090 A
+PWR_I with CH5 LED, 1V1, 1sec: 0.117 A
+PWR_I with CH5 LED, 1V1, 3sec: 0.117 A
+Approximate CH5 curr on a 3.2V LED: 0.332 A
+Approximate CH5 curr /w weak pull-up on a 3.2V LED: 0.088 A
+PWR_I with CH6 LED, 1V1, 1sec: 0.120 A
+PWR_I with CH6 LED, 1V1, 3sec: 0.120 A
+Approximate CH6 curr on a 3.2V LED: 0.342 A
+Approximate CH6 curr /w weak pull-up on a 3.2V LED: 0.092 A
+[PASS]
+```
 
 
 ## ^2 AL8805 CTRL Pin Driven with AVR Weak Pull Up 
