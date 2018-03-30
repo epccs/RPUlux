@@ -7,8 +7,124 @@ This shows the setup and method used for evaluation of RPUlux.
 
 # Table Of Contents:
 
+1. ^1 AL8805 Curr Sense is like Datasheet
 1. ^1 Demo Setup
 1. ^1 AL8805 Curr Sense is Unlike Datasheet
+
+
+## ^1 AL8805 Curr Sense is like Datasheet
+
+Now that the SelfTest is useing the pwm pins in a push-pull mode lets see what the current in LED's is for this ^1 unit that I have used 0.15 Ohm set resistors.
+
+```
+...
+Terminal ready
+RPUlux Self Test date: Mar 29 2018
+avr-gcc --version: 5.4.0
+I2C provided address 0x31 from serial bus manager
+adc reading for PWR_V: 357
+PWR at: 12.740 V
+ADC0 GN LED /W SINK on and CS*_EN off: 0.000 V
+ADC1 RD LED /W SINK on and CS*_EN off: 0.000 V
+ADC2 R1 /W CS*_EN off: 0.000 V
+ADC3 R1 /W CS*_EN off: 0.000 V
+CS0 curr source on R1: 0.022 A
+Green LED fwd V: 2.225 V
+CS1 curr source on R1: 0.022 A
+Red LED fwd V: 2.104 V
+   ADC2 reading used to calculate ref_intern_1v1_uV: 698 A
+   calculated ref_intern_1v1_uV: 1071511 uV
+REF_EXTERN_AVCC old value was in eeprom: 4986100 uV
+REF_INTERN_1V1 old value was in eeprom: 1071451 uV
+REF_EXTERN_AVCC saved in eeprom: 4986100 uV
+REF_INTERN_1V1 saved in eeprom: 1071511 uV
+PWR_I with !CS1_EN use INTERNAL_1V1: 0.010 A
+PWR_I with CH1 LED, 1V1, 1sec: 0.216 A
+PWR_I with CH1 LED, 1V1, 3sec: 0.215 A
+Approximate CH1 curr on a 3.2V LED: 0.652 A
+>>> CH1 curr is to high.
+Approximate CH1 curr /w weak pull-up on a 3.2V LED: 0.284 A
+PWR_I with CH2 LED, 1V1, 1sec: 0.213 A
+PWR_I with CH2 LED, 1V1, 3sec: 0.212 A
+Approximate CH2 curr on a 3.2V LED: 0.642 A
+>>> CH2 curr is to high.
+Approximate CH2 curr /w weak pull-up on a 3.2V LED: 0.283 A
+PWR_I with CH3 LED, 1V1, 1sec: 0.219 A
+PWR_I with CH3 LED, 1V1, 3sec: 0.218 A
+Approximate CH3 curr on a 3.2V LED: 0.661 A
+>>> CH3 curr is to high.
+Approximate CH3 curr /w weak pull-up on a 3.2V LED: 0.290 A
+PWR_I with CH4 LED, 1V1, 1sec: 0.213 A
+PWR_I with CH4 LED, 1V1, 3sec: 0.212 A
+Approximate CH4 curr on a 3.2V LED: 0.643 A
+>>> CH4 curr is to high.
+Approximate CH4 curr /w weak pull-up on a 3.2V LED: 0.274 A
+PWR_I with CH5 LED, 1V1, 1sec: 0.222 A
+PWR_I with CH5 LED, 1V1, 3sec: 0.220 A
+Approximate CH5 curr on a 3.2V LED: 0.669 A
+>>> CH5 curr is to high.
+Approximate CH5 curr /w weak pull-up on a 3.2V LED: 0.281 A
+PWR_I with CH6 LED, 1V1, 1sec: 0.221 A
+PWR_I with CH6 LED, 1V1, 3sec: 0.220 A
+Approximate CH6 curr on a 3.2V LED: 0.668 A
+>>> CH6 curr is to high.
+Approximate CH6 curr /w weak pull-up on a 3.2V LED: 0.283 A
+[FAIL]
+```
+
+Those values are correct, I have been running this ^1 board with a PWM setting of 32 for about four weeks now. I was able to operat four channels with three LED's per channel at 12.8V and 100% duty in push-pull mode befor reaching the input current max that I can read on ADC6. The LED's got hotter than I was expecting but I was operating them at twice the current I thought. I think this is a good indication that 330mA is going to give a very long life with the Cree XPE2 LED.
+
+After changing the set resistor back to 0.3 Ohm, and changing the pulldown from 8.45k Ohm to 3.74k Ohm the self test shows.
+
+```
+...
+Terminal ready
+RPUlux Self Test date: Mar 29 2018
+avr-gcc --version: 5.4.0
+I2C provided address 0x31 from serial bus manager
+adc reading for PWR_V: 356
+PWR at: 12.705 V
+ADC0 GN LED /W SINK on and CS*_EN off: 0.000 V
+ADC1 RD LED /W SINK on and CS*_EN off: 0.000 V
+ADC2 R1 /W CS*_EN off: 0.000 V
+ADC3 R1 /W CS*_EN off: 0.000 V
+CS0 curr source on R1: 0.022 A
+Green LED fwd V: 2.225 V
+CS1 curr source on R1: 0.022 A
+Red LED fwd V: 2.113 V
+   ADC2 reading used to calculate ref_intern_1v1_uV: 700 A
+   calculated ref_intern_1v1_uV: 1068450 uV
+REF_EXTERN_AVCC old value was in eeprom: 4986100 uV
+REF_INTERN_1V1 old value was in eeprom: 1071451 uV
+REF_EXTERN_AVCC saved in eeprom: 4986100 uV
+REF_INTERN_1V1 saved in eeprom: 1068450 uV
+PWR_I with !CS1_EN use INTERNAL_1V1: 0.010 A
+PWR_I with CH1 LED, 1V1, 1sec: 0.111 A
+PWR_I with CH1 LED, 1V1, 3sec: 0.111 A
+Approximate CH1 curr on a 3.2V LED: 0.320 A
+Approximate CH1 curr /w weak pull-up on a 3.2V LED: 0.090 A
+PWR_I with CH2 LED, 1V1, 1sec: 0.110 A
+PWR_I with CH2 LED, 1V1, 3sec: 0.110 A
+Approximate CH2 curr on a 3.2V LED: 0.317 A
+Approximate CH2 curr /w weak pull-up on a 3.2V LED: 0.087 A
+PWR_I with CH3 LED, 1V1, 1sec: 0.113 A
+PWR_I with CH3 LED, 1V1, 3sec: 0.113 A
+Approximate CH3 curr on a 3.2V LED: 0.325 A
+Approximate CH3 curr /w weak pull-up on a 3.2V LED: 0.090 A
+PWR_I with CH4 LED, 1V1, 1sec: 0.110 A
+PWR_I with CH4 LED, 1V1, 3sec: 0.109 A
+Approximate CH4 curr on a 3.2V LED: 0.314 A
+Approximate CH4 curr /w weak pull-up on a 3.2V LED: 0.084 A
+PWR_I with CH5 LED, 1V1, 1sec: 0.112 A
+PWR_I with CH5 LED, 1V1, 3sec: 0.112 A
+Approximate CH5 curr on a 3.2V LED: 0.322 A
+Approximate CH5 curr /w weak pull-up on a 3.2V LED: 0.087 A
+PWR_I with CH6 LED, 1V1, 1sec: 0.112 A
+PWR_I with CH6 LED, 1V1, 3sec: 0.111 A
+Approximate CH6 curr on a 3.2V LED: 0.321 A
+Approximate CH6 curr /w weak pull-up on a 3.2V LED: 0.087 A
+[PASS]
+```
 
 
 ## ^1 Demo Setup

@@ -5,9 +5,10 @@ OBJECTS = main.o \
 	chrg_accum.o \
 	../Digital/digital.o \
 	../Pwm/pwm.o \
-	../DayNight/day_night.o \
 	../Adc/analog.o \
 	../Adc/references.o \
+	../i2c-debug/i2c-cmd.o \
+	../i2c-debug/i2c-scan.o \
 	../Uart/id.o \
 	$(LIBDIR)/timers.o \
 	$(LIBDIR)/uart.o \

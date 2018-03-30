@@ -102,6 +102,29 @@ void Charge(void)
     }
 }
 
+uint8_t ResetChargeAccum(void)
+{  
+    // command_done in one step so no need check for which step to work on
+
+    // laod reference calibration or show an error if they are not in eeprom
+    if ( ! LoadAnalogRefFromEEPROM() )
+    {
+        printf_P(PSTR("{\"err\":\"AdcRefNotInEeprom\"}\r\n"));
+        initCommandBuffer();
+        return 0;
+    }
+    if (!init_ChargAccumulation(PWR_I)) // ../AmpHr/chrg_accum.c
+    {
+        printf_P(PSTR("{\"err\":\"init_ChargAccum\"}\r\n"));
+        initCommandBuffer();
+        return 0;
+    }
+    serial_print_started_at = millis();
+    printf_P(PSTR("{\"init_ChrgAccum\":\"OK\"}\r\n"));
+    initCommandBuffer();
+    return 1;
+}
+
 /* update charge accumulation
     charge accumulation is an integer value of the ADC*(millis()/1000) and will need scaled
 */

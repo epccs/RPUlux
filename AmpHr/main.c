@@ -27,7 +27,8 @@ http://www.gnu.org/licenses/gpl-2.0.html
 #include "../lib/pins_board.h"
 #include "../Uart/id.h"
 #include "../Adc/analog.h"
-#include "../DayNight/day_night.h"
+#include "../i2c-debug/i2c-scan.h"
+#include "../i2c-debug/i2c-cmd.h"
 #include "../Pwm/pwm.h"
 #include "../Digital/digital.h"
 #include "chrg_accum.h"
@@ -44,9 +45,6 @@ static unsigned long adc_started_at;
 
 // 22mA current sources enabled with CS0_EN and CS1_EN which are defined in ../lib/pins_board.h
 #define STATUS_LED CS0_EN
-#define DAYNIGHT_STATUS_LED CS1_EN
-#define DAYNIGHT_BLINK 500UL
-static unsigned long day_status_blink_started_at;
 
 #define BLINK_DELAY 1000UL
 static unsigned long blink_started_at;
@@ -59,13 +57,33 @@ void ProcessCmd()
     {
         Id("AmpHr"); // ../Uart/id.c
     }
-    if ( (strcmp_P( command, PSTR("/day?")) == 0) && ( (arg_count == 0 ) ) )
-    {
-        Day(); // ../DayNight/day_night.c
-    }
     if ( (strcmp_P( command, PSTR("/analog?")) == 0) && ( (arg_count >= 1 ) && (arg_count <= 5) ) )
     {
         Analog(); // ../Adc/analog.c
+    }
+   if ( (strcmp_P( command, PSTR("/iscan?")) == 0) && (arg_count == 0) )
+    {
+        I2c_scan(); // ../i2c-debug/i2c-scan.c
+    }
+    if ( (strcmp_P( command, PSTR("/iaddr")) == 0) && (arg_count == 1) )
+    {
+        I2c_address(); // ../i2c-debug/i2c-cmd.c
+    }
+    if ( (strcmp_P( command, PSTR("/ibuff")) == 0) )
+    {
+        I2c_txBuffer(); // ../i2c-debug/i2c-cmd.c
+    }
+    if ( (strcmp_P( command, PSTR("/ibuff?")) == 0) && (arg_count == 0) )
+    {
+        I2c_txBuffer(); // ../i2c-debug/i2c-cmd.c
+    }
+    if ( (strcmp_P( command, PSTR("/iwrite")) == 0) && (arg_count == 0) )
+    {
+        I2c_write(); // ../i2c-debug/i2c-cmd.c
+    }
+    if ( (strcmp_P( command, PSTR("/iread?")) == 0) && (arg_count == 1) )
+    {
+        I2c_read(); // ../i2c-debug/i2c-cmd.c
     }
     if ( (strcmp_P( command, PSTR("/pwm")) == 0) )
     {
@@ -91,22 +109,12 @@ void ProcessCmd()
     {
         Charge(); // ./chrg_accum.c
     }
-}
-
-//At start of each day do this
-void callback_for_day_attach(void)
-{
-    // I don't have a defaut (not sure how to do that) so this is needed.
-    return;
-}
-
-//At start of each night do this
-void callback_for_night_attach(void)
-{
-    // setup AmpHr accumulators and load Adc calibration reference
-    if (!init_ChargAccumulation(PWR_I)) // ../AmpHr/power_storage.c
+    if ( (strcmp_P( command, PSTR("/reset")) == 0) && ( (arg_count == 0 ) ) )
     {
-        blink_delay = BLINK_DELAY/4;
+        if (!ResetChargeAccum()) // ./chrg_accum.c
+        {
+            blink_delay = BLINK_DELAY/4;
+        }
     }
 }
 
@@ -114,9 +122,6 @@ void setup(void)
 {
     pinMode(STATUS_LED,OUTPUT);
     digitalWrite(STATUS_LED,HIGH);
-
-    pinMode(DAYNIGHT_STATUS_LED,OUTPUT);
-    digitalWrite(DAYNIGHT_STATUS_LED,HIGH);
 
     // set pwm pin DDR
     pinMode(CH1,OUTPUT); // DDRD |= (1<<PD3)
@@ -149,7 +154,6 @@ void setup(void)
     sei(); 
     
     blink_started_at = millis();
-    day_status_blink_started_at = millis();
     
     rpu_addr = get_Rpu_address();
     blink_delay = BLINK_DELAY;
@@ -160,10 +164,6 @@ void setup(void)
         rpu_addr = '0';
         blink_delay = BLINK_DELAY/4;
     }
-    
-    // set callbacks for DayNight state machine, i.e. work to do.
-    Day_AttachWork(callback_for_day_attach);
-    Night_AttachWork(callback_for_night_attach);
 }
 
 void blink(void)
@@ -175,45 +175,6 @@ void blink(void)
         
         // next toggle 
         blink_started_at += blink_delay; 
-    }
-}
-
-void blink_day_status(void)
-{
-    unsigned long kRuntime = millis() - day_status_blink_started_at;
-    uint8_t state = DayState();
-    if ( ( (state == DAYNIGHT_EVENING_DEBOUNCE_STATE) || \
-           (state == DAYNIGHT_MORNING_DEBOUNCE_STATE) ) && \
-           (kRuntime > (DAYNIGHT_BLINK/2) ) )
-    {
-        digitalToggle(DAYNIGHT_STATUS_LED);
-        
-        // set for next toggle 
-        day_status_blink_started_at += DAYNIGHT_BLINK/2; 
-    }
-    if ( ( (state == DAYNIGHT_DAY_STATE) ) && \
-           (kRuntime > (DAYNIGHT_BLINK) ) )
-    {
-        digitalWrite(DAYNIGHT_STATUS_LED,HIGH);
-        
-        // set for next toggle 
-        day_status_blink_started_at += DAYNIGHT_BLINK; 
-    }
-    if ( ( (state == DAYNIGHT_NIGHT_STATE) ) && \
-           (kRuntime > (DAYNIGHT_BLINK) ) )
-    {
-        digitalWrite(DAYNIGHT_STATUS_LED,LOW);
-        
-        // set for next toggle 
-        day_status_blink_started_at += DAYNIGHT_BLINK; 
-    }
-    if ( ( (state == DAYNIGHT_FAIL_STATE) ) && \
-           (kRuntime > (DAYNIGHT_BLINK/8) ) )
-    {
-        digitalToggle(DAYNIGHT_STATUS_LED);
-        
-        // set for next toggle 
-        day_status_blink_started_at += DAYNIGHT_BLINK/8; 
     }
 }
 
@@ -235,12 +196,6 @@ int main(void)
     { 
         // use STATUS_LED to show if I2C has a bus manager
         blink();
-
-        // use DAYNIGHT_STATUS_LED to show day_state
-        blink_day_status();
-
-        // Check Day Light is a function that operates a day-night state machine.
-        CheckDayLight(); // ../DayNight/day_night.c
 
         // delay between ADC burst
         adc_burst();
@@ -278,14 +233,14 @@ int main(void)
             else
             {
                 if (command_done == 1)  
-                {
+                { // steps 2..9 are skipped, but reserved for more complex parse
                     findCommand(); // ../lib/parse.c
                     command_done = 10;
                 }
                 
                 // do not overfill the serial buffer since that blocks looping, e.g. process a command in 32 byte chunks
                 if ( (command_done >= 10) && (command_done < 250) )
-                {
+                { // setps 10..249 are moved through by the procedure selected
                      ProcessCmd();
                 }
                 else 
