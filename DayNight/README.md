@@ -4,13 +4,15 @@
 
 Use a red LED's photovoltaic voltage on ADC2 to approximately tell when it is day or night. 
 
-Note: use the Day_AttachDayWork() function to set a callback that will be run at the start of each day. This framework is how I debuged the day-night stat machine.
+Note: use the Day_AttachDayWork() and Night_AttachWork() functions to set a callback that will be run at the start of each day. This framework is how I debuged the day-night stat machine, it is not expected to be useful.
+
 
 ## Firmware Upload
 
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
+sudo apt-get install git gcc-avr binutils-avr gdb-avr avr-libc avrdude
 git clone https://github.com/epccs/RPUlux/
 cd /RPUux/DayNight
 make bootload

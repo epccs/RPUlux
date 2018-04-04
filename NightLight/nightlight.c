@@ -727,7 +727,7 @@ void LedControl() {
                 led[i].cycle_millis_stop = millis(); // correction of -1 millis was added so timer shows expected value
                 led[i].cycle_state = LED_STATE_RESET;
             }
-            if (ChargeAccum() > led[i].mahr_stop) // ChargeAccum is from ../AmpHr/chrg_accum.c, warning this test takes a few machine cycles on an AVR
+            if (ChargeAccum(PWR_I) > led[i].mahr_stop) // ChargeAccum is from ../AmpHr/chrg_accum.c, warning this test takes a few machine cycles on an AVR
             {  
                 led[i].cycle_state = LED_STATE_RESET;
                 led[i].cycles = 0;

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Accumulate ADC readings at timed intervals from a resistor sensor. This is an interactive command line program that demonstrates how the ATmega328p can be used to keep track of charge (or discharge). 
+Use ADC reading to Accumulate at timed intervals from a sense resistor. This is an interactive command line program that demonstrates how the ATmega328p can be used to track the discharge from a battery. 
 
 [Adc]: ../Adc
 
@@ -17,6 +17,7 @@ The [day-night][../DayNight] state machine is used to clear the discharge accumu
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
+sudo apt-get install git gcc-avr binutils-avr gdb-avr avr-libc avrdude
 git clone https://github.com/epccs/RPUlux/
 cd /RPUux/AmpHr
 make bootload

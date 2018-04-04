@@ -55,7 +55,6 @@
 // Current Source Enable
 #define CS0_EN 12
 #define CS1_EN 13
-#define LED_BUILTIN 13 
 
 //ADC0 thur ADC2 can also be used for digital IO from the plugable connector
 #define DIO14 14

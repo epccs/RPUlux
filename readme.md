@@ -69,10 +69,7 @@ An [example] using the Arduino IDE.
 
 [example]: ./Arduino
 
-On this board the Arduino IDE can use the Uno's core files that are included with the IDE, just remember to look at the schematic to see how the "Uno" is connected. I don't use the Arduino core because I have had problems preventing C++ from using the heap memory, which I don't want it to do since there is no operating system or memory management. In all frankness, I think [MicroPython and CircuitPython] will be a better place to start learning how to program embedded devices, and [Raspberry Pi] is better for learning C++ (it has an OS and the program will stop rather than having the heap and stack memory systems trash each other without warning).
+On this board the Arduino IDE can use the Uno's core files that are included with the IDE (my core files are for C rather then C++), just remember to look at the schematic to see how the "Uno" is connected. I do not use the Arduino core but did start with it before deciding that C++ was the wrong tool for the job.
 
-[MicroPython and CircuitPython]: https://www.adafruit.com/category/924
-[Raspberry Pi]: https://www.adafruit.com/category/105
-
-Arduino has an amazing community of helpful people that can guide the use of its hazard fraught embedded environment.
+Note Arduino's core will run Timer0 in fast hardware PWM mode which is faster than the AL8805 recommends. I do not think any harm is done, but it is outside the datasheet specification and the AL8805 may not have time to turn on with a low PWM value. Timer1 and Timer2 are set to run phase-correct hardware PWM mode by default with the Arduino core, libraries that change there setting will likely cause problems.
 

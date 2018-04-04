@@ -145,7 +145,7 @@ void ProcessCmd()
 void callback_for_night_attach(void)
 {
     // setup AmpHr accumulators and load Adc calibration reference
-    if (!init_ChargAccumulation()) // ../AmpHr/chrg_accum.c
+    if (!init_ChargAccumulation(PWR_I)) // ../AmpHr/chrg_accum.c
     {
         blink_delay = BLINK_DELAY/4;
     }
@@ -220,7 +220,7 @@ void setup(void)
     Day_AttachWork(callback_for_day_attach);
     
     // setup AmpHr accumulators
-    if (!init_ChargAccumulation()) // ../AmpHr/chrg_accum.c
+    if (!init_ChargAccumulation(PWR_I)) // ../AmpHr/chrg_accum.c
     {
         blink_delay = BLINK_DELAY/4;
     }

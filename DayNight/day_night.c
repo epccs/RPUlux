@@ -55,13 +55,21 @@ http://www.gnu.org/licenses/gpl-2.0.html
 
 uint8_t dayState = 0; 
 unsigned long dayTmrStarted;
-static void (*dayState_atDayWork)(void);
-static void (*dayState_atNightWork)(void);
+
+// used to initalize the PointerToWork functions in case they are not used.
+void callback_default(void)
+{
+    return;
+}
+
+typedef void (*PointerToWork)(void);
+static PointerToWork dayState_atDayWork = callback_default;
+static PointerToWork dayState_atNightWork = callback_default;
 
 #define SERIAL_PRINT_DELAY_MILSEC 60000UL
 static unsigned long serial_print_started_at;
 
-/* A place to register function callback that provides the task to do at start of each day
+/* register (i.e. save a referance to) a function callback that does somthing
  */
 void Day_AttachWork( void (*function)(void)  )
 {

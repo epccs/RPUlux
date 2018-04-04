@@ -735,11 +735,16 @@ SOT23 is BSS138 pinout</description>
 <segment>
 <wire x1="63.5" y1="38.1" x2="58.42" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="U$2" gate="G$1" pin="+BAT"/>
-<wire x1="58.42" y1="15.24" x2="58.42" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="58.42" y1="15.24" x2="58.42" y2="20.32" width="0.1524" layer="91"/>
 <junction x="58.42" y="38.1"/>
 <pinref part="U2" gate="G$1" pin="VIN"/>
+<wire x1="58.42" y1="20.32" x2="58.42" y2="38.1" width="0.1524" layer="91"/>
 <wire x1="58.42" y1="38.1" x2="45.72" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="U$3" gate="G$1" pin="-DC"/>
+<pinref part="U$3" gate="G$1" pin="+IN"/>
+<wire x1="66.04" y1="22.86" x2="66.04" y2="20.32" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="20.32" x2="58.42" y2="20.32" width="0.1524" layer="91"/>
+<junction x="58.42" y="20.32"/>
 </segment>
 </net>
 <net name="N$9" class="0">
@@ -752,13 +757,8 @@ SOT23 is BSS138 pinout</description>
 <net name="N$10" class="0">
 <segment>
 <pinref part="PV3" gate="G$1" pin="+PV"/>
-<wire x1="73.66" y1="38.1" x2="71.12" y2="38.1" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="38.1" x2="66.04" y2="38.1" width="0.1524" layer="91"/>
-<junction x="71.12" y="38.1"/>
+<wire x1="73.66" y1="38.1" x2="66.04" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="U$3" gate="G$1" pin="+DC"/>
-<pinref part="U$3" gate="G$1" pin="+IN"/>
-<wire x1="66.04" y1="22.86" x2="71.12" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="71.12" y1="22.86" x2="71.12" y2="38.1" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

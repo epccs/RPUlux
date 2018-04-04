@@ -31,6 +31,9 @@ http://www.gnu.org/licenses/gpl-2.0.html
 #define ADC_DELAY_MILSEC 200UL
 static unsigned long adc_started_at;
 
+// 22mA current sources enabled with CS0_EN and CS1_EN which are defined in ../lib/pins_board.h
+#define STATUS_LED CS0_EN
+
 #define BLINK_DELAY 1000UL
 static unsigned long blink_started_at;
 static unsigned long blink_delay;
@@ -50,9 +53,8 @@ void ProcessCmd()
 
 void setup(void) 
 {
-	// LED_BUILTIN is defined in ../lib/pin_board.h
-    pinMode(LED_BUILTIN,OUTPUT);
-    digitalWrite(LED_BUILTIN,HIGH);
+    pinMode(STATUS_LED,OUTPUT);
+    digitalWrite(STATUS_LED,HIGH);
 
     // Disable the Alternat power input
     pinMode(ALT_EN,OUTPUT);
@@ -98,7 +100,7 @@ void blink(void)
     unsigned long kRuntime = millis() - blink_started_at;
     if ( kRuntime > blink_delay)
     {
-        digitalToggle(LED_BUILTIN);
+        digitalToggle(STATUS_LED);
         
         // next toggle 
         blink_started_at += blink_delay; 
@@ -121,7 +123,7 @@ int main(void)
 
     while(1) 
     { 
-        // use LED to show if I2C has a bus manager
+        // use STATUS_LED to show if I2C has a bus manager
         blink();
 
         // delay between ADC burst
