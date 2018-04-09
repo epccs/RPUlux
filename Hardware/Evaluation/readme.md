@@ -7,9 +7,25 @@ This shows the setup and method used for evaluation of RPUlux.
 
 # Table Of Contents:
 
+1. ^2 Using Shields for Managed Serial Bus 
 1. ^1 AL8805 Curr Sense is like Datasheet
 1. ^1 Demo Setup
 1. ^1 AL8805 Curr Sense is Unlike Datasheet
+
+## ^2 Using Shields for Managed Serial Bus
+
+![DemoWithMultidrop](./RPUlux^2_multidrop_from_pi-host.jpg "Demo With Multidrop")
+
+RPUpi moved to the new RPUlux^2 and put a RPUadpt^5 on the PUlux^1.
+
+The Pi Zero has a WiFi dongle so I can SSH into it remotely. The RPUbus goes over the ubiquitous CAT5 cable wired for ethernet (not the crossover variant).
+
+Headless computers are a paradigm shift, I worry about how I will fix it if something goes wrong, but after switching from Raspbian Jessie to Stretch by way of a clean install I guess in the worst case it is easy enough to sanitize. 
+
+![SshToPiZero](./RPUlux^2_SSH_to_pi-host.gif "SSH to Pi Zero")
+
+
+Notes firmware could be writen to shutdown the battery backed Pi if the power is out for an exteded period. The Wifi and network services (DHCP,DNS Host Mapping) also need to be battary backed for a laptop to be able to access them.
 
 
 ## ^1 AL8805 Curr Sense is like Datasheet
@@ -138,7 +154,7 @@ A Raspbery Pi Zero running Raspian stretch lite is installed on an RPUpi^3 shiel
 
 This setup was let run a few weeks with a red led channel set to PWM at 32. The battery charger seems to keep, but since the firmware is not smart about turning off the Pi Zero I did not want to risk a demanding load. 
 
-![DemoSetup](./RPUlux^1+RPUpi^3+LA12V+CH1=3xRD "Demo Setup")
+![DemoSetup](./RPUlux^1+RPUpi^3+LA12V+CH1=3xRD.jpg "Demo Setup")
 
 Although the AL8805 is not doing what the datasheet says it does seem to operate correctly.
 

@@ -53,9 +53,9 @@ Apply a current limited (20mA) supply set with 5V to the PWR and 0V connector J7
 Apply a current limited (20mA) supply set with 7V to the PWR and 0V connector J7 and verify that the voltage does get through. Adjust the supply so the LED is on and stable and measure voltage, adjust supply to 30V measure input current. 
 
 ```
-{ "LEDON_V":[10.7,10.7,10.7,],
-  "PWR@7V_mA":[1.9,1.9,1.8,],
-  "PWR@30V_mA":[3.0,3.2,3.1,]}
+{ "LEDON_V":[10.7,10.7,10.7,10.7,10.7,],
+  "PWR@7V_mA":[1.9,1.9,1.8,1.9,1.9,],
+  "PWR@30V_mA":[3.0,3.2,3.1,3.2,3.2,]}
 ```
 
 
@@ -64,7 +64,7 @@ Apply a current limited (20mA) supply set with 7V to the PWR and 0V connector J7
 Apply a 30mA current limited 5V source to +5V (J6). Check that the input current is for a blank MCU (e.g. less than 7mA). Turn off the power.
 
 ```
-{ "I_IN_BLANKMCU_mA":[3.8,3.6,3.2,]}
+{ "I_IN_BLANKMCU_mA":[3.8,3.6,3.2,3.4,2.9,]}
 ```
 
 ## Set MCU Fuse and Install Bootloader
@@ -98,7 +98,7 @@ make isp
 Disconnect the ISP tool and measure the input current, wait for the power to be settled. Turn off the power.
 
 ```
-{ "I_IN_16MHZ_EXT_CRYST_mA":[12.9,11.3,10.9,]}
+{ "I_IN_16MHZ_EXT_CRYST_mA":[12.9,11.3,10.9,11.3,10.8,]}
 ```
 
 Add U2 to the board now. Measurement of the input current is for referance (takes a long time to settle).

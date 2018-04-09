@@ -32,7 +32,7 @@ along with the SelfTest.  If not, see http://www.gnu.org/licenses/.
 
 // Save the Value of the References for ADC converter 
 // measure AVCC and put it hear in uV 
-#define REF_EXTERN_AVCC 4986100UL
+#define REF_EXTERN_AVCC 4976300UL
 // ref_intern_1v1_uV is calculated based on the above value and the ICP1 PL resistor
 
 
@@ -211,25 +211,32 @@ void test(void)
     uint32_t temp_ref_extern_avcc_uV = ref_extern_avcc_uV;
     
     // check for old referance values
-    if (LoadAnalogRefFromEEPROM())
-    {
-        printf_P(PSTR("REF_EXTERN_AVCC old value was in eeprom: %lu uV\r\n"), ref_extern_avcc_uV);
-        printf_P(PSTR("REF_INTERN_1V1 old value was in eeprom: %lu uV\r\n"), ref_intern_1v1_uV);
-    }
-    ref_extern_avcc_uV = temp_ref_extern_avcc_uV;
+    ref_extern_avcc_uV = 0;
+    ref_intern_1v1_uV = 0;
+    LoadAnalogRefFromEEPROM();
+    printf_P(PSTR("REF_EXTERN_AVCC old value found in eeprom: %lu uV\r\n"), ref_extern_avcc_uV);
+    printf_P(PSTR("REF_INTERN_1V1 old value found in eeprom: %lu uV\r\n"), ref_intern_1v1_uV);
     ref_intern_1v1_uV = temp_ref_intern_1v1_uV;
-    if ((ref_intern_1v1_uV > 1050000UL)  || (ref_intern_1v1_uV < 1150000UL) )
+    if (ref_extern_avcc_uV == temp_ref_extern_avcc_uV)
     {
-        //while ( !WriteEeReferenceId() ) {};
-        //while ( !WriteEeReferenceAvcc() ) {};
-        //while ( !WriteEeReference1V1() ) {};
-        printf_P(PSTR("REF_EXTERN_AVCC saved in eeprom: %lu uV\r\n"), ref_extern_avcc_uV);
-        printf_P(PSTR("REF_INTERN_1V1 saved in eeprom: %lu uV\r\n"), ref_intern_1v1_uV);
+        printf_P(PSTR("REF_EXTERN_AVCC from eeprom is same\r\n"));
     }
     else
-    { 
-        passing = 0; 
-        printf_P(PSTR(">>> REF_* for ADC not saved in eeprom.\r\n"));
+    {
+        ref_extern_avcc_uV = temp_ref_extern_avcc_uV;
+        if ((ref_intern_1v1_uV > 1050000UL)  || (ref_intern_1v1_uV < 1150000UL) )
+        {
+            while ( !WriteEeReferenceId() ) {};
+            while ( !WriteEeReferenceAvcc() ) {};
+            while ( !WriteEeReference1V1() ) {};
+            printf_P(PSTR("REF_EXTERN_AVCC saved into eeprom: %lu uV\r\n"), ref_extern_avcc_uV);
+            printf_P(PSTR("REF_INTERN_1V1 saved into eeprom: %lu uV\r\n"), ref_intern_1v1_uV);
+        }
+        else
+        { 
+            passing = 0; 
+            printf_P(PSTR(">>> REF_* for ADC not saved in eeprom.\r\n"));
+        }
     }
     
     // turn off red led off

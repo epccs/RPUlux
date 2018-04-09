@@ -69,7 +69,22 @@ An [example] using the Arduino IDE.
 
 [example]: ./Arduino
 
-On this board the Arduino IDE can use the Uno's core files that are included with the IDE (my core files are for C rather then C++), just remember to look at the schematic to see how the "Uno" is connected. I do not use the Arduino core but did start with it before deciding that C++ was the wrong tool for the job.
+On this board the Arduino IDE can use the [Uno's AVR core] files that are included with the IDE (my [core] files are C rather than C++), just remember to look at the schematic to see how the "Uno" is connected. I do not use the Arduino core but did start with it before figuring out that C++ [OOP] features used unmanaged [heap memory], and as the stack, and heap collided my programs did strange things (it was educational).
+
+[Uno's AVR core]: https://github.com/arduino/Arduino/tree/master/hardware/arduino/avr/cores/arduino
+[core]: https://github.com/epccs/RPUlux/tree/master/lib
+[OOP]: https://medium.com/@brianwill/object-oriented-programming-a-personal-disaster-1b044c2383ab
+[heap memory]: https://www.gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html
 
 Note Arduino's core will run Timer0 in fast hardware PWM mode which is faster than the AL8805 recommends. I do not think any harm is done, but it is outside the datasheet specification and the AL8805 may not have time to turn on with a low PWM value. Timer1 and Timer2 are set to run phase-correct hardware PWM mode by default with the Arduino core, libraries that change there setting will likely cause problems.
+
+## Visual Studio Code
+
+VSC is an editor with some IDE features, it is happy with Makefiles. The feature that is driving me to use VSC is [IntelliSense]. It is configured with JSON files in [.vscode]. 
+
+[IntelliSense]: https://code.visualstudio.com/docs/editor/intellisense
+[.vscode]: https://github.com/epccs/RPUlux/tree/master/.vscode
+
+IntelliSense needs access to the toolchain includes. The AVR toolchain has some in avr-libc (/usr/lib/avr/include), and gcc-avr (/usr/lib/gcc/avr/5.4.0/include). So I copy them into a Samba share for VSC to see (e.g. Y:/lib/avr-libc, and Y:/lib/gcc-avr) which is also where I edit the source (e.g. Y:/git/RPUlux).
+
 
