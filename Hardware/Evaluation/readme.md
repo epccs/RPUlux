@@ -25,7 +25,7 @@ Headless computers are a paradigm shift, I worry about how I will fix it if some
 ![SshToPiZero](./RPUlux^2_SSH_to_pi-host.gif "SSH to Pi Zero")
 
 
-Notes firmware could be writen to shutdown the battery backed Pi if the power is out for an exteded period. The Wifi and network services (DHCP,DNS Host Mapping) also need to be battary backed for a laptop to be able to access them.
+Notes firmware could be written to shutdown the battery backed Pi if the power is out for an extended period. The Wifi and network services (DHCP,DNS Host Mapping) also need to be battery backed for a laptop to be able to access them.
 
 
 ## ^1 AL8805 Curr Sense is like Datasheet
