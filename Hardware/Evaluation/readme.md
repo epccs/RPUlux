@@ -7,10 +7,26 @@ This shows the setup and method used for evaluation of RPUlux.
 
 # Table Of Contents:
 
+1. ^2 PWM modes
 1. ^2 Using Shields for Managed Serial Bus 
 1. ^1 AL8805 Curr Sense is like Datasheet
 1. ^1 Demo Setup
 1. ^1 AL8805 Curr Sense is Unlike Datasheet
+
+## ^2 PWM modes
+
+Timer0, Timer1, Timer2 each have two output compare pins (e.g. Timer0 have OC0A and OC0B) that can generate PWM waveform. 
+
+Timer0 is set for Fast PWM Mode see ATmega328 datasheet 15.73 (page 99)
+
+Timer1 and Timer2 are set in Phase Correct PWM Mode see ATmega328 datasheet 15.7.4 (page 100)
+
+Timer0 prescaler is 64 and it counts up to 256 which gives a frequency of 976.56Hz.
+
+Timer1 and Timer2 have a prescaler of 64 and count up to 255 and then down to zero which gives a frequency of 490.2Hz
+
+Using phase-correct PWM on Timer0 means that it overflows half as often resulting in different millis() behavior than is currently in place. The micros() function will not work with phase-correct mode. The LED drivers are rated for 500Hz PWM frequency but they are working with the Fast PWM mode for me, so I am going to keep the timing functions as they are.
+
 
 ## ^2 Using Shields for Managed Serial Bus
 

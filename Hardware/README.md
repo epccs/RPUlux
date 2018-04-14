@@ -32,7 +32,7 @@ Bootloader options include [optiboot] and [xboot]. Serial bootloaders can't chan
 
 ```
         Six constant-current LED channels
-        Each LED channel has diming control with a 500Hz PWM line from the ATmega328p.
+        Each LED channel has diming control with a PWM line from the ATmega328p.
 ```
 
 ## Notice

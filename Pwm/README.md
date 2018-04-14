@@ -2,7 +2,7 @@
 
 ## Overview
 
-Timer**n** **n** = 0, 1, 2 each have two output compare pins OC**n**A and OC**n**B that can generate PWM waveform. 
+Timer0, Timer1, Timer2 each have two output compare pins (e.g. Timer0 have OC0A and OC0B) that can generate PWM waveform. 
 
 Timer0 is set for Fast PWM Mode see ATmega328 datasheet 15.73 (page 99)
 
@@ -12,7 +12,7 @@ Timer0 prescaler is 64 and it counts up to 256 which gives a frequency of 976.56
 
 Timer1 and Timer2 have a prescaler of 64 and count up to 255 and then down to zero which gives a frequency of 490.2Hz
 
-Using phase-correct PWM on Timer0 means that it overflows half as often resulting in different millis() behavior than is currently in place. Unfortunatly the LED drivers are only rated for 500Hz PWM frequency so this will need fixed.
+Using phase-correct PWM on Timer0 means that it overflows half as often resulting in different millis() behavior than is currently in place. The micros() function will not work with phase-correct mode. The LED drivers are rated for 500Hz PWM frequency but they are working with the Fast PWM mode for me, so I am going to keep the timing functions as they are.
 
 
 ## Firmware Upload

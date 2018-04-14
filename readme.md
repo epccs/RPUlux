@@ -6,7 +6,7 @@ From <https://github.com/epccs/RPUlux/>
 
 Board with ATmega328p and six AL8805 constant current drivers and headers for multi-drop serial Shields
 
-This programmable ATmega328p based board has headers for a [RPUpi] or [RPUadpt] mezzanine shield. User's firmware application can monitor the input current with a high side current sense (ZXCT1087) with ADC channel six, and the input voltage with a voltage divider on channel seven. Six AL8805 based constant current sources are provided for LED strings. The current sources are PWM modulated at 500Hz with the OCnA and OCnB outputs from Timer0, Timer1, and Timer2. 
+This programmable ATmega328p based board has headers for a [RPUpi] or [RPUadpt] mezzanine shield. User's firmware application can monitor the input current with a high side current sense (ZXCT1087) with ADC channel six, and the input voltage with a voltage divider on channel seven. Six AL8805 based constant current sources are provided for LED strings. The current sources are PWM modulated with the OCnA and OCnB outputs from Timer0, Timer1, and Timer2. 
 
 [RPUpi]: https://github.com/epccs/RPUpi/
 [RPUadpt]: https://github.com/epccs/RPUadpt/
@@ -37,7 +37,7 @@ This example shows an RS-422 serial bus that allows multiple microcontroller boa
 
 ![MultiDrop](./Hardware/Documents/MultiDrop.png "RPUlux MultiDrop")
 
-The above setup has six channels for LED lights. Each channel can be dimmed at up to 500Hz with a PWM controlled pin from the ATmega328p. To my eyes, the PWM values have eight intensity steps (1, 3, 7, 15, 31, 63, 127, 255). I do not see much difference between 126 and 127 or 250 and 255.
+The above setup has six channels for LED lights. Each channel can be dimmed with a PWM controlled pin from the ATmega328p. To my eyes, the PWM values have eight intensity steps (1, 3, 7, 15, 31, 63, 127, 255). I do not see much difference between 126 and 127 or 250 and 255.
 
 
 ## AVR toolchain
@@ -78,7 +78,6 @@ On this board the Arduino IDE can use the [Uno's AVR core] files that are includ
 [OOP]: https://medium.com/@brianwill/object-oriented-programming-a-personal-disaster-1b044c2383ab
 [heap memory]: https://www.gribblelab.org/CBootCamp/7_Memory_Stack_vs_Heap.html
 
-Note Arduino's core will run Timer0 in fast hardware PWM mode which is faster than the AL8805 recommends. I do not think any harm is done, but it is outside the datasheet specification and the AL8805 may not have time to turn on with a low PWM value. Timer1 and Timer2 are set to run phase-correct hardware PWM mode by default with the Arduino core, libraries that change there setting will likely cause problems.
 
 ## Visual Studio Code
 
