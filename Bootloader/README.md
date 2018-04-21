@@ -21,7 +21,7 @@ With ISP tool connected.
 
 ``` 
 git clone https://github.com/epccs/RPUlux/
-cd /RPUux/Bootloader
+cd /RPUlux/Bootloader
 make fuse
 ...
 avrdude done.  Thank you.

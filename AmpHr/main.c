@@ -204,7 +204,7 @@ int main(void)
         CheckChrgAccumulation(PWR_I);
     
         // check if character is available to assemble a command, e.g. non-blocking
-        if ( (!command_done) && uart0_available() ) // command_done is an extern from parse.h
+        if ( (!command_done) && uart0_available() ) // command_done is an extern from ../lib/parse.h
         {
             // get a character from stdin and use it to assemble a command
             AssembleCommand(getchar()); // ../lib/parse.c
@@ -233,14 +233,16 @@ int main(void)
             else
             {
                 if (command_done == 1)  
-                { // steps 2..9 are skipped, but reserved for more complex parse
+                {
                     findCommand(); // ../lib/parse.c
+                    // steps 2..9 are skipped. Reserved for more complex parse
                     command_done = 10;
                 }
                 
                 // do not overfill the serial buffer since that blocks looping, e.g. process a command in 32 byte chunks
                 if ( (command_done >= 10) && (command_done < 250) )
-                { // setps 10..249 are moved through by the procedure selected
+                {
+                    // setps 10..249 are moved through by the procedure selected
                      ProcessCmd();
                 }
                 else 

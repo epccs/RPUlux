@@ -33,8 +33,6 @@ along with the SelfTest.  If not, see http://www.gnu.org/licenses/.
 // Save the Value of the References for ADC converter 
 // measure AVCC and put it hear in uV 
 #define REF_EXTERN_AVCC 4976300UL
-// ref_intern_1v1_uV is calculated based on the above value and the ICP1 PL resistor
-
 
 #define R1 33.333
 

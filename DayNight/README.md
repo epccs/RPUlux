@@ -71,7 +71,7 @@ TurnOnLED's
 {"day_state":"MORNING"}
 WaterTheGarden
 {"day_state":"DAY"}
-... 20 hr (e.g. using a power supply)
+... 20 hr (e.g. using an indoor lamp)
 {"day_state":"DAY"}
 {"day_state":"FAIL"}
 ```

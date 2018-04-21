@@ -200,10 +200,10 @@ int main(void)
         if ( (!command_done) && uart0_available() ) // command_done is an extern from parse.h
         {
             // get a character from stdin and use it to assemble a command
-            AssembleCommand(getchar());
+            AssembleCommand(getchar()); // ../lib/parse.c
 
             // address is an ascii value, warning: a null address would terminate the command string. 
-            StartEchoWhenAddressed(rpu_addr);
+            StartEchoWhenAddressed(rpu_addr); // ../lib/parse.c
         }
 
         // check if a character is available, and if so flush transmit buffer and nuke the command in process.
@@ -212,7 +212,7 @@ int main(void)
         if ( command_done && uart0_available() )
         {
             // dump the transmit buffer to limit a collision 
-            uart0_flush(); 
+            uart0_flush();  // ../lib/uart.c
             initCommandBuffer();
         }
 
@@ -221,24 +221,26 @@ int main(void)
         {
             if ( !echo_on  )
             { // this happons when the address did not match 
-                initCommandBuffer();
+                initCommandBuffer(); // ../lib/parse.c
             }
             else
             {
-                if (command_done == 1)  
-                {
-                    findCommand();
+                if (command_done == 1) 
+                { 
+                    findCommand(); // ../lib/parse.c
+                    // steps 2..9 are skipped. Reserved for more complex parse
                     command_done = 10;
                 }
 
                 // do not overfill the serial buffer since that blocks looping, e.g. process a command in 32 byte chunks
                 if ( (command_done >= 10) && (command_done < 250) )
                 {
+                    // setps 10..249 are moved through by the procedure selected
                      ProcessCmd();
                 }
                 else 
                 {
-                    initCommandBuffer();
+                    initCommandBuffer(); // ../lib/parse.c
                 }
             }
         }
