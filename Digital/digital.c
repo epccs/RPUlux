@@ -30,14 +30,25 @@ http://www.gnu.org/licenses/gpl-2.0.html
 #define SERIAL_PRINT_DELAY_MILSEC 10000
 static unsigned long serial_print_started_at;
 
-/* e.g. pinMode( arg[0], arg[1] )
-    a = arg[0]
-    if ( a < 3) or (a > 12) or ( (a > 4) and (a < 10) ) 
-        error
-    b = arg[1]
-    if not ( (b == "INPUT") or (b == "OUTPUT") )
-        error
-*/
+// pin number must be valid in arg[0] from parse
+void echo_pin_in_json_rply(void)
+{
+    if (atoi(arg[0]) == 14)
+    {
+        printf_P(PSTR("PC0"));
+    }
+    if (atoi(arg[0]) == 15)
+    {
+        printf_P(PSTR("PC1"));
+    }
+    if (atoi(arg[0]) == 16)
+    {
+        printf_P(PSTR("PC2"));
+    }
+}
+
+
+// pinMode( arg[0], arg[1] )
 void Mode(void)
 {
     if ( (command_done == 10) )
@@ -49,7 +60,7 @@ void Mode(void)
             initCommandBuffer();
             return;
         }
-        // and arg[0] value is 3|5|6|9|10|11
+        // and arg[0] value is 14|15|16
         uint8_t a = atoi(arg[0]);
         if ( ( a < 14) || (a > 16) )
         {
@@ -79,18 +90,7 @@ void Mode(void)
     }
     else if ( (command_done == 11) )
     {  
-        if (atoi(arg[0]) == 14) //IO14
-        {
-            printf_P(PSTR("PC0"));
-        }
-        if (atoi(arg[0]) == 15) //IO15
-        {
-            printf_P(PSTR("PC1"));
-        }
-        if (atoi(arg[0]) == 16) //IO16
-        {
-            printf_P(PSTR("PC2"));
-        }
+        echo_pin_in_json_rply();
         printf_P(PSTR("\":\""));
         command_done = 12;
     }
@@ -107,14 +107,7 @@ void Mode(void)
     }
 }
 
-/* e.g. digitalWrite( arg[0], arg[1] )
-    a = arg[0]
-    if ( a < 3) or (a > 12) or ( (a > 4) and (a < 10) ) 
-        error
-    b = arg[1]
-    if not ( (b == "HIGH") or (b == "LOW") )
-        error
-*/
+// digitalWrite( arg[0], arg[1] )
 void Write(void)
 {
     if ( (command_done == 10) )
@@ -126,7 +119,7 @@ void Write(void)
             initCommandBuffer();
             return;
         }
-        // and arg[0] value is 3|5|6|9|10|11 
+        // and arg[0] value is 14|15|16 
         uint8_t a = atoi(arg[0]);
         if ( ( a < 14) || (a > 16) )
         {
@@ -156,18 +149,7 @@ void Write(void)
     }
     else if ( (command_done == 11) )
     {  
-        if (atoi(arg[0]) == 14) //IO14
-        {
-            printf_P(PSTR("PC0"));
-        }
-        if (atoi(arg[0]) == 15) //IO15
-        {
-            printf_P(PSTR("PC1"));
-        }
-        if (atoi(arg[0]) == 16) //IO16
-        {
-            printf_P(PSTR("PC2"));
-        }
+        echo_pin_in_json_rply();
         printf_P(PSTR("\":\""));
         command_done = 12;
     }
@@ -197,11 +179,7 @@ void Write(void)
     }
 }
 
-/* e.g. digitalToggle( arg[0] )
-    a = arg[0]
-    if ( a < 3) or (a > 12) or ( (a > 4) and (a < 10) ) 
-        error
-*/
+// digitalToggle( arg[0] )
 void Toggle(void)
 {
     if ( (command_done == 10) )
@@ -229,18 +207,7 @@ void Toggle(void)
     }
     else if ( (command_done == 11) )
     {  
-        if (atoi(arg[0]) == 14) //IO14
-        {
-            printf_P(PSTR("PC0"));
-        }
-        if (atoi(arg[0]) == 15) //IO15
-        {
-            printf_P(PSTR("PC1"));
-        }
-        if (atoi(arg[0]) == 16) //IO16
-        {
-            printf_P(PSTR("PC2"));
-        }
+        echo_pin_in_json_rply();
         printf_P(PSTR("\":\""));
         command_done = 12;
     }
@@ -270,11 +237,7 @@ void Toggle(void)
     }
 }
 
-/* e.g. digitalRead( arg[0] )
-    a = arg[0]
-    if ( a < 3) or (a > 12) or ( (a > 4) and (a < 10) ) 
-        error
-*/
+// digitalRead( arg[0] )
 void Read(void)
 {
     if ( (command_done == 10) )
@@ -301,18 +264,7 @@ void Read(void)
     }
     else if ( (command_done == 11) )
     {  
-        if (atoi(arg[0]) == 14) //IO14
-        {
-            printf_P(PSTR("PC0"));
-        }
-        if (atoi(arg[0]) == 15) //IO15
-        {
-            printf_P(PSTR("PC1"));
-        }
-        if (atoi(arg[0]) == 16) //IO16
-        {
-            printf_P(PSTR("PC2"));
-        }
+        echo_pin_in_json_rply();
         printf_P(PSTR("\":\""));
         command_done = 12;
     }

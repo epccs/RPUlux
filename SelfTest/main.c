@@ -98,7 +98,7 @@ void test(void)
     // I2C is used to read serial bus manager address 
     if (rpu_addr == '1')
     {
-        printf_P(PSTR("I2C provided address 0x31 from serial bus manager\r\n"));
+        printf_P(PSTR("I2C provided address 0x31 from RPUadpt serial bus manager\r\n"));
     } 
     else  
     { 
@@ -241,8 +241,9 @@ void test(void)
     digitalWrite(CS1_EN,LOW);
     _delay_ms(1000); 
 
+    // input current at no load 
     float input_i = analogRead(PWR_I)*((ref_intern_1v1_uV/1.0E6)/1024.0)/(0.068*50.0);
-    printf_P(PSTR("PWR_I with !CS1_EN use INTERNAL_1V1: %1.3f A\r\n"), input_i);
+    printf_P(PSTR("PWR_I at no load use INTERNAL_1V1: %1.3f A\r\n"), input_i);
     if (input_i > 0.025) 
     { 
         passing = 0; 

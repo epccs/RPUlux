@@ -4,17 +4,15 @@
 
 Check RPUlux Board Functions, runs once after a reset and then loops in a pass/fail section.
 
-Note: LED channels are not yet tested
-
 Voltage references are saved in EEPROM for use with Adc and other applications. Measure the +5V supply accurately and set the REF_EXTERN_AVCC value in the main.c file. The band-gap reference is calculated and also saved.
 
-The red and green LED are used to indicate the test status.
+The wiring has red and green LED that blink to indicate test status.
 
 ## Wiring Needed for RPUlux
 
 ![Wiring](./Setup/SelfTestWiring.png)
 
-Note: blocking diode with LED is to prevent damage when I connect it wrong.
+Note: blocking diode with LED is to prevent damage when connected wrong.
 
 
 ## Power Supply
@@ -28,7 +26,7 @@ With a serial port setup for serial bootloading (see BOOT_PORT in Makefile) and 
 
 ``` 
 git clone https://github.com/epccs/RPUlux/
-cd /RPUux/SelfTest
+cd /RPUlux/SelfTest
 make bootload
 ...
 avrdude done.  Thank you.
