@@ -55,6 +55,25 @@ git clone https://github.com/epccs/RPUlux/
 * [avr-libc](http://packages.ubuntu.com/search?keywords=avr-libc)
 * [avrdude](http://packages.ubuntu.com/search?keywords=avrdude)
 
+I like to place a [Bootloader] on the bare metal microcontroler with an ISP tool. 
+
+[Bootloader]: https://github.com/epccs/RPUlux/tree/master/Bootloader
+
+```
+cd RPUlux/Bootloader
+# note /dev/ttyACM0 it is my ICSP tool.
+make fuse
+make isp
+```
+
+The other applications are loaded through the bootloader using the host serial port. 
+
+```
+cd ~/RPUlux/Adc
+# note /dev/ttyUSB0 is my FTDI USBuart, and /dev/ttyAMA0 is my Raspberry Pi
+make bootload
+```
+
 The software is a guide, it is in C because that is my preference when lacking an operating system.
 
 

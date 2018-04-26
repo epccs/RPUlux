@@ -16,6 +16,8 @@ env:
     - APP_PATH="Adc"
     - APP_PATH="Digital"
     - APP_PATH="Pwm"
+    - APP_PATH="i2c-debug"
+    - APP_PATH="AmpHr"
 
 before_install:
   - sudo apt-get update -qq
