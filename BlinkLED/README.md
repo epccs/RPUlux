@@ -14,7 +14,7 @@ With a serial port connection (set the BOOT_PORT in Makefile) and optiboot insta
 
 ``` 
 git clone https://github.com/epccs/RPUlux/
-cd /RPUux/BlinkLED
+cd /RPUlux/BlinkLED
 make bootload
 ...
 avrdude done.  Thank you.

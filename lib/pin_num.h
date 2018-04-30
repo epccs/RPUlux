@@ -76,7 +76,7 @@ static const Pin_Map pinMap[NUM_DIGITAL_PINS] = {
 };
 #endif  // defined(__AVR_ATmega168__) || defined(__AVR_ATmega168P__)  || defined(__AVR_ATmega328P__)
 
-// ignore bad pin numbers, dead code elimination and compile flags can be used to show the user at compile time but that is not standard C. 
+// note: the use of dead code elimination tricks is not standard C. 
 static inline __attribute__((always_inline)) uint8_t badPin(uint8_t pin) 
 {
     if (pin >= NUM_DIGITAL_PINS) 

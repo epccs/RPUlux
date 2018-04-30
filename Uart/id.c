@@ -63,7 +63,7 @@ void Id(char name[])
     }
     else if ( command_done == 12 )
     {
-        printf_P(PSTR("\"desc\":\"RPUlux (17323^0) " ));
+        printf_P(PSTR("\"desc\":\"RPUlux (17323^2) " ));
         command_done = 13;
     }
     else if ( command_done == 13 )

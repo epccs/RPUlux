@@ -33,11 +33,11 @@ Hardware files include a schematic, bill of materials, and various notes for tes
 
 ## Example
 
-This example shows an RS-422 serial bus that allows multiple microcontroller boards to be connected to a single host computer serial port. It has an [RPUpi] shield that allows the Raspberry Pi Zero's hardware UART to connect as the host. The Pi Zero W has on board WiFi which I use for SSH connections and Samba file sharing. The other controller boards use an [RPUadpt] shield to daisy-chain the RS-422 with CAT5 cables. 
+This example shows a serial bus that allows multiple microcontroller boards to be connected to a single host computer serial port. It has an [RPUpi] shield that has the Raspberry Pi Zero's hardware UART connect as a networking host. The Pi runs Linux which does SSH connections and Samba file sharing. The other controller boards use an [RPUadpt] shield to daisy-chain the serial with CAT5 cables. 
 
 ![MultiDrop](./Hardware/Documents/MultiDrop.png "RPUlux MultiDrop")
 
-The above setup has six channels for LED lights. Each channel can be dimmed with a PWM controlled pin from the ATmega328p. To my eyes, the PWM values have eight intensity steps (1, 3, 7, 15, 31, 63, 127, 255). I do not see much difference between 126 and 127 or 250 and 255.
+An RPUlux has six channels for LED lights. Each channel can be dimmed with a PWM controlled pin from the ATmega328p. To my eyes, the PWM values have eight intensity steps (1, 3, 7, 15, 31, 63, 127, 255). I do not see much difference between 126 and 127 or 250 and 255.
 
 
 ## AVR toolchain

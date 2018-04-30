@@ -33,7 +33,7 @@ With a serial port connection (set the BOOT_PORT in Makefile) and optiboot insta
 
 ``` 
 git clone https://github.com/epccs/RPUlux/
-cd /RPUux/Adc
+cd /RPUlux/Adc
 make bootload
 ...
 avrdude done.  Thank you.
