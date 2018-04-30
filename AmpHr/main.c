@@ -31,6 +31,8 @@ http://www.gnu.org/licenses/gpl-2.0.html
 #include "../i2c-debug/i2c-cmd.h"
 #include "../Pwm/pwm.h"
 #include "../Digital/digital.h"
+#include "../CurrSour/cs.h"
+#include "../CurrSour/status.h"
 #include "chrg_accum.h"
 
 // how fast does the discharge reading change? (it can be fast)
@@ -105,6 +107,14 @@ void ProcessCmd()
     {
         Read(); // ../Digital/digital.c
     }
+    if ( (strcmp_P( command, PSTR("/cs")) == 0) && ( (arg_count == 2 ) ) )
+    {
+        CurrSour(); // ../CurrSour/cs.c
+    }
+    if ( (strcmp_P( command, PSTR("/showstat")) == 0) && ( (arg_count == 1 ) ) )
+    {
+        ShowStatus(); // ../CurrSour/status.c
+    }
     if ( (strcmp_P( command, PSTR("/charge?")) == 0) && ( (arg_count == 0 ) ) )
     {
         Charge(); // ./chrg_accum.c
@@ -121,7 +131,7 @@ void ProcessCmd()
 void setup(void) 
 {
     pinMode(STATUS_LED,OUTPUT);
-    digitalWrite(STATUS_LED,HIGH);
+    digitalWrite(STATUS_LED,LOW);
 
     // set pwm pin DDR
     pinMode(CH1,OUTPUT); // DDRD |= (1<<PD3)
@@ -164,6 +174,9 @@ void setup(void)
         rpu_addr = '0';
         blink_delay = BLINK_DELAY/4;
     }
+
+    // do not use current source to show status unless told with the CLI
+    show_status = 0;
 }
 
 void blink(void)
@@ -171,7 +184,7 @@ void blink(void)
     unsigned long kRuntime = millis() - blink_started_at;
     if ( kRuntime > blink_delay)
     {
-        digitalToggle(STATUS_LED);
+        if (show_status) digitalToggle(STATUS_LED);
         
         // next toggle 
         blink_started_at += blink_delay; 

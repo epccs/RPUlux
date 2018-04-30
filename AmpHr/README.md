@@ -73,37 +73,43 @@ Report the discharge since the day-night state machine cleared the accumulation.
 {"PWR_I":"0.153","PWR_V":"13.28"}
 ```
 
-## \[/0/day?\](../DayNight#0day)
+## [/0/day?](../DayNight#0day)
 
 
-## \[/0/analog? 0..7\[,0..7\[,0..7\[,0..7\[,0..7\]\]\]\]\](../Adc#0analog-0707070707)
+## [/0/analog? 0..7\[,0..7\[,0..7\[,0..7\[,0..7\]\]\]\]](../Adc#0analog-0707070707)
 
 
-## \[/0/pwm CH1..CH6,0..255\](../Pwm#0pwm-ch1ch60255)
+## [/0/pwm CH1..CH6,0..255](../Pwm#0pwm-ch1ch60255)
 
 
-## \[/0/pMod 14..16,INPUT|OUTPUT\](../Digital#0pmod-1416inputoutput)
+## [/0/pMod 14..16,INPUT|OUTPUT](../Digital#0pmod-1416inputoutput)
 
 
-## \[/0/dWrt 14..16,HIGH|LOW\](../Digital#0dwrt-1416highlow)
+## [/0/dWrt 14..16,HIGH|LOW](../Digital#0dwrt-1416highlow)
 
 
-## \[/0/dTog 14..16\](../Digital#0dtog-1416)
+## [/0/dTog 14..16](../Digital#0dtog-1416)
 
 
-## \[/0/dRe? 14..16\](../Digital#0dre-1416)
+## [/0/dRe? 14..16](../Digital#0dre-1416)
 
 
-## \[/0/iscan?\](../i2c-debug#0iscan)
+## [/0/iscan?](../i2c-debug#0iscan)
 
 
-## \[/0/iaddr 0..127\](../i2c-debug#0iaddr-0127)
+## [/0/iaddr 0..127](../i2c-debug#0iaddr-0127)
 
 
-## \[/0/ibuff 0..255\[,0..255\[,0..255\[,0..255\[,0..255\]\]\]\]\](../i2c-debug#0ibuff-02550255025502550255)
+## [/0/ibuff 0..255\[,0..255\[,0..255\[,0..255\[,0..255\]\]\]\]](../i2c-debug#0ibuff-02550255025502550255)
 
 
-## \[/0/ibuff?\](../i2c-debug#0ibuff)
+## [/0/ibuff?](../i2c-debug#0ibuff)
 
 
-## \[/0/iwrite\](../i2c-debug#0iwrite)
+## [/0/iwrite](../i2c-debug#0iwrite)
+
+
+## [/0/cs 0..1,ON|OFF](../CurrSour#0cs-01onoff)
+
+
+## [/0/showstat ON|OFF](../CurrSour#0showstat-onoff)
