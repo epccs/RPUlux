@@ -7,11 +7,6 @@ Use ADC reading to Accumulate at timed intervals from a sense resistor. This is 
 [Adc]: ../Adc
 
 
-# Start of Day 
-
-The [day-night][../DayNight] state machine is used to clear the discharge accumulation at TBD.
-
-
 # Firmware Upload
 
 With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
@@ -72,8 +67,6 @@ Report the discharge since the day-night state machine cleared the accumulation.
 /1/analog? 6,7
 {"PWR_I":"0.153","PWR_V":"13.28"}
 ```
-
-## [/0/day?](../DayNight#0day)
 
 
 ## [/0/analog? 0..7\[,0..7\[,0..7\[,0..7\[,0..7\]\]\]\]](../Adc#0analog-0707070707)

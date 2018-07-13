@@ -11,7 +11,7 @@ This programmable ATmega328p based board has headers for a [RPUpi] or [RPUadpt] 
 [RPUpi]: https://github.com/epccs/RPUpi/
 [RPUadpt]: https://github.com/epccs/RPUadpt/
 
-[Forum](http://rpubus.org/bb/viewforum.php?f=19)
+[Forum](https://rpubus.org/bb/viewforum.php?f=19)
 
 [HackaDay](https://hackaday.io/project/60522-rpulux)
 
@@ -49,11 +49,11 @@ sudo apt-get install git gcc-avr binutils-avr gdb-avr avr-libc avrdude
 git clone https://github.com/epccs/RPUlux/
 ```
 
-* [gcc-avr](http://packages.ubuntu.com/search?keywords=gcc-avr)
-* [binutils-avr](http://packages.ubuntu.com/search?keywords=binutils-avr)
-* [gdb-avr](http://packages.ubuntu.com/search?keywords=gdb-avr)
-* [avr-libc](http://packages.ubuntu.com/search?keywords=avr-libc)
-* [avrdude](http://packages.ubuntu.com/search?keywords=avrdude)
+* [gcc-avr](https://packages.ubuntu.com/search?keywords=gcc-avr)
+* [binutils-avr](https://packages.ubuntu.com/search?keywords=binutils-avr)
+* [gdb-avr](https://packages.ubuntu.com/search?keywords=gdb-avr)
+* [avr-libc](https://packages.ubuntu.com/search?keywords=avr-libc)
+* [avrdude](https://packages.ubuntu.com/search?keywords=avrdude)
 
 I like to place a [Bootloader] on the bare metal microcontroler with an ISP tool. 
 

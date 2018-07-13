@@ -14,7 +14,7 @@ With a serial port connection (set the BOOT_PORT in Makefile) and optiboot insta
 ``` 
 sudo apt-get install git gcc-avr binutils-avr gdb-avr avr-libc avrdude
 git clone https://github.com/epccs/RPUlux/
-cd /RPUux/DayNight
+cd /RPUlux/DayNight
 make bootload
 ...
 avrdude done.  Thank you.
