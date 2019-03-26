@@ -1,8 +1,9 @@
 #define FUNC_READ 1
 #define FUNC_WRITE 1
 /*
-Serial bootloader for RPUlux
+Serial bootloader
 Copyright 2017 by Ronald Sutherland 
+
 This program is free software; you can redistribute it
 and/or modify it under the terms of the GNU General
 Public License as published by the Free Software 
@@ -23,7 +24,7 @@ to the Free Software Foundation, Inc.,
 Licence can be viewed at
 http://www.fsf.org/licenses/gpl.txt
 
-Based on Arduino's optiboot which is GPL and 
+Based on optiboot which is GPL and 
 Copyright 2013-2015 by Bill Westfield. 
 Copyright 2010 by Peter Knight. 
 
@@ -66,7 +67,7 @@ optiboot_version = 256*(OPTIBOOT_MAJVER) + OPTIBOOT_MINVER;
 /* set the UART baud rate defaults */
 #ifndef BAUD
 #if F_CPU >= 8000000L
-#define BAUD   115200L // Highest rate Avrdude will support
+#define BAUD   115200L // Highest rate Avrdude win32 will support
 #elif F_CPU >= 1000000L
 #define BAUD   9600L   // 19200 also supported, but with significant error
 #elif F_CPU >= 128000L

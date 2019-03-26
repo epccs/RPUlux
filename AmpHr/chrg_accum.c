@@ -1,19 +1,20 @@
 /*
-chrg_accum is part of AmpHr, it is to track how much current is used.
-Copyright (C) 2017 Ronald Sutherland
+chrg_accum  is a library that tracks how much current is used with an ADC channel.
+Copyright (C) 2019 Ronald Sutherland
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
 
-For a copy of the GNU General Public License use
-http://www.gnu.org/licenses/gpl-2.0.html
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <avr/pgmspace.h>
 #include <util/atomic.h>
@@ -34,15 +35,14 @@ static unsigned long chrgTmrStarted[ADC_CHANNELS];
 static unsigned long chrg_accum[ADC_CHANNELS];
 static unsigned long chrg_accum_fine[ADC_CHANNELS];
 
-#define SERIAL_PRINT_DELAY_MILSEC 60000UL
 static unsigned long serial_print_started_at;
 
 // scale accumulated adc*time to mAHr
 static float adc_accum2mAHr[ADC_CHANNELS] = {
-    [0] = ((1/1.0E6)/1024.0)/(0.018*50.0)/3.6, // 0.018 ohm sense resistor with gain of 50
+    [0] = ((1/1.0E6)/1024.0)/(100.0)/3.6, // 100 ohm resistor, e.g. for a 4 to 20mA sensor
     [1] = ((1/1.0E6)/1024.0)/(100.0)/3.6, // 100 ohm resistor, e.g. for a 4 to 20mA sensor
-    [2] = 0,
-    [3] = 0,
+    [2] = ((1/1.0E6)/1024.0)/(100.0)/3.6, // 100 ohm resistor, e.g. for a 4 to 20mA sensor
+    [3] = ((1/1.0E6)/1024.0)/(100.0)/3.6, // 100 ohm resistor, e.g. for a 4 to 20mA sensor
     [4] = 0, //used for SDA of I2C
     [5] = 0, //used for SCL of I2C
     [6] = ((1/1.0E6)/1024.0)/(0.068*50.0)/3.6, // PWR_I is 0.068 ohm sense resistor with gain of 50
@@ -60,7 +60,7 @@ float ChargeAccum(uint8_t channel)
     return temp;
 }
 
-void Charge(void)
+void Charge(unsigned long serial_print_delay_milsec)
 {  
     if ( (command_done == 10) )
     {
@@ -95,7 +95,7 @@ void Charge(void)
     else if ( (command_done == 18) ) 
     { // delay between JSON printing
         unsigned long kRuntime= millis() - serial_print_started_at;
-        if ((kRuntime) > ((unsigned long)SERIAL_PRINT_DELAY_MILSEC))
+        if ((kRuntime) > (serial_print_delay_milsec))
         {
             command_done = 10; /* This keeps looping output forever (until a Rx char anyway) */
         }

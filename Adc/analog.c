@@ -1,19 +1,24 @@
 /*
-analog is part of Adc, it returns Analog Conversions for channels which are provided in parse arguments, 
-Copyright (C) 2016 Ronald Sutherland
+analog is a library that returns Analog Conversions for channels 
+Copyright (C) 2019 Ronald Sutherland
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
 
-For a copy of the GNU General Public License use
-http://www.gnu.org/licenses/gpl-2.0.html
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+  I believe the LGPL is used in things like libraries and allows you to include them in 
+  application code without the need to release the application source while GPL requires 
+  that all modifications be provided as source when distributed.
 */
 #include <avr/pgmspace.h>
 #include <util/atomic.h>
@@ -28,20 +33,19 @@ http://www.gnu.org/licenses/gpl-2.0.html
 #include "analog.h"
 #include "references.h"
 
-#define SERIAL_PRINT_DELAY_MILSEC 2000
 static unsigned long serial_print_started_at;
 
 static uint8_t adc_arg_index;
 
 /* return adc values */
-void Analog(void)
+void Analog(unsigned long serial_print_delay_milsec)
 {
     if ( (command_done == 10) )
     {
         // check that arguments are digit in the range 0..7
         for (adc_arg_index=0; adc_arg_index < arg_count; adc_arg_index++) 
         {
-            if ( ( !( isdigit(arg[adc_arg_index][0]) ) ) || (atoi(arg[adc_arg_index]) < 0) || (atoi(arg[adc_arg_index]) > ADC_CHANNELS) )
+            if ( ( !( isdigit(arg[adc_arg_index][0]) ) ) || (atoi(arg[adc_arg_index]) < ADC0) || (atoi(arg[adc_arg_index]) > ADC_CHANNELS) )
             {
                 printf_P(PSTR("{\"err\":\"AdcChOutOfRng\"}\r\n"));
                 initCommandBuffer();
@@ -86,7 +90,7 @@ void Analog(void)
     {
         uint8_t arg_indx_channel =atoi(arg[adc_arg_index]);
 
-        // There are values from 0 to 1023 for 1024 slots where each reperesents 1/1024 of the reference. Last slot has issues
+       // There are values from 0 to 1023 for 1024 slots where each reperesents 1/1024 of the reference. Last slot has issues
         // https://forum.arduino.cc/index.php?topic=303189.0 
         // The BSS138 level shift will block voltages over 3.5V
         if ( (arg_indx_channel == ADC0) || (arg_indx_channel == ADC1) || (arg_indx_channel == ADC2))
@@ -99,13 +103,13 @@ void Analog(void)
         {
             printf_P(PSTR("\"%1.2f\""),(analogRead(arg_indx_channel)*(ref_extern_avcc_uV/1.0E6)/1024.0)*(115.8/15.8) );
         }
-
-        if (arg_indx_channel == ADC4) // On RPUlux ADC4 is used for I2C SDA function
+    
+        if (arg_indx_channel == ADC4) // ADC4 is used for I2C SDA function
         {
             printf_P(PSTR("\"SDA\""));
         }
 
-        if (arg_indx_channel == ADC5) // On RPUlux ADC5 is used for I2C SCL function
+        if (arg_indx_channel == ADC5) // ADC5 is used for I2C SCL function
         {
             printf_P(PSTR("\"SCL\""));
         }
@@ -137,14 +141,13 @@ void Analog(void)
     else if ( (command_done == 13) ) 
     { // delay between JSON printing
         unsigned long kRuntime= millis() - serial_print_started_at;
-        if ((kRuntime) > ((unsigned long)SERIAL_PRINT_DELAY_MILSEC))
+        if ((kRuntime) > (serial_print_delay_milsec))
         {
             command_done = 10; /* This keeps looping output forever (until a Rx char anyway) */
         }
     }
     else
     {
-        printf_P(PSTR("{\"err\":\"AdcCmdDoneWTF\"}\r\n"));
         initCommandBuffer();
     }
 }

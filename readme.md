@@ -18,7 +18,7 @@ This programmable ATmega328p based board has headers for a [RPUpi] or [RPUadpt] 
 
 ## Status
 
-Available through [Tindie](https://www.tindie.com/products/11903/)
+[Available](https://rpubus.org/Order_Form.html)
 
 [![Build Status](https://travis-ci.org/epccs/RPUlux.svg?branch=master)](https://travis-ci.org/epccs/RPUlux)
 

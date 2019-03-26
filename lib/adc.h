@@ -1,22 +1,3 @@
-/*
-  Analog to Digital Converter  
-  Copyright (c) 2016 Ronald S. Sutherland
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
 #ifndef Adc_h
 #define Adc_h
 
@@ -47,8 +28,8 @@ extern volatile uint8_t analog_reference;
 #define ADREFSMASK (1<<REFS1) | (1<<REFS0)
 #define EXTERNAL_AREF 0
 #define EXTERNAL_AVCC (1<<REFS0)
-#define INTERNAL1V1 (1<<REFS1)
-#define INTERNAL2V56 (1<<REFS1) | (1<<REFS0)
+#define INTERNAL_1V1 (1<<REFS1)
+#define INTERNAL_2V56 (1<<REFS1) | (1<<REFS0)
 #endif
 
 #if defined (__AVR_ATmega328P__) || defined (__AVR_ATmega328__) || (__AVR_ATmega168P__) || defined (__AVR_ATmega168__)

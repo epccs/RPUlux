@@ -1,14 +1,14 @@
-# Alternat Power Input
+# Alternate Power Input
 
 ## Overview
 
-Alternat power input is a DIY hack used to send current from a solar panel into a battery. 
+Alternate power input is used to send current from a solar panel into a battery. 
 
-This is a risky DIY feature, so only use it if you have the tools and knowhow to repair damaged surface mount parts. 
+The alternate power source needs to act as a current source, and the main power source needs to act like a battery. Do not attempt this with a bench power supply as the main power input. When the alternate power is enabled it must current limit and then charge the battery.
 
-The alternat power source needs to act as a current source (I suggest starting with less than 1A), and the main power source needs to act like a battery. Do not attempt this with a bench power supply as the main power input. When the alternat power is enabled it must current limit and then charge the battery.
+The DayNight state machine is used, it has two events that run a registered callback function. The day event turns on the alternate power input, while the night event turns it off. Adc channels are measured with a burst of interrupts that occurs every 100 millis. Near the time of the Adc burst, the mux channel PWR_V which is connected to an input voltage divider (a 1% 15.8k and a 0.1% 100k) is checked. This is more or less the battery voltage so can be used to turn off the Alternate power input when the battery has reached a limit, and then turn it back on when the voltage drops.
 
-Again this is easy to damage so be prepared to fix damaged parts.
+The hardware for this lacks training wheels, it is going to take some time to refine these ideas. The target battery is lead acid, this method fails with other types. 
 
 
 ## Wiring Needed
@@ -18,9 +18,10 @@ Again this is easy to damage so be prepared to fix damaged parts.
 
 # Firmware Upload
 
-With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
+With a serial port connection (see BOOTLOAD_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
+sudo apt-get install make git gcc-avr binutils-avr gdb-avr avr-libc avrdude
 git clone https://github.com/epccs/RPUlux/
 cd /RPUux/Alternat
 make bootload
@@ -28,7 +29,7 @@ make bootload
 avrdude done.  Thank you.
 ``` 
 
-Now connect with picocom (or ilk). Note I am often at another computer doing this through SSH. The Samba folder is for editing the files from Windows.
+Now connect with picocom (or ilk). 
 
 
 ``` 

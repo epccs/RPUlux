@@ -1,23 +1,25 @@
 /*
 Parse serial commands into tokens e.g. "/0/pwm 252" into "/0/pwm\0" and "252\0" 
-Copyright (C) 2016 Ronald Sutherland
+Copyright (C) 2019 Ronald Sutherland
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+    This library is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 2.1 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    This library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
 
-For a copy of the GNU General Public License use
-http://www.gnu.org/licenses/gpl-2.0.html
+    You should have received a copy of the GNU Lesser General Public
+    License along with this library; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 */
 #include <ctype.h>
 #include <avr/pgmspace.h>
+#include <stdlib.h>
 #include "parse.h"
 #include "uart.h"
 
@@ -34,7 +36,11 @@ uint8_t arg_count;
 // command loopback happons from the addressed device
 uint8_t echo_on;
 
-
+// Hold the command in the buffer and spin loop until the chunks of JSON 
+// are done outputting. Each chunk should be less than 32 bytes since that 
+// is the AVR UART buffer size. The main spin loop continues running until 
+// the uart is available for write (e.g. buffer is empty) and then the buffer is 
+// loaded with the next JSON chunk (a over full buffer will block execution)
 void initCommandBuffer(void) 
 {
     command_buf[1] = '\0';  // best to set the address as a null value
@@ -255,3 +261,38 @@ uint8_t findCommand(void)
     // zero indexing is also the count and should match with strlen()
     return lastAlpha;
 }
+
+unsigned long is_arg_in_ul_range (uint8_t arg_num, unsigned long min, unsigned long max)
+{
+    // check that arg[arg_num] is a digit 
+    if ( ( !( isdigit(arg[arg_num][0]) ) ) )
+    {
+        printf_P(PSTR("{\"err\":\"%sArg%d_NaN\"}\r\n"),command[1],arg_num);
+        return 0;
+    }
+    unsigned long ul = strtoul(arg[arg_num], (char **)NULL, 10);
+    if ( ( ul < min) || (ul > max) )
+    {
+        printf_P(PSTR("{\"err\":\"%sArg%d_OutOfRng\"}\r\n"),command[1],arg_num);
+        return 0;
+    }
+    return ul;
+}
+
+uint8_t is_arg_in_uint8_range (uint8_t arg_num, uint8_t min, uint8_t max)
+{
+    // check that arg[arg_num] is a digit 
+    if ( ( !( isdigit(arg[arg_num][0]) ) ) )
+    {
+        printf_P(PSTR("{\"err\":\"%sArg%d_NaN\"}\r\n"),command[1],arg_num);
+        return 0;
+    }
+    uint8_t argument = atoi(arg[arg_num]);
+    if ( ( argument < min) || (argument > max) )
+    {
+        printf_P(PSTR("{\"err\":\"%sArg%d_OutOfRng\"}\r\n"),command[1],arg_num);
+        return 0;
+    }
+    return argument;
+}
+

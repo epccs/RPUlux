@@ -2,17 +2,18 @@
 
 ## Overview
 
-Demonstration of General I/O, e.g. Blink an LED (LED_BUILTIN defined in pins_board.h). 
+Demonstration of General I/O, e.g. Blink an LED. 
 
-Referance ATmega328 datasheet 14.0 I/O-Ports
+Referance ATmega328 datasheet I/O-Ports
 
 Also shows the UART core and how to redirect it to stdin and stdout, as well as some Python that sends an 'a' character to stop the LED from blinking. 
 
 ## Firmware Upload
 
-With a serial port connection (set the BOOT_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
+With a serial port connection (see BOOTLOAD_PORT in Makefile) and optiboot installed on the RPUlux run 'make bootload' and it should compile and then flash the MCU.
 
 ``` 
+sudo apt-get install make git gcc-avr binutils-avr gdb-avr avr-libc avrdude
 git clone https://github.com/epccs/RPUlux/
 cd /RPUlux/BlinkLED
 make bootload
@@ -22,7 +23,5 @@ avrdude done.  Thank you.
 
 # Notes
 
-Elliot Williams of <http://hackaday.com/2016/03/15/embed-with-elliot-microcontroller-makefiles> got me looking at Makefiles now I can compile over an SSH connection to my Linux machines, (I use both Raspibn and Ubuntu). 
-
-DigitalPin.h was hacked from William Greiman into plain C, but it still looks a little like Wiring.
+pin_num.h was hacked from William Greiman work (https://github.com/greiman) into plain C, but it still looks a little like Wiring.
 

@@ -1,19 +1,20 @@
 /*
-I2c-scan 
-Copyright (C) 2016 Ronald Sutherland
+i2c-cmd is a library that controls the i2c bus as a master
+Copyright (C) 2019 Ronald Sutherland
 
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  Lesser General Public License for more details.
 
-For a copy of the GNU General Public License use
-http://www.gnu.org/licenses/gpl-2.0.html
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include <avr/pgmspace.h>
 #include <stdio.h>
@@ -40,32 +41,24 @@ static uint8_t JsonIndex;
 /* set I2C bus addresses and clear the buffer*/
 void I2c_address(void)
 {
-    if (arg_count != 1)
-    {
-        printf_P(PSTR("{\"err\":\"I2cScanNeeds1Arg\"}\r\n"));
-        initCommandBuffer();
-        return;
-    }
-    
     if (command_done == 10)
     {
-        // check that argument[0] is 7 bits e.g. the range 0..127
-        if ( ( !( isdigit(arg[0][0]) ) ) || (atoi(arg[0]) < 0) || (atoi(arg[0]) > 127) )
+        // check that argument[0] is 7 bits e.g. the range 1..127
+        uint8_t arg0 = is_arg_in_uint8_range(0,1,127);
+        if ( !arg0 )
         {
-            printf_P(PSTR("{\"err\":\"I2cAddr7bit\"}\r\n"));
             initCommandBuffer();
             return;
         }
 
         txBufferIndex = 0;
-        I2cAddress = (uint8_t) (atoi(arg[0]) & 0x7F); // mask off the high bit, to show it is not wanted
+        I2cAddress = arg0; 
         printf_P(PSTR("{\"address\":\"0x%X\"}\r\n"),I2cAddress);
         initCommandBuffer();
     }
 
     else
     {
-        printf_P(PSTR("{\"err\":\"I2cCmdDoneWTF\"}\r\n"));
         initCommandBuffer();
     }
 }
@@ -128,7 +121,6 @@ void I2c_txBuffer(void)
 
     else
     {
-        printf_P(PSTR("{\"err\":\"I2cCmdDoneWTF\"}\r\n"));
         initCommandBuffer();
     }
 }
@@ -136,13 +128,6 @@ void I2c_txBuffer(void)
 /* write the I2C txBuffer */
 void I2c_write(void)
 {
-    if (arg_count != 0)
-    {
-        printf_P(PSTR("{\"err\":\"I2cWrtNeeds0Arg\"}\r\n"));
-        initCommandBuffer();
-        return;
-    }
-    
     if (command_done == 10)
     {
         uint8_t wait = 1;
@@ -171,7 +156,6 @@ void I2c_write(void)
     
     else
     {
-        printf_P(PSTR("{\"err\":\"I2cCmdDoneWTF\"}\r\n"));
         initCommandBuffer();
     }
 }
@@ -182,13 +166,6 @@ void I2c_write(void)
     and address with read bit to obtain readings.*/
 void I2c_read(void)
 {
-    if (arg_count != 1)
-    {
-        printf_P(PSTR("{\"err\":\"I2cReadNeeds1Arg\"}\r\n"));
-        initCommandBuffer();
-        return;
-    }
-    
     if (command_done == 10)
     {
         // check that argument[0] range 1..32
@@ -268,7 +245,6 @@ void I2c_read(void)
 
     else
     {
-        printf_P(PSTR("{\"err\":\"I2cCmdDoneWTF\"}\r\n"));
         initCommandBuffer();
     }
 }
