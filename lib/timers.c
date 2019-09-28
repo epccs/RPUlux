@@ -16,6 +16,15 @@
   License along with this library; if not, write to the Free Software
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA */
 
+/* 328pb issue with timer 3 and PWM: https://www.avrfreaks.net/forum/atmega328pb-timer-34-output-compare-pwm-issue
+when you configure Timer 1 and Timer 3 identically for both channels with all the 
+correct DDR bits set for output, you only get a PWM waveform on the first three 
+output pins, OC1A, OC1B, and OC3A.  OC3B will only have a continous, low output.
+To get the OC3B output to work correctly set the portD bit 2 pin value high: e.g., "PORTD |= 4;"
+Timers OC3B or OC4B are used to accomplish a modulated signal, but that [hack] means PortD bit 2 
+is used to control the combination of the two timer outputs.
+*/
+
 #include <avr/interrupt.h>
 #include "timers.h"
 

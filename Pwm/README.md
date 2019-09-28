@@ -6,7 +6,11 @@ Timer0, Timer1, Timer2 each have two output compare pins (e.g. Timer0 have OC0A 
 
 Timer0 is set for Fast PWM Mode see ATmega328 datasheet 15.73 (page 99)
 
+![FastPWM](./Images/FastPWM.jpg "Fast PWM mode")
+
 Timer1 and Timer2 are set in Phase Correct PWM Mode see ATmega328 datasheet 15.7.4 (page 100)
+
+![PaseCorrectPWM](./Images/PaseCorrectPWM.jpg "Phase Correct PWM Mode")
 
 Timer0 prescaler is 64 and it counts up to 256 which gives a frequency of 976.56Hz.
 
